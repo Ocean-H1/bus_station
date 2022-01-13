@@ -2,7 +2,7 @@
   <div class="Home">
       <div class="header">头部</div>
       <div class="container">
-         内容区
+          <router-view></router-view>
       </div>
       <div class="footer">尾部</div>
   </div>
