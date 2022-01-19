@@ -5,7 +5,8 @@ import axios from 'axios'
 import store from './store/store'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-
+// 引入全局样式文件
+import '../src/assets/css/global.css'
 
 Vue.use(ElementUi)
 Vue.config.productionTip = false

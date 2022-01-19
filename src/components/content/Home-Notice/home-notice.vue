@@ -1,12 +1,12 @@
 <template>
-  <div class="pay">
-    购票到付款二维码页面（韩海洋）
+  <div class="HomeNotice">
+      <h2>我是首页公告组件</h2>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'pay'
+    name: 'HomeNotice',
 }
 </script>
 
