@@ -22,7 +22,7 @@
               align="left"
               type="date"
               placeholder="请选择日期"
-              :picker-options="pickerOptions1"
+              
               format="yyyy 年 MM 月 dd 日"
               value-format="yyyy-MM-dd"
             >
