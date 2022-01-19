@@ -32,6 +32,8 @@ export default {
 .first-container {
   display: flex;
   justify-content: space-between;
+  max-height: 300px;
+  margin-top: 1vh;
 }
 .HomeNotice {
   width: 25vw;
