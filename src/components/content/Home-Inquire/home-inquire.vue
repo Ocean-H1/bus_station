@@ -42,7 +42,7 @@
 export default {
   name: 'home-inquire',
   data() {
-    return {
+    return { 
       // 查询车票的表单对象
       InquireForm: {
         start: '',
