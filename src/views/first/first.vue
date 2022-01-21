@@ -1,19 +1,33 @@
 <template>
   <div class="first">
+    <!-- 第一部分 查询 公告 轮播图 -->
     <div class="first-container">
       <HomeInquire></HomeInquire>
       <Swiper></Swiper>
       <HomeNotice></HomeNotice>
     </div>
+    <!-- 流程图 -->
     <div class="process">
       <HomeProcess></HomeProcess>
     </div>
-    
+    <!-- 热门线路 和 车站介绍 -->
+    <div class="footer-container">
+      <!-- 车站介绍 -->
+      <div class="foot-station">
+        <StationBox></StationBox>
+      </div>
+      <!-- 热门线路 -->
+      <div class="footer-hotLine">
+        <Hotline></Hotline>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HomeProcess from '../../components/content/Home-process/home-process'
+import Hotline from '../../components/content/Station-Hotline/hotline'
+import StationBox from '../../components/content/Station-Hotline/stationBox'
+import HomeProcess from '../../components/content/Home-Process/home-process'
 import HomeNotice from '../../components/content/Home-Notice/home-notice'
 import HomeInquire from '../../components/content/Home-Inquire/home-inquire'
 import Swiper from '@/components/content/Home-Swiper/home-swiper.vue'
@@ -24,6 +38,8 @@ export default {
     return {}
   },
   components: {
+    Hotline,
+    StationBox,
     HomeProcess,
     HomeNotice,
     HomeInquire,
@@ -33,7 +49,6 @@ export default {
 </script>
 
 <style scoped>
-
 .first-container {
   display: flex;
   justify-content: space-between;
@@ -47,10 +62,24 @@ export default {
   width: 25vw;
 }
 .HomeSwiper {
-  width: 35vw;
+  width: 36vw;
 }
 .HomeInquire {
   width: 25vw;
+}
+.footer-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5vh 0 5vh 0;
+  height: 67vh;
+  overflow: hidden;
+}
+.foot-station,
+.footer-hotLine{
+  width: 48%;
+  height: 400px;
+  
 }
 
 </style>

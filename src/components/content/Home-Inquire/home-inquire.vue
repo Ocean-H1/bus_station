@@ -27,7 +27,7 @@
             >
             </el-date-picker>
           </el-form-item>
-          <el-button type="primary" @click="QueryTickets">查询</el-button>
+          <el-button type="primary" @click="QueryTickets"> <i class="el-icon-search"></i> 查询</el-button>
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="取票验证码">
@@ -126,7 +126,7 @@ export default {
   flex-direction: column;
 }
 .el-button {
-  letter-spacing: 1em;
+  letter-spacing: 0.5em;
   font-size: 1.1em;
   text-align: center;
 }

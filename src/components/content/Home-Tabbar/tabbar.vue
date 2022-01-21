@@ -57,5 +57,7 @@ export default {
 .HomeTabbar > .el-tabs > .el-tabs__header .el-tabs__item {
     font-size: 1.2em !important;
 }
-
+.hotline > .el-tabs > .el-tabs__header .el-tabs__item {
+    font-size: 1.2em !important;
+}
 </style>
