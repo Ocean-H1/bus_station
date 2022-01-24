@@ -6,22 +6,26 @@
     </div>
     <!-- tabs标签页 -->
     <el-tabs stretch>
-      <el-tab-pane label="今日"></el-tab-pane>
-      <el-tab-pane label="明日"></el-tab-pane>
+      <el-tab-pane label="今日">
+        <HotlineTable></HotlineTable>
+      </el-tab-pane>
+      <el-tab-pane label="明日">
+        <HotlineTable></HotlineTable>
+      </el-tab-pane>
       <el-tab-pane>
         <span slot="label">{{ currentTime }}</span>
+        <HotlineTable></HotlineTable>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'hotline',
-  data() {
-    return {}
-  },
+import HotlineTable from './hotline-table'
 
+export default {
+  components: { HotlineTable },
+  name: 'hotline',
   computed: {
     // 得到后天的日期
     currentTime: function () {
@@ -57,5 +61,4 @@ export default {
   padding: 0.6rem;
   color: #fff;
 }
-
 </style>

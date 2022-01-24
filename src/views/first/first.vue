@@ -13,7 +13,7 @@
     <!-- 热门线路 和 车站介绍 -->
     <div class="footer-container">
       <!-- 车站介绍 -->
-      <div class="foot-station">
+      <div class="footer-station">
         <StationBox></StationBox>
       </div>
       <!-- 热门线路 -->
@@ -75,11 +75,9 @@ export default {
   height: 67vh;
   overflow: hidden;
 }
-.foot-station,
+.footer-station,
 .footer-hotLine{
   width: 48%;
-  height: 400px;
-  
 }
 
 </style>
