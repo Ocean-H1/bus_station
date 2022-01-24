@@ -31,7 +31,7 @@ export default {
 .title {
   font-size: 2em;
   letter-spacing: 0.5em;
-  
+  font-weight: 600;
 }
 .login,.register {
   cursor: pointer;

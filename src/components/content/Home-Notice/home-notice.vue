@@ -11,9 +11,9 @@
           
           
         >
-          <el-table-column prop="name" label="姓名"  width="180">
+          <el-table-column prop="name" label="姓名"  width="260">
           </el-table-column>
-          <el-table-column prop="date" label="日期" width="180">
+          <el-table-column prop="date" label="日期" width="100">
           </el-table-column>
         </el-table>
       </el-tab-pane>
@@ -21,16 +21,15 @@
         <el-table
           :data="tableList2"
           style="width: 100%"
-          :default-sort="{ prop: 'date', order: 'descending' }"
           size="small"
           stripe
           :show-header="false"
-          height="250"
+
         >
           
-          <el-table-column prop="name" label="姓名"  width="180">
+          <el-table-column prop="name" label="姓名"  width="260">
           </el-table-column>
-          <el-table-column prop="date" label="日期"  width="180">
+          <el-table-column prop="date" label="日期"  width="100">
           </el-table-column>
         </el-table>
       </el-tab-pane>
@@ -136,6 +135,8 @@ export default {
 </script>
 
 <style scoped>
-
+.HomeNotice {
+  overflow: hidden;
+}
 
 </style>
