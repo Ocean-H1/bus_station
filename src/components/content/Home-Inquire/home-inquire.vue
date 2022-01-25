@@ -27,7 +27,9 @@
             >
             </el-date-picker>
           </el-form-item>
-          <el-button type="primary" @click="QueryTickets"> <i class="el-icon-search"></i> 查询</el-button>
+          <el-button type="primary" @click="QueryTickets">
+            <i class="el-icon-search"></i> 查询</el-button
+          >
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="取票验证码">
@@ -43,11 +45,14 @@
             <el-input v-model="GetTicketForm.phone"></el-input>
           </el-form-item>
           <el-form-item label="验证码" prop="rcode">
-            <div class="RcodeContainer">
-              <div style="width:50%;">
-                <img src="https://www.scqckypw.com/rCode.jpg" alt=""  width="100%"/>
+            <div class="RcodeContainer" @click="refreshImg">
+              <div style="width: 50%">
+                <img :src="codeImgUrl" alt="图片验证码" width="100%" />
               </div>
-              <el-input v-model="GetTicketForm.rcode" style="width:50%"></el-input>
+              <el-input
+                v-model="GetTicketForm.rcode"
+                style="width: 50%"
+              ></el-input>
             </div>
           </el-form-item>
 
@@ -100,6 +105,8 @@ export default {
         // 验证码
         rcode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
       },
+      // 验证码图片的地址
+      codeImgUrl: 'https://www.scqckypw.com/rCode.jpg',
     }
   },
   methods: {
@@ -116,6 +123,12 @@ export default {
     },
     // 取票验证码
     submit() {},
+    // 点击刷新验证码图片
+    refreshImg() {
+      //生成一个随机数（防止缓存）
+      let num = Math.ceil(Math.random() * 10)
+      this.codeImgUrl = `${this.codeImgUrl}?${num}`
+    },
   },
 }
 </script>
@@ -133,7 +146,8 @@ export default {
 .el-tabs {
   height: 100%;
 }
-.RcodeContainer div{
+.RcodeContainer div {
   float: right;
+  cursor: pointer;
 }
 </style>
