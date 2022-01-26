@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Footer from './content/Home-Footer/footer'
+import Footer from './content/Home-Footer/home-footer'
 import Top from './content/Home-Tabbar/top.vue'
 import TabBar from './content/Home-Tabbar/tabbar.vue'
 
