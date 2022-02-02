@@ -1,5 +1,7 @@
 <template>
   <div class="stationMap">
+    <!-- 侧边车站列表 -->
+    <div class="tabbar"></div>
     <!-- 地图容器 -->
     <div class="MapContainer">
       <!-- 切换按钮 -->
@@ -13,8 +15,6 @@
       <!-- 地图 -->
       <Map v-show="choice"></Map>
     </div>
-    <!-- 侧边车站列表 -->
-    <div class="tabbar"></div>
   </div>
 </template>
 
@@ -31,13 +31,17 @@ export default {
   methods: {
     // switch组件的改变事件
     handleChange() {
-      console.log(this.choice);
+      console.log(this.choice)
     },
-  }
+  },
 }
 </script>
 
 <style scoped>
+.stationMap {
+  display: flex;
+  flex-direction: row;
+}
 .MapContainer {
   width: 60vw;
   height: 90vh;

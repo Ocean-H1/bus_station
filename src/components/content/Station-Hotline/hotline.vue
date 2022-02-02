@@ -33,7 +33,7 @@ export default {
       //   年
       let year = dateTime.getFullYear() + ''
       //   月
-      let month = dateTime.getMonth() + '1'
+      let month = dateTime.getMonth() + 1 + ''
       //   后天的日期
       let date = dateTime.getDate() + 2 + ''
 
