@@ -17,10 +17,10 @@ export default {
       // 创建地图实例
       let map = new BMapGL.Map('container')
       // 定义中心坐标信息
-      let x = this.$store.state.stationInfo.longitude
-      let y = this.$store.state.stationInfo.latitude
-      let address = this.$store.state.stationInfo.station_address
-      let title = this.$store.state.stationInfo.station_name
+      let x = this.$store.state.activeStation.longitude
+      let y = this.$store.state.activeStation.latitude
+      let address = this.$store.state.activeStation.station_address
+      let title = this.$store.state.activeStation.station_name
 
       // 创建点坐标(GPS)
       let gpsPoint = new BMapGL.Point(x, y)
@@ -48,8 +48,8 @@ export default {
             height: 120, // 信息窗口高度
             title, // 信息窗口标题
           }
-          var infoWindow = new BMapGL.InfoWindow(address, opts);  // 创建信息窗口对象 
-          map.openInfoWindow(infoWindow, data.points[0]); //开启信息窗口
+          var infoWindow = new BMapGL.InfoWindow(address, opts) // 创建信息窗口对象
+          map.openInfoWindow(infoWindow, data.points[0]) //开启信息窗口
         }
       }
       setTimeout(() => {
@@ -65,8 +65,11 @@ export default {
 </script>
 
 <style scoped>
+.Map {
+  width: 90%;
+}
 #container {
   height: 80vh;
-  width: 55vw;
+  width: 100%;
 }
 </style>
