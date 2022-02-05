@@ -29,7 +29,7 @@ export default {
     Footer,
     Top,
     TabBar,
-  },
+  }
 }
 </script>
 <style scoped>
