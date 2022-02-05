@@ -24,7 +24,7 @@ import TabBar from './content/Home-Tabbar/tabbar.vue'
 export default {
     name: 'Home',
     components: {
-    Tabbar,
+        Tabbar,
         Top,
         TabBar
     }
