@@ -1,27 +1,26 @@
 <template>
-    <div class="fifth">
-        <div class="fifth-main">
-            <aboutmain></aboutmain>
-        </div>
-        <div class="fifth-footer">
-        <aboutfooter></aboutfooter>
-        </div>
+  <div class="fifth">
+    <div class="fifth-main">
+      <aboutmain></aboutmain>
     </div>
+    <div class="fifth-footer">
+      <aboutfooter></aboutfooter>
+    </div>
+  </div>
 </template>
 <script>
-import aboutmain from '../../components/content4/About-Main/about-main.vue'
-import aboutfooter from '../../components/content4/About-Footer/about-footer.vue'
+import aboutmain from '../../components/content/About-Main/about-main.vue'
+import aboutfooter from '../../components/content/About-Footer/about-footer.vue'
 export default {
-    name:'fifth',
-    data(){
-    return{}
-    },
-    components:{
+  name: 'fifth',
+  data() {
+    return {}
+  },
+  components: {
     aboutmain,
-    aboutfooter
-    },
+    aboutfooter,
+  },
 }
 </script>
 <style  scoped>
-
 </style>

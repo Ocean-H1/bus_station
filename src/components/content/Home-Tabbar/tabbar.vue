@@ -1,10 +1,9 @@
 <template>
   <div class="HomeTabbar">
-    <el-tabs v-model="activeName" @tab-click="handleClick" stretch>
+    <el-tabs v-model="activeName" @tab-click="switchPage" stretch>
       <el-tab-pane label="首页" name="first">
         <router-view></router-view>
       </el-tab-pane>
-<<<<<<< HEAD
       <el-tab-pane label="退票" name="refund">
         <router-view></router-view>
       </el-tab-pane>
@@ -16,19 +15,6 @@
       </el-tab-pane>
       <el-tab-pane label="关于我们" name="about">
         <router-view></router-view>
-=======
-      <el-tab-pane label="退票" name="refund" >
-         <second></second>
-      </el-tab-pane>
-      <el-tab-pane label="帮助中心" name="help">
-        <third></third>
-      </el-tab-pane>
-      <el-tab-pane label="投诉建议" name="advise">
-        <fourth></fourth>
-      </el-tab-pane>
-      <el-tab-pane label="关于我们" name="about">
-        <fifth></fifth>
->>>>>>> d3564252554062dbfd2bf23bc25bf8e1a9c319ba
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -42,56 +28,30 @@ import fourth from '../../../views/fourth/fourth.vue'
 import fifth from '../../../views/fifith/fifth.vue'
 
 export default {
-<<<<<<< HEAD
   name: 'Home-Tabbar',
   data() {
     return {
       activeName: 'first',
-=======
-    name: 'Home-Tabbar',
-    data() {
-      return {
-        activeName: 'home'
-      };
-    },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      }
-    },
-    components: {
-      First,
-      second,
-      third,
-      fourth,
-      fifth
->>>>>>> d3564252554062dbfd2bf23bc25bf8e1a9c319ba
     }
   },
   methods: {
-    handleClick(tab, event) {
-      // 跳转页面
+    // 点击导航栏切换页面
+    switchPage(tab) {
+      // 切换页面
       this.$router.push(tab.name)
     },
   },
   components: {
     First,
+    second,
+    third,
+    fourth,
+    fifth,
   },
 }
 </script>
 
 <style>
-/* 样式穿透 修改tabs默认样式 */
-/* ::v-deep .el-tabs__nav-scroll{
-  width: 50%!important;
-  margin: 0 auto!important;
-}
-.el-tabs__item{
-  font-size:20px !important;
-  letter-spacing: 5px;
-  background-color: #d3e5f1;
-} */
-
 /* 修改Home导航栏样式 */
 .HomeTabbar > .el-tabs > .el-tabs__header {
   background-color: #d3e5f1;

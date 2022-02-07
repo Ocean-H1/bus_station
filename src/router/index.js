@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 const First = () => import('../views/first/first.vue')
-const second = () => import('../views/second/second.vue')
-const third =() => import('../views/third/third.vue')
-const fourth =() => import('../views/fourth/fourth.vue')
-const fifth =() => import('../views/fifith/fifth.vue')
-const buy = () => import('../components/content2/help-Main/buy.vue')
+const refund = () => import('../views/second/second.vue')
+const help = () => import('../views/third/third.vue')
+const advise = () => import('../views/fourth/fourth.vue')
+const about = () => import('../views/fifith/fifth.vue')
+const buy = () => import('../components/content/help-Main/buy.vue')
 const StaionMap = () => import('../views/stationMap/stationMap.vue')
 
 Vue.use(VueRouter)
@@ -21,26 +22,20 @@ const routes = [
     component: First
   },
   {
-    path:'/second',
-    component:second
+    path: '/refund',
+    component: refund
   },
   {
-    path:'/third',
-    component:third,
-    children:[
-        {
-          path: '/',
-          redirect: '/buy'
-        }
-    ]
+    path: '/help',
+    component: help,
   },
   {
-    path:'/fourth',
-    component:fourth
+    path: '/advise',
+    component: advise
   },
   {
-    path:'/fifith',
-    component:fifth
+    path: '/about',
+    component: about
   },
   {
     path: '/stationMap',

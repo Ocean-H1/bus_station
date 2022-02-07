@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import complaints from '../../components/content3/complaints-Main/complaints-main.vue'
+import complaints from '../../components/content/complaints-Main/complaints-main.vue'
 export default {
     name:'fourth',
     data(){
