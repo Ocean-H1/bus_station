@@ -4,6 +4,7 @@
       <el-tab-pane label="首页" name="first">
         <router-view></router-view>
       </el-tab-pane>
+<<<<<<< HEAD
       <el-tab-pane label="退票" name="refund">
         <router-view></router-view>
       </el-tab-pane>
@@ -15,6 +16,19 @@
       </el-tab-pane>
       <el-tab-pane label="关于我们" name="about">
         <router-view></router-view>
+=======
+      <el-tab-pane label="退票" name="refund" >
+         <second></second>
+      </el-tab-pane>
+      <el-tab-pane label="帮助中心" name="help">
+        <third></third>
+      </el-tab-pane>
+      <el-tab-pane label="投诉建议" name="advise">
+        <fourth></fourth>
+      </el-tab-pane>
+      <el-tab-pane label="关于我们" name="about">
+        <fifth></fifth>
+>>>>>>> d3564252554062dbfd2bf23bc25bf8e1a9c319ba
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -22,12 +36,36 @@
 
 <script>
 import First from '@/views/first/first.vue'
+import second from '@/views/second/second.vue'
+import third from '../../../views/third/third.vue'
+import fourth from '../../../views/fourth/fourth.vue'
+import fifth from '../../../views/fifith/fifth.vue'
 
 export default {
+<<<<<<< HEAD
   name: 'Home-Tabbar',
   data() {
     return {
       activeName: 'first',
+=======
+    name: 'Home-Tabbar',
+    data() {
+      return {
+        activeName: 'home'
+      };
+    },
+    methods: {
+      handleClick(tab, event) {
+        console.log(tab, event);
+      }
+    },
+    components: {
+      First,
+      second,
+      third,
+      fourth,
+      fifth
+>>>>>>> d3564252554062dbfd2bf23bc25bf8e1a9c319ba
     }
   },
   methods: {
