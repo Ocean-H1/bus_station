@@ -31,7 +31,7 @@
       <!-- 地图 -->
       <Map v-if="renderComponent"></Map>
       <!-- 车站时刻表 -->
-      <div>车站时刻表</div>
+      <div v-else>车站时刻表</div>
     </div>
   </div>
 </template>
@@ -58,12 +58,12 @@ export default {
   methods: {
     // 用户点击车站列表，改变地图中心
     switchStation(activeStation) {
+      if (activeStation === this.$store.state.activeStation) return
       this.$store.commit('setPosition', activeStation)
       // 在用户点击后实现强制刷新(利用了v-if，缺点就是相对于v-show来说性能不好)
       this.renderComponent = false
       this.$nextTick().then(() => {
         this.renderComponent = true
-        console.log('nice');
       })
     },
   },
