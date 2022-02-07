@@ -9,13 +9,33 @@
     <div class="stationList">
       <el-table
         :data="stationList"
-        style="width: 100%"
+        style="width: 50%"
         size="medium"
         stripe
         :show-header="false"
       >
-        <el-table-column prop="station" label="车站"> </el-table-column>
-        <el-table-column prop="station" label="车站"> </el-table-column>
+        <el-table-column>
+          <template slot-scope="scope">
+            <span class="staInfo" @click="showMap(scope.row)">{{
+              scope.row.station_name
+            }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-table
+        :data="stationList"
+        style="width: 50%"
+        size="medium"
+        stripe
+        :show-header="false"
+      >
+        <el-table-column>
+          <template slot-scope="scope">
+            <span class="staInfo" @click="showMap(scope.row)">{{
+              scope.row.station_name
+            }}</span>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>
@@ -26,93 +46,18 @@ export default {
   name: 'stationBox',
   data() {
     return {
-        // 车站列表
-        stationList: [
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-            {
-                station: '车站一'
-            },
-        ],
+      stationList: this.$store.state.stationList
     }
   },
-  
+  methods: {
+    // 点击车站跳转到地图页面
+    showMap(activeStation) {
+      // 设置车站的经纬度
+      this.$store.commit('setPosition', activeStation)
+      // 跳转页面
+      this.$router.push('stationMap')
+    },
+  },
 }
 </script>
 
@@ -135,5 +80,13 @@ export default {
   cursor: pointer;
   padding: 0.6rem;
   color: #fff;
+}
+.el-table {
+  float: right !important;
+}
+.staInfo:hover {
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

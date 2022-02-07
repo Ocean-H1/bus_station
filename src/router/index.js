@@ -7,6 +7,7 @@ const third =() => import('../views/third/third.vue')
 const fourth =() => import('../views/fourth/fourth.vue')
 const fifth =() => import('../views/fifith/fifth.vue')
 const buy = () => import('../components/content2/help-Main/buy.vue')
+const StaionMap = () => import('../views/stationMap/stationMap.vue')
 
 Vue.use(VueRouter)
 
@@ -40,7 +41,11 @@ const routes = [
   {
     path:'/fifith',
     component:fifth
-  }
+  },
+  {
+    path: '/stationMap',
+    component: StaionMap
+  },
 ]
 
 const router = new VueRouter({
