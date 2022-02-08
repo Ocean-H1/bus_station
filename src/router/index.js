@@ -7,7 +7,6 @@ const refund = () => import('../views/second/second.vue')
 const help = () => import('../views/third/third.vue')
 const advise = () => import('../views/fourth/fourth.vue')
 const about = () => import('../views/fifith/fifth.vue')
-const buy = () => import('../components/content/help-Main/buy.vue')
 const StaionMap = () => import('../views/stationMap/stationMap.vue')
 
 Vue.use(VueRouter)
