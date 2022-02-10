@@ -11,10 +11,10 @@
           label-position="left"
         >
           <el-form-item label="起始地" prop="start">
-            <el-input v-model="InquireForm.start"></el-input>
+            <el-input v-model="InquireForm.start" placeholder="西安市"></el-input>
           </el-form-item>
           <el-form-item label="目的地" prop="final">
-            <el-input v-model="InquireForm.final"></el-input>
+            <el-input v-model="InquireForm.final" placeholder="中文/拼音"></el-input>
           </el-form-item>
           <el-form-item label="乘车日期" prop="startDate">
             <el-date-picker
@@ -42,7 +42,7 @@
           label-position="left"
         >
           <el-form-item label="手机号" prop="phone">
-            <el-input v-model="GetTicketForm.phone"></el-input>
+            <el-input v-model="GetTicketForm.phone" placeholder="请输入手机号"></el-input>
           </el-form-item>
           <el-form-item label="验证码" prop="rcode">
             <div class="RcodeContainer" @click="refreshImg">
@@ -52,6 +52,7 @@
               <el-input
                 v-model="GetTicketForm.rcode"
                 style="width: 50%"
+                placeholder="点击刷新"
               ></el-input>
             </div>
           </el-form-item>
@@ -107,6 +108,7 @@ export default {
       },
       // 验证码图片的地址
       codeImgUrl: 'https://www.scqckypw.com/rCode.jpg',
+      stationList: this.$store.state.stationList
     }
   },
   methods: {

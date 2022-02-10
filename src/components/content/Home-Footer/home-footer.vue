@@ -2,7 +2,7 @@
   <div class="home-footer">
     <div class="BigBox">
       <img src="../../../../src/assets/img/buy.svg" alt="如何购买" />
-      <div class="info">
+      <div class="info" @click="switchHelp('buy')">
         <div class="infotitle">如何购票</div>
         <div>如何注册</div>
         <div>如何购票</div>
@@ -10,14 +10,14 @@
     </div>
     <div class="BigBox">
       <img src="../../../../src/assets/img/pay.svg" alt="如何支付" />
-      <div class="info">
+      <div class="info" @click="switchHelp('pay')">
         <div class="infotitle">如何支付</div>
         <div>如何支付</div>
       </div>
     </div>
     <div class="BigBox">
       <img src="../../../../src/assets/img/refund.svg" alt="如何退票" />
-      <div class="info">
+      <div class="info" @click="switchHelp('returntick')">
         <div class="infotitle">如何退票</div>
         <div>网上退票</div>
         <div>综合窗口退票</div>
@@ -29,6 +29,17 @@
 <script>
 export default {
   name: 'home-footer',
+  methods: {
+    switchHelp(choice) {
+      // 切换页面
+      this.$router.push({
+        path: '/help',
+        query: {
+          choice
+        },
+      })
+    },
+  },
 }
 </script>
 <style scoped>

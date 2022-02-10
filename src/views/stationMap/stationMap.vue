@@ -31,7 +31,18 @@
       <!-- 地图 -->
       <Map v-if="renderComponent"></Map>
       <!-- 车站时刻表 -->
-      <div v-else>车站时刻表</div>
+      <div v-else class="stime">
+        <el-table :data="stationTime" style="width: 100%" border>
+          <el-table-column prop="" label="始发站" width="150">
+          </el-table-column>
+          <el-table-column prop="" label="目的地" width="150">
+          </el-table-column>
+          <el-table-column prop="" label="发车时间" width="200">
+          </el-table-column>
+          <el-table-column prop="" label="班次类型" width="150">
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
   </div>
 </template>
@@ -46,13 +57,7 @@ export default {
     return {
       stationList: this.$store.state.stationList,
       renderComponent: true,
-    }
-  },
-  created() {
-    // 如果用户没有点击而是刷新，则判断 activeStation是否为空对象
-    // 如果是 就重新初始化为车站列表的第一个
-    if (Object.keys(this.$store.state.activeStation).length === 0) {
-      this.$store.commit('setPosition', this.stationList[0])
+      stationTime: [],
     }
   },
   methods: {
@@ -76,6 +81,7 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   height: 90vh;
+  margin-top: 5vh;
 }
 .list {
   height: 100%;
@@ -83,7 +89,7 @@ export default {
 }
 .list .title {
   height: 40px;
-  background-color: #00618b;
+  background-color: #068abb;
   color: #fff;
   font-size: 1.2rem;
   text-align: center;
@@ -104,5 +110,9 @@ export default {
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
+}
+.stime {
+  width: 80%;
+  margin: 0 auto;
 }
 </style>

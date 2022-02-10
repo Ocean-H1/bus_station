@@ -3,14 +3,13 @@
     <div class="second-main">
       <refundbox></refundbox>
     </div>
-    <div class="second-footer"></div>
   </div>
 </template>
 <script>
 import refundbox from '../../components/content/refund-Main/refund-main.vue'
 
 export default {
-  name: 'second',
+  name: 'refund',
   data() {
     return {}
   },

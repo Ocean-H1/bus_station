@@ -51,7 +51,7 @@ export default {
   flex-direction: column;
 }
 .title {
-  background-color: #00618b;
+  background-color: #068abb;
   width: 100%;
 }
 .title div {

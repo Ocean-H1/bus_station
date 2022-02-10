@@ -1,6 +1,6 @@
 <template>
   <div class="help-header">
-    <el-tabs type="card" v-model="activeName" @tab-click="handleClick" stretch>
+    <el-tabs type="card" v-model="activeName"  stretch>
       <el-tab-pane label="如何购票" name="buy">
         <buy></buy>
       </el-tab-pane>
@@ -34,17 +34,17 @@ export default {
       activeName: 'buy',
     }
   },
-  methods: {
-    handleClick(tab, event) {
-
-    },
-  },
+  methods: {},
   components: {
     buy,
     pay,
     get,
     returntick,
     purchase,
+  },
+  created() {
+    // 拿到参数，修改选项卡激活项
+    this.activeName = this.$route.query.choice || 'buy'
   },
 }
 </script>

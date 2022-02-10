@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 
 
 const First = () => import('../views/first/first.vue')
-const refund = () => import('../views/second/second.vue')
-const help = () => import('../views/third/third.vue')
-const advise = () => import('../views/fourth/fourth.vue')
-const about = () => import('../views/fifith/fifth.vue')
+const refund = () => import('../views/refund/refund.vue')
+const help = () => import('../views/help/help.vue')
+const advise = () => import('../views/advise/advise.vue')
+const about = () => import('../views/about/about.vue')
 const StaionMap = () => import('../views/stationMap/stationMap.vue')
 
 Vue.use(VueRouter)
@@ -45,7 +45,11 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  // 通过路由跳转页面后，窗口始终位于页面顶部
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
 
 export default router
