@@ -18,27 +18,45 @@ const routes = [
   },
   {
     path: '/first',
-    component: First
+    component: First,
+    meta: {
+      title: '首页'
+    }
   },
   {
     path: '/refund',
-    component: refund
+    component: refund,
+    meta: {
+      title: '退票'
+    }
   },
   {
     path: '/help',
     component: help,
+    meta: {
+      title: '帮助中心'
+    }
   },
   {
     path: '/advise',
-    component: advise
+    component: advise,
+    meta: {
+      title: '投诉建议'
+    }
   },
   {
     path: '/about',
-    component: about
+    component: about,
+    meta: {
+      title: '关于我们'
+    }
   },
   {
     path: '/stationMap',
-    component: StaionMap
+    component: StaionMap,
+    meta: {
+      title: '车站地图'
+    }
   },
 ]
 
@@ -47,9 +65,16 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
   // 通过路由跳转页面后，窗口始终位于页面顶部
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 }
   }
 })
 
+// 根据路由动态设置网页标题
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
 export default router
