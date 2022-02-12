@@ -9,17 +9,20 @@
     >
       <el-table-column>
         <template slot-scope="scope">
-          <span class="line"
+          <span class="line" @click="showqueryheader"
             >{{ scope.row.start_region }}→{{ scope.row.final_region }}</span
           >
         </template>
       </el-table-column>
       <el-table-column>
         <template slot-scope="">
-          <span class="yupiao">[查询余票]</span>
+          <span class="yupiao" @click="showqueryheader">[查询余票]</span>
         </template>
       </el-table-column>
     </el-table>
+
+
+
     <el-table
       :data="lineList"
       style="width: 50%"
@@ -29,14 +32,14 @@
     >
       <el-table-column>
         <template slot-scope="scope">
-          <span class="line"
+          <span class="line"  @click="showqueryheader"
             >{{ scope.row.start_region }}→{{ scope.row.final_region }}</span
           >
         </template>
       </el-table-column>
       <el-table-column>
         <template slot-scope="">
-          <span class="yupiao">[查询余票]</span>
+          <span class="yupiao"  @click="showqueryheader">[查询余票]</span>
         </template>
       </el-table-column>
     </el-table>
@@ -106,6 +109,12 @@ export default {
       ],
     }
   },
+  methods:{
+    showqueryheader(){
+      //有回退按钮
+      this.$router.push({path:'/ticketquery'})
+    }
+  }
 }
 </script>
 
@@ -129,3 +138,5 @@ export default {
   cursor: pointer;
 }
 </style>
+
+

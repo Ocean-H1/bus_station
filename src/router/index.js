@@ -8,6 +8,7 @@ const third =() => import('../views/third/third.vue')
 const fourth =() => import('../views/fourth/fourth.vue')
 const fifth =() => import('../views/fifith/fifth.vue')
 const buy = () => import('../components/content2/help-Main/buy.vue')
+const ticketquery = () => import('../views/Ticket-query/ticket-query.vue')
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,10 @@ const routes = [
   {
     path:'/fifith',
     component:fifth
+  },
+  {
+    path:'/ticketquery',
+    component:ticketquery
   }
 ]
 
