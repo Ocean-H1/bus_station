@@ -3,12 +3,14 @@ import VueRouter from 'vue-router'
 
 // 路由懒加载
 const First = () => import('../views/first/first.vue')
+const ticketquery = () => import('../views/Ticket-query/ticket-query.vue')
 const refund = () => import('../views/refund/refund.vue')
 const help = () => import('../views/help/help.vue')
 const advise = () => import('../views/advise/advise.vue')
 const about = () => import('../views/about/about.vue')
 const StaionMap = () => import('../views/stationMap/stationMap.vue')
 const Login = () => import('@/components/content/Login/login.vue')
+
 
 Vue.use(VueRouter)
 
@@ -50,6 +52,13 @@ const routes = [
     component: about,
     meta: {
       title: '关于我们'
+    }
+  },
+  {
+    path: '/ticketquery',
+    component: ticketquery,
+    meta: {
+      title: '车票查询'
     }
   },
   {
