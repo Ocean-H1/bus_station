@@ -29,11 +29,7 @@ export default {
     Footer,
     Top,
     TabBar,
-<<<<<<< HEAD
-  }
-=======
   },
->>>>>>> 400e5615a1a0871b9be58e3b0ad240b056cdadbf
 }
 </script>
 <style scoped>
