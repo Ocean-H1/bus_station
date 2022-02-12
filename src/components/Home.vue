@@ -29,7 +29,11 @@ export default {
     Footer,
     Top,
     TabBar,
+<<<<<<< HEAD
   }
+=======
+  },
+>>>>>>> 400e5615a1a0871b9be58e3b0ad240b056cdadbf
 }
 </script>
 <style scoped>
@@ -40,8 +44,9 @@ export default {
   margin: 0;
 }
 .el-header {
-  background-color: #d3e5f1;
+  background-color: #068abb;
   box-shadow: 0 6px 4px 0 rgb(0 0 0 / 5%);
+  color: #fff;
 }
 .el-main {
   width: 90vw;

@@ -1,77 +1,65 @@
 <template>
   <div class="HomeTabbar">
-    <el-tabs v-model="activeName" @tab-click="handleClick" stretch>
-      <el-tab-pane label="首页" name="home" class="1111">
-        <router-view></router-view>
-      </el-tab-pane>
-      <el-tab-pane label="退票" name="refund" >
-         <second></second>
-      </el-tab-pane>
-      <el-tab-pane label="帮助中心" name="help">
-        <third></third>
-      </el-tab-pane>
-      <el-tab-pane label="投诉建议" name="advise">
-        <fourth></fourth>
-      </el-tab-pane>
-      <el-tab-pane label="关于我们" name="about">
-        <fifth></fifth>
-      </el-tab-pane>
-    </el-tabs>
+    <el-menu
+      :default-active="$route.path"
+      mode="horizontal"
+      router
+      background-color="#d3e5f1"
+    >
+      <el-menu-item index="/first">首页</el-menu-item>
+      <el-menu-item index="/refund">退票</el-menu-item>
+      <el-menu-item index="/help">帮助中心</el-menu-item>
+      <el-menu-item index="/advise">投诉建议</el-menu-item>
+      <el-menu-item index="/about">关于我们</el-menu-item>
+    </el-menu>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import First from '@/views/first/first.vue'
-import second from '@/views/second/second.vue'
-import third from '../../../views/third/third.vue'
-import fourth from '../../../views/fourth/fourth.vue'
-import fifth from '../../../views/fifith/fifth.vue'
-
+import refund from '@/views/refund/refund.vue'
+import help from '../../../views/help/help.vue'
+import advise from '../../../views/advise/advise.vue'
+import about from '../../../views/about/about.vue'
 
 export default {
-    name: 'Home-Tabbar',
-    data() {
-      return {
-        activeName: 'home'
-      };
-    },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      }
-    },
-    components: {
-      First,
-      second,
-      third,
-      fourth,
-      fifth
-    }
+  name: 'Home-Tabbar',
+  data() {
+    return {}
+  },
+  methods: {},
+  components: {
+    First,
+    refund,
+    help,
+    advise,
+    about,
+  },
 }
 </script>
 
-<style>
-/* 样式穿透 修改tabs默认样式 */
-/* ::v-deep .el-tabs__nav-scroll{
-  width: 50%!important;
-  margin: 0 auto!important;
+<style scoped>
+/* 子节点选中样式 */
+.HomeTabbar > .el-menu > .el-menu-item.is-active {
+  background-color: #068abb !important;
+  border-bottom: 3px solid #f6cc58;
+  color: #fff;
 }
-.el-tabs__item{
-  font-size:20px !important;
-  letter-spacing: 5px;
-  background-color: #d3e5f1;
-} */
-
-/* 修改Home导航栏样式 */
-.HomeTabbar > .el-tabs > .el-tabs__header {
-  background-color: #d3e5f1;
-  border-radius: 10px;
+/* 子节点移入样式 */
+.HomeTabbar > .el-menu > .el-menu-item:hover {
+  background-color: #068abb !important;
+  color: #fff;
 }
-/* 修改Home导航栏字体 */
-.HomeTabbar > .el-tabs > .el-tabs__header .el-tabs__item {
-    font-size: 1.2em !important;
+.HomeTabbar > .el-menu {
+  display: flex;
+  justify-content: center;
 }
-.hotline > .el-tabs > .el-tabs__header .el-tabs__item {
-    font-size: 1.2em !important;
+.HomeTabbar > .el-menu > .el-menu-item {
+  flex: 1;
+  font-size: 1.2rem;
+  color: #000;
+  text-align: center;
+  letter-spacing: 3px;
 }
 </style>

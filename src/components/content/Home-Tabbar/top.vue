@@ -2,7 +2,9 @@
   <div class="container">
     <el-row :gutter="20">
       <el-col :span="6"><div class="grid-content logo">logo</div></el-col>
-      <el-col :span="12"><div class="grid-content title">西安客运网络售票系统</div></el-col>
+      <el-col :span="12"
+        ><div class="grid-content title">西安客运网络售票系统</div></el-col
+      >
       <el-col :span="3"><div class="grid-content login">登录</div></el-col>
       <el-col :span="3"><div class="grid-content register">注册</div></el-col>
     </el-row>
@@ -11,12 +13,14 @@
 
 <script>
 export default {
-    name: 'Home-top'
+  name: 'Home-top',
 }
 </script>
 
 <style scoped>
-.container,.el-row,.el-col{
+.container,
+.el-row,
+.el-col {
   height: 100%;
 }
 
@@ -33,7 +37,9 @@ export default {
   letter-spacing: 0.5em;
   font-weight: 600;
 }
-.login,.register {
+.login,
+.register {
   cursor: pointer;
+  letter-spacing: 3px;
 }
 </style>

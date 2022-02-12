@@ -3,7 +3,9 @@
     <!-- 标题 -->
     <div class="title">
       <div>车站介绍</div>
-      <div>更多车站 <i class="el-icon-d-arrow-right"></i></div>
+      <div @click="showMap(stationList[0])" class="moreStation">
+        更多车站 <i class="el-icon-d-arrow-right"></i>
+      </div>
     </div>
     <!-- 车站列表 -->
     <div class="stationList">
@@ -46,7 +48,7 @@ export default {
   name: 'stationBox',
   data() {
     return {
-      stationList: this.$store.state.stationList
+      stationList: this.$store.state.stationList,
     }
   },
   methods: {
@@ -71,7 +73,7 @@ export default {
   width: 100%;
 }
 .title {
-  background-color: #00618b;
+  background-color: #068abb;
 }
 .title div {
   width: 50%;
@@ -80,6 +82,9 @@ export default {
   cursor: pointer;
   padding: 0.6rem;
   color: #fff;
+}
+.moreStation:hover {
+  text-decoration: underline;
 }
 .el-table {
   float: right !important;
