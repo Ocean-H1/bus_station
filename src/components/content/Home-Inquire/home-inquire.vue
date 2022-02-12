@@ -45,14 +45,14 @@
             <el-input v-model="GetTicketForm.phone" placeholder="请输入手机号"></el-input>
           </el-form-item>
           <el-form-item label="验证码" prop="rcode">
-            <div class="RcodeContainer" @click="refreshImg">
-              <div style="width: 50%">
-                <img :src="codeImgUrl" alt="图片验证码" width="100%" />
+            <div class="RcodeContainer" >
+              <div class="checkcode" @click="refreshImg">
+                <img :src="codeImgUrl" alt="图片验证码" width="100px"/>
               </div>
               <el-input
                 v-model="GetTicketForm.rcode"
-                style="width: 50%"
-                placeholder="点击刷新"
+                placeholder="点击图片刷新"
+                @focus="refreshImg"
               ></el-input>
             </div>
           </el-form-item>
@@ -107,7 +107,7 @@ export default {
         rcode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
       },
       // 验证码图片的地址
-      codeImgUrl: 'https://www.scqckypw.com/rCode.jpg',
+      codeImgUrl: 'https://image.scqckypw.com/static/new/images/refreshen.png',
       stationList: this.$store.state.stationList
     }
   },
@@ -129,7 +129,7 @@ export default {
     refreshImg() {
       //生成一个随机数（防止缓存）
       let num = Math.ceil(Math.random() * 10)
-      this.codeImgUrl = `${this.codeImgUrl}?${num}`
+      this.codeImgUrl = `https://www.scqckypw.com/rCode.jpg?${num}`
     },
   },
 }
@@ -151,5 +151,15 @@ export default {
 .RcodeContainer div {
   float: right;
   cursor: pointer;
+}
+.RcodeContainer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.RcodeContainer .checkcode{
+  flex: 2;
+}
+.RcodeContainer .el-input {
+  flex: 3;
 }
 </style>

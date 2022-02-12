@@ -5,8 +5,16 @@
       <el-col :span="12"
         ><div class="grid-content title">西安客运网络售票系统</div></el-col
       >
-      <el-col :span="3"><div class="grid-content login">登录</div></el-col>
-      <el-col :span="3"><div class="grid-content register">注册</div></el-col>
+      <!-- 用户未登录时显示 -->
+      <el-col :span="6" v-if="!this.$store.state.isLogin" class="user">
+        <div class="grid-content login" @click="switchPage('login')">登录</div>
+        <div class="grid-content register" @click="switchPage('register')">注册</div>
+      </el-col>
+      <!-- 用户已登录时显示 -->
+      <el-col :span="6" class="user">
+        <div class="grid-content profile">个人中心</div>
+        <div class="grid-content logout" @click="logout">退出</div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -14,6 +22,28 @@
 <script>
 export default {
   name: 'Home-top',
+  data() {
+    return {}
+  },
+  methods: {
+    // 跳转到登录/注册页面
+    switchPage(path) {
+      this.$router.push(path)
+    },
+    // 退出登录
+    logout() {
+      this.$message({
+          message: '退出成功！',
+          type: 'warning',
+          duration: 2000,
+        })
+      // 改变登录态
+      this.$store.commit('setLoginStatus',0)
+      // 清除sessionid
+      this.$cookies.remove('JsessionId')
+      this.$router.push('/')
+    },
+  },
 }
 </script>
 
@@ -38,8 +68,17 @@ export default {
   font-weight: 600;
 }
 .login,
-.register {
+.register,.profile,.logout{
   cursor: pointer;
   letter-spacing: 3px;
+  width: 50%;
+}
+.login:hover,
+.register:hover,.profile:hover,.logout:hover {
+  text-decoration: underline;
+}
+.user {
+  display: flex;
+  flex-direction: row;
 }
 </style>

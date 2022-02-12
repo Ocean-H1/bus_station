@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-
+// 路由懒加载
 const First = () => import('../views/first/first.vue')
 const refund = () => import('../views/refund/refund.vue')
 const help = () => import('../views/help/help.vue')
 const advise = () => import('../views/advise/advise.vue')
 const about = () => import('../views/about/about.vue')
 const StaionMap = () => import('../views/stationMap/stationMap.vue')
+const Login = () => import('@/components/content/Login/login.vue')
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,13 @@ const routes = [
       title: '车站地图'
     }
   },
+  {
+    path: '/login',
+    component: Login,
+    meta: {
+      title: '登录'
+    }
+  }
 ]
 
 const router = new VueRouter({
@@ -77,4 +85,5 @@ router.beforeEach((to, from, next) => {
   }
   next()
 })
+
 export default router

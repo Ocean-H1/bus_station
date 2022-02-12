@@ -45,11 +45,13 @@ export default {
   background-color: #068abb !important;
   border-bottom: 3px solid #f6cc58;
   color: #fff;
+  font-weight: 600;
 }
 /* 子节点移入样式 */
 .HomeTabbar > .el-menu > .el-menu-item:hover {
   background-color: #068abb !important;
   color: #fff;
+  font-weight: 600;
 }
 .HomeTabbar > .el-menu {
   display: flex;

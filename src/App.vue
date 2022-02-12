@@ -12,16 +12,16 @@ export default {
     Home,
   },
   created() {
-    // 在页面刷新的时候将vuex里的数据保存到localStorage中
+    // 在页面刷新的时候将vuex里的数据保存到sessionStorage中
     window.addEventListener('beforeunload', () => {
-      localStorage.setItem('dataStore', JSON.stringify(this.$store.state))
+      sessionStorage.setItem('dataStore', JSON.stringify(this.$store.state))
     })
-    // 在页面加载的时候读取localStorage中的数据
-    localStorage.getItem('dataStore') &&
+    // 在页面加载的时候读取sessionStorage中的数据
+    sessionStorage.getItem('dataStore') &&
       this.$store.replaceState(
         Object.assign(
           this.$store.state,
-          JSON.parse(localStorage.getItem('dataStore'))
+          JSON.parse(sessionStorage.getItem('dataStore'))
         )
       )
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="help-header">
-    <el-tabs type="card" v-model="activeName"  stretch>
+    <el-tabs type="card" v-model="activeName" stretch>
       <el-tab-pane label="如何购票" name="buy">
         <buy></buy>
       </el-tab-pane>

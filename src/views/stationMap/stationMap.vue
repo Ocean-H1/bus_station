@@ -32,14 +32,14 @@
       <Map v-if="renderComponent"></Map>
       <!-- 车站时刻表 -->
       <div v-else class="stime">
-        <el-table :data="stationTime" style="width: 100%" border>
-          <el-table-column prop="" label="始发站" width="150">
+        <el-table :data="stationTime" style="width: 100%" border height="520">
+          <el-table-column prop="" label="始发站" width="160">
           </el-table-column>
-          <el-table-column prop="" label="目的地" width="150">
+          <el-table-column prop="" label="目的地" width="160">
           </el-table-column>
           <el-table-column prop="" label="发车时间" width="200">
           </el-table-column>
-          <el-table-column prop="" label="班次类型" width="150">
+          <el-table-column prop="" label="班次类型" width="160">
           </el-table-column>
         </el-table>
       </div>
@@ -112,7 +112,6 @@ export default {
   cursor: pointer;
 }
 .stime {
-  width: 80%;
   margin: 0 auto;
 }
 </style>
