@@ -7,7 +7,7 @@
     <!-- 注册和找回密码 -->
     <div class="info">
       如果还未注册，<router-link to="" class="link">点击这里注册</router-link
-      >，如果忘记密码,<router-link to="" class="link"
+      >，如果忘记密码,<router-link to="/rebackPsd" class="link"
         >点击这里找回密码</router-link
       >
     </div>
@@ -128,7 +128,6 @@ export default {
         })
         // 将返回的SessionId保存在cookie中
         this.$cookies.set('JsessionId', res.data.SessionId)
-        this.$cookies.set('JsessionId','abcdefg')
         // 改变用户的登录状态
         this.$store.commit('setLoginStatus',1)
         // 返回首页

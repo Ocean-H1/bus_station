@@ -117,10 +117,13 @@ export default {
       // 表单验证
       this.$refs.InquireFormRef.validate((valid) => {
         if (!valid) return
-
-        // 发送请求
-
-        // 请求成功之后的操作
+        // 携带查询的参数跳转页面
+        this.$router.push({
+          path:'/ticketquery',
+          query: {
+            InquireForm: this.InquireForm
+          }
+        })
       })
     },
     // 取票验证码

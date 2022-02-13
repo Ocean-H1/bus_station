@@ -10,7 +10,8 @@ const advise = () => import('../views/advise/advise.vue')
 const about = () => import('../views/about/about.vue')
 const StaionMap = () => import('../views/stationMap/stationMap.vue')
 const Login = () => import('@/components/content/Login/login.vue')
-
+// 找回密码
+const reback = () => import('@/components/content/rebackPsd/rebackPsd.vue')
 
 Vue.use(VueRouter)
 
@@ -74,7 +75,14 @@ const routes = [
     meta: {
       title: '登录'
     }
-  }
+  },
+  {
+    path: '/rebackPsd',
+    component: reback,
+    meta: {
+      title: '找回密码'
+    }
+  },
 ]
 
 const router = new VueRouter({
