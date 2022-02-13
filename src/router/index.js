@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import register from '@/components/content/Register/register'
 
 // 路由懒加载
 const First = () => import('../views/first/first.vue')
@@ -10,6 +11,7 @@ const advise = () => import('../views/advise/advise.vue')
 const about = () => import('../views/about/about.vue')
 const StaionMap = () => import('../views/stationMap/stationMap.vue')
 const Login = () => import('@/components/content/Login/login.vue')
+const Register = () => import('@/components/content/Register/register')
 // 找回密码
 const reback = () => import('@/components/content/rebackPsd/rebackPsd.vue')
 
@@ -83,6 +85,13 @@ const routes = [
       title: '找回密码'
     }
   },
+  {
+    path: '/register',
+    component: Register,
+    meta: {
+      title: '注册'
+    }
+  }
 ]
 
 const router = new VueRouter({
