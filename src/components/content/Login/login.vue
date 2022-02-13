@@ -6,7 +6,7 @@
     </div>
     <!-- 注册和找回密码 -->
     <div class="info">
-      如果还未注册，<router-link to="" class="link">点击这里注册</router-link
+      如果还未注册，<router-link to="/register" class="link">点击这里注册</router-link
       >，如果忘记密码,<router-link to="/rebackPsd" class="link"
         >点击这里找回密码</router-link
       >
