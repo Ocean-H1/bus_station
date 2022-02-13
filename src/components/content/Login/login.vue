@@ -131,6 +131,7 @@ export default {
         // 改变用户的登录状态
         this.$store.commit('setLoginStatus',1)
         // 返回首页
+        if(this.$route.path === '/first') return 
         this.$router.push('/')
       })
     },

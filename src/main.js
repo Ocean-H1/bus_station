@@ -14,11 +14,36 @@ import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 // 引入mock文件
 require('../mock')
+// 引入NProgress
+import NProgress from 'nprogress'
+// 引入nprogress样式文件
+import'nprogress/nprogress.css'
+
+
 
 Vue.config.productionTip = false
 // 全局挂载axios
 Vue.prototype.$http = axios
 
+
+
+// 设置request拦截器，在请求之前添加sessionid，展示进度条
+axios.interceptors.request.use(config => {
+  // 展示进度条
+  NProgress.start()
+
+  // 添加SessionId到请求头中
+
+  return config
+})
+
+// 设置response拦截器，关闭进度条
+axios.interceptors.response.use(config => {
+  // 关闭进度条
+  NProgress.done()
+  
+  return config
+})
 new Vue({
   router,
   render: h => h(App),
