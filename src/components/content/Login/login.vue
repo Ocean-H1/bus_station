@@ -126,8 +126,6 @@ export default {
           type: 'success',
           duration: 2000,
         })
-        // 将返回的SessionId保存在cookie中
-        this.$cookies.set('JsessionId', res.data.SessionId)
         // 改变用户的登录状态
         this.$store.commit('setLoginStatus',1)
         // 返回首页

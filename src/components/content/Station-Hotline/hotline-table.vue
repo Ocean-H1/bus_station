@@ -1,7 +1,7 @@
 <template>
   <div class="hotlineTable">
     <el-table
-      :data="lineList"
+      :data="lineList1"
       style="width: 50%"
       size="medium"
       stripe
@@ -9,22 +9,22 @@
     >
       <el-table-column>
         <template slot-scope="scope">
-          <span class="line" @click="showqueryheader"
+          <span class="line" @click="showqueryheader(scope.row)"
             >{{ scope.row.start_region }}→{{ scope.row.final_region }}</span
           >
         </template>
       </el-table-column>
       <el-table-column>
-        <template slot-scope="">
-          <span class="yupiao" @click="showqueryheader">[查询余票]</span>
+        <template slot-scope="scope">
+          <span class="yupiao" @click="showqueryheader(scope.row)"
+            >[查询余票]</span
+          >
         </template>
       </el-table-column>
     </el-table>
 
-
-
     <el-table
-      :data="lineList"
+      :data="lineList2"
       style="width: 50%"
       size="medium"
       stripe
@@ -32,14 +32,16 @@
     >
       <el-table-column>
         <template slot-scope="scope">
-          <span class="line"  @click="showqueryheader"
+          <span class="line" @click="showqueryheader(scope.row)"
             >{{ scope.row.start_region }}→{{ scope.row.final_region }}</span
           >
         </template>
       </el-table-column>
       <el-table-column>
-        <template slot-scope="">
-          <span class="yupiao"  @click="showqueryheader">[查询余票]</span>
+        <template slot-scope="scope">
+          <span class="yupiao" @click="showqueryheader(scope.row)"
+            >[查询余票]</span
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -49,72 +51,54 @@
 <script>
 export default {
   name: 'hotlineTable',
-  data() {
-    return {
-      lineList: [
-        {
-          start_region_id: 1, //始发地id
-          final_region_id: 11, //目的地id
-          start_region: '西安市',
-          final_region: '兴平市',
-        },
-        {
-          start_region_id: 1,
-          final_region_id: 8,
-          start_region: '西安市',
-          final_region: '渭南市',
-        },
-        {
-          start_region_id: 1,
-          final_region_id: 12,
-          start_region: '西安市',
-          final_region: '咸阳市',
-        },
-        {
-          start_region_id: 1,
-          final_region_id: 6,
-          start_region: '西安市',
-          final_region: '周至区',
-        },
-        {
-          start_region_id: 1, //始发地id
-          final_region_id: 11, //目的地id
-          start_region: '西安市',
-          final_region: '兴平市',
-        },
-        {
-          start_region_id: 1,
-          final_region_id: 8,
-          start_region: '西安市',
-          final_region: '渭南市',
-        },
-        {
-          start_region_id: 1,
-          final_region_id: 12,
-          start_region: '西安市',
-          final_region: '咸阳市',
-        },
-        {
-          start_region_id: 1,
-          final_region_id: 6,
-          start_region: '西安市',
-          final_region: '周至区',
-        },
-        {
-          start_region_id: 1, //始发地id
-          final_region_id: 11, //目的地id
-          start_region: '西安市',
-          final_region: '兴平市',
-        },
-      ],
+  props: {
+    'choice':{
+      type: String,
+      default: 'first'
     }
   },
-  methods:{
-    showqueryheader(){
-      //有回退按钮
-      this.$router.push({path:'/ticketquery'})
+  data() {
+    return {
+      lineList1: [],
+      lineList2: [],
     }
-  }
+  },
+  methods: {
+    showqueryheader(info) {
+      
+      this.$router.push({
+        path: '/ticketquery',
+        query: {
+          inquireForm: info,
+          choice: this.choice
+        }
+      })
+    },
+    // 获取热门线路列表信息
+    async getLineList() {
+      // 发送请求
+      const { data: res } = await this.$http.get(
+        `/query/shuttle/getFamliarShuttles`,
+        {
+          params: {
+            size: 20,
+          },
+        }
+      )
+
+      if (res.code !== 10000) {
+        return this.$message.error('获取热门线路失败！')
+      }
+
+      // 保存数据
+      this.lineList1 = res.data.famliar_shuttle_list.slice(0, 10)
+      this.lineList2 = res.data.famliar_shuttle_list.slice(10, 20)
+    },
+  },
+  created() {
+    // 获取热门线路列表信息
+    this.getLineList()
+  },
 }
 </script>
 
@@ -132,7 +116,7 @@ export default {
   text-decoration: underline;
   font-weight: 600;
 }
-.line:hover{
+.line:hover {
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
