@@ -4,45 +4,45 @@
       <el-tab-pane label="查询车票">
         <!-- 查询车票的表单 -->
         <el-form
-          :model="InquireForm"
-          :rules="InquireRules"
-          ref="InquireFormRef"
+          :model="QueryForm"
+          :rules="QueryRules"
+          ref="QueryFormRef"
           label-width="100px"
           label-position="left"
         >
-          <el-form-item label="起始地" prop="start_region_id">
+          <el-form-item label="起始地" prop="start_name">
             <!-- 带有输入建议的input -->
             <el-autocomplete
-              v-model="state1"
-              placeholder="请输入内容"
+              v-model="QueryForm.start_name"
               :fetch-suggestions="querySearch"
-              :trigger-on-focus="true"
-              @select="startSelect"
-              value-key="region_name2"
-              class="el-input"
-              debounce="0"
+              placeholder="请输入内容"
+              @select="handleSelect1"
             >
-              <i slot="suffix">区/县</i>
+              <i slot="append">区/县</i>
+              <template slot-scope="{ item }">
+                <div class="cityName">{{ item.city_name + '市：'}}</div>
+                <div class="regionName">{{ item.region_name }}</div>
+              </template>
             </el-autocomplete>
           </el-form-item>
-          <el-form-item label="目的地" prop="final_region_id">
+          <el-form-item label="目的地" prop="final_name">
             <!-- 带有输入建议的input -->
             <el-autocomplete
-              v-model="state2"
-              placeholder="请输入内容"
+              v-model="QueryForm.final_name"
               :fetch-suggestions="querySearch"
-              :trigger-on-focus="true"
-              @select="finalSelect"
-              value-key="region_name2"
-              class="el-input"
-              debounce="0"
+              placeholder="请输入内容"
+              @select="handleSelect2"
             >
-              <i slot="suffix">区/县</i>
+              <i slot="append">区/县</i>
+              <template slot-scope="{ item }">
+                <div class="cityName">{{ item.city_name + '市：'}}</div>
+                <div class="regionName">{{ item.region_name }}</div>
+              </template>
             </el-autocomplete>
           </el-form-item>
           <el-form-item label="乘车日期" prop="shuttle_shift_date">
             <el-date-picker
-              v-model="InquireForm.shuttle_shift_date"
+              v-model="QueryForm.shuttle_shift_date"
               align="left"
               type="date"
               placeholder="请选择日期"
@@ -95,25 +95,62 @@
 export default {
   name: 'home-inquire',
   data() {
+    function isInArray(arr, value) {
+      // 判断是否在数组中有该选项的方法，也可以用es6的some方法
+      for (let i = 0; i < arr.length; i++) {
+        if (value === arr[i]) {
+          return true
+        }
+      }
+      return false
+    }
+    const validatePass = (rule, value, callback) => {
+      this.regionsList.forEach((item) => {
+        // 造出一个只有城市名的数组regionsNameList
+        this.regionsNameList.push(item.region_name)
+      })
+
+      if (isInArray(this.regionsNameList, value)) {
+        callback()
+      } else {
+        callback(new Error('请选择列表中已有选项!'))
+      }
+    }
     return {
-      state1: '',
-      state2: '',
       // 查询车票的表单对象
-      InquireForm: {
+      QueryForm: {
+        start_name: '',
+        final_name: '',
         start_region_id: 0,
         final_region_id: 0,
         shuttle_shift_date: '',
       },
       // 查询车票的表单验证规则
-      InquireRules: {
+      QueryRules: {
         // 出发地
-        start_region_id: [
-          { required: true, message: '请输入出发地', trigger: 'blur' },
+        start_name: [
+          {
+            message: '请选择有效的城市！',
+            trigger: 'change',
+            validator: validatePass,
+          },
+          {required:'true',message:'请输入目的地',trigger:'blur'}
         ],
         // 目的地
-        final_region_id: [
-          { required: true, message: '请输入目的地', trigger: 'blur' },
+        final_name: [
+         {
+            message: '请选择有效的城市！',
+            trigger: 'change',
+            validator: validatePass,
+          },
+          {
+            message: '请选择有效的城市！',
+            trigger: 'blur',
+            validator: validatePass,
+          },
+          {required:'true',message:'请输入目的地',trigger:'blur'}
         ],
+        
         // 乘车时间
         shuttle_shift_date: [
           { required: true, message: '请选择乘车日期', trigger: 'blur' },
@@ -145,18 +182,20 @@ export default {
       codeImgUrl: 'https://image.scqckypw.com/static/new/images/refreshen.png',
       // 所有地区列表
       regionsList: [],
+      regionsNameList: [],
     }
   },
   methods: {
     // 查询车票
     QueryTickets() {
       // 表单验证
-      this.$refs.InquireFormRef.validate((valid) => {
+      this.$refs.QueryFormRef.validate((valid) => {
         if (!valid) return
-        // 携带查询的参数跳转页面
+
+        // 携带处理过的的参数跳转页面
         this.$router.push({
           path: '/ticketquery',
-          query: this.InquireForm,
+          query: this.QueryForm,
         })
       })
     },
@@ -214,9 +253,6 @@ export default {
 
       // 保存数据
       this.regionsList = res.data.region_list
-      this.regionsList.forEach((item) => {
-        item.region_name2 = item.city_name + '市/' + item.region_name
-      })
     },
     // 查找输入建议
     querySearch(queryString, cb) {
@@ -224,6 +260,7 @@ export default {
       let res = queryString
         ? regionsList.filter(this.createFilter(queryString))
         : regionsList
+
       cb(res)
     },
     // 输入建议的过滤器
@@ -232,17 +269,21 @@ export default {
         return (
           regionsList.region_name
             .toLowerCase()
-            .indexOf(queryString.toLowerCase()) === 0 || regionsList.region_english_name.toLowerCase()
-            .indexOf(queryString.toLowerCase()) === 0
+            .indexOf(queryString.toLowerCase()) >= 0 ||
+          regionsList.region_english_name
+            .toLowerCase()
+            .indexOf(queryString.toLowerCase()) >= 0
         )
       }
     },
     // 输入建议被选中时触发的事件
-    startSelect(item) {
-      this.InquireForm.start_region_id = item.region_id
+    handleSelect1(item) {
+      this.QueryForm.start_name = item.region_name
+      this.QueryForm.start_region_id = item.region_id
     },
-    finalSelect(item) {
-      this.InquireForm.final_region_id = item.region_id
+    handleSelect2(item) {
+      this.QueryForm.final_name = item.region_name
+      this.QueryForm.final_region_id = item.region_id
     },
   },
   created() {
@@ -279,4 +320,20 @@ export default {
 .RcodeContainer .el-input {
   flex: 3;
 }
+
+.cityName {
+  font-weight: 600;
+  width: 50%;
+  float: left;
+  font-size: 16px !important;
+}
+.regionName {
+  width: 50%;
+  float: left;
+  letter-spacing: 3px;
+}
+.regionName:hover {
+  color: deepskyblue;
+}
 </style>
+
