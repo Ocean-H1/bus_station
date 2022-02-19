@@ -35,7 +35,7 @@ import bottom from '../query/bottom.vue'
         console.log(tab, event);
       },
           // 不管是否有变化，每一次都要重新执行函数
-      getdate1:function(){
+      getdate1(){
        let date = new Date();
        var month = date.getMonth()<=9?"0"+(date.getMonth()+1):(date.getMonth()+1)
        var day = date.getDate()<=9?"0"+(date.getDate()):date.getDate()
@@ -79,6 +79,9 @@ import bottom from '../query/bottom.vue'
 .style{
   font-family: 'Courier New', Courier, monospace;
   font-size: 1.25rem;
+}
+.query-header{
+      width: 53.75rem;
 }
 /* 通过类名，用到style有scoped中 */
 /* .el-tabs__item :hover{

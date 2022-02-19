@@ -8,6 +8,10 @@
         <div class="query-header">
            <queryheader></queryheader>
         </div>
+        <!-- 侧边栏 -->
+        <div class="slidebar">
+        <slidebar></slidebar>
+        </div>
 
     </div>
 </template>
@@ -15,6 +19,7 @@
 <script>
 import step from '../../components/content/query/step.vue'
 import queryheader from '../../components/content/query/query-header.vue'
+import slidebar from '../../components/content/query/slide.vue'
   export default{
     name:'ticketquery',
     data(){
@@ -22,10 +27,17 @@ import queryheader from '../../components/content/query/query-header.vue'
     },
     components:{
       step,
-      queryheader
+      queryheader,
+      slidebar
     }
   }
 </script>
 <style scoped>
+.slidebar{
 
+  display: block;
+  position: absolute;
+  right: 3.25rem;
+  top: 9.8rem;
+  }
 </style>

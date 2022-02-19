@@ -28,9 +28,26 @@
 										<td class="operation" width="7%">操作</td>
 									</tr>
 								</tbody>
-								<tbody id="show-ticket-one">
-
-								</tbody>
+<tbody id="show-ticket-one">
+	<tr data-tname="城西客运站" class="tr sone"> 
+		<td height="42"><strong>城西客运站</strong></td>	
+		<td style="padding: 7px;"><strong>2022-02-14 08:00</strong></td>
+		<td>咸阳</td>	
+	    <td><strong>咸阳</strong></td> 
+		<td>
+			<strong>固定班</strong>
+		</td>
+		<td>20h</td>	 
+		<td>中型高一30</td>	
+		<td><strong>28元</strong></td>	 
+		<td>25</td>
+		<td class="child">2</td><td style="padding: 7px;">
+		<span>
+			<input type="submit" value="购票" class="span_pr" @click="buy" >
+		</span>
+		</td>
+	</tr>
+</tbody>
 							</table>
 						</div>
 					</div>
@@ -58,21 +75,43 @@
 										<td clsss="operation" width="7%">操作</td>
 									</tr>
 								</tbody>
-								<tbody id="show-ticket-two">
-
+<tbody id="show-ticket-two">
+  	<tr data-tname="城西客运站" class="tr sone"> 
+		<td height="42"><strong>城西客运站</strong></td>	
+		<td style="padding: 7px;"><strong>2022-02-14 08:00</strong></td>
+		<td>咸阳</td>	
+	    <td><strong>咸阳</strong></td> 
+		<td>
+			<strong>固定班</strong>
+		</td>
+		<td>20公里</td>	 
+		<td>中型高一30</td>	
+		<td><strong>28元</strong></td>	 
+		<td>25</td>
+		<td class="child">2</td><td style="padding: 7px;">
+		<span>
+			<input type="submit" value="购票" class="span_pr" @click="buy" >
+		</span>
+		</td>
+	</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-				
 				</div>
-			
-
 
 </template>
 <script>
 export default {
-    name:'bottom'
+    name:'bottom',
+	methods:{
+		buy:function(){
+			var result = confirm("温馨提示：购票后请到窗口办理取票!");
+			if(result===true){
+				alert('1')
+			}
+		}
+	}
 
 }
 </script>
@@ -125,6 +164,22 @@ table{
 .stwo2{
     background-color: lightskyblue;
 }
-
+tr{
+	background: lightcyan;
+}
+span input{
+    font-family: tahoma;
+	/* 设置一个元素的垂直对齐方式。 */
+    vertical-align: baseline;
+    border: 0 none;
+    color: #FAFAFA;
+    cursor: pointer;
+    height: 1.2875rem;
+    padding-bottom: 2px;
+    text-align: center;
+    width: 3.1625rem;
+    line-height: 1.2875rem;
+    background: lightsalmon;
+}
 
 </style>

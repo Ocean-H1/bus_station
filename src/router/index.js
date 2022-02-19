@@ -14,8 +14,12 @@ const Login = () => import('@/components/content/Login/login.vue')
 const Register = () => import('@/components/content/Register/register')
 // 找回密码
 const reback = () => import('@/components/content/rebackPsd/rebackPsd.vue')
-
+const Placeorder = () => import('../components/content/query/place-order.vue')
+const Confirm =() => import('../views/confirm/confirm.vue')
+const QRcode =() => import('../components/content/query/QRcode.vue')
+const Success =() => import('../views/success/success.vue')
 Vue.use(VueRouter)
+
 
 const routes = [
   {
@@ -90,6 +94,33 @@ const routes = [
     component: Register,
     meta: {
       title: '注册'
+    }
+  },
+  {
+    path:'/placeorder',
+    component:Placeorder,
+    meta:{
+      title:'提交订单'
+    }
+  },
+  {
+    path:'/confirm',
+    component:Confirm,
+    meta:{
+      title:'确认并支付'
+    }
+  },
+  {
+    path:'/qrcode',
+    component:QRcode,
+    meta:{
+      title:'付款界面'
+    }
+  },{
+    path:'/success',
+    component:Success,
+    meta:{
+      title:'购票成功'
     }
   }
 ]

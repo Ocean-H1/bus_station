@@ -21,6 +21,10 @@ export default {
         font-family: "Microsoft YaHei",\5fae\8f6f\96c5\9ed1,arial,\5b8b\4f53;
 
 }
+.step{
+      width: 53.75rem;
+      margin-top: 1.25rem;
+}
 .step  ul {
   display: flex;
   border: 2px solid lightsalmon;
