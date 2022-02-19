@@ -32,9 +32,7 @@ export default {
 }
 </script>
 <style scoped>
-.ticketquery {
-  /* height: 90vh; */
-}
+
 .slidebar {
   display: block;
   position: absolute;
