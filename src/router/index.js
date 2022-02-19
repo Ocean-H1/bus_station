@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import register from '@/components/content/Register/register'
+import NProgress from 'nprogress'
 
 // 路由懒加载
 const First = () => import('../views/first/first.vue')
@@ -135,8 +135,16 @@ const router = new VueRouter({
   }
 })
 
-// 根据路由动态设置网页标题
+
+router.afterEach((to, from, next) => {
+  // 关闭进度条
+  NProgress.done()
+})
+
 router.beforeEach((to, from, next) => {
+  // 开启进度条
+  NProgress.start()
+  // 根据路由动态设置网页标题
   if (to.meta.title) {
     document.title = to.meta.title
   }

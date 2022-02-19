@@ -6,7 +6,7 @@
     </div>
     <!-- 注册和找回密码 -->
     <div class="info">
-      如果还未注册，<router-link to="" class="link">点击这里注册</router-link
+      如果还未注册，<router-link to="/register" class="link">点击这里注册</router-link
       >，如果忘记密码,<router-link to="/rebackPsd" class="link"
         >点击这里找回密码</router-link
       >
@@ -23,17 +23,18 @@
         <el-input
           v-model="loginForm.phoneNumber"
           placeholder="手机号"
+          
         ></el-input>
       </el-form-item>
       <el-form-item label="密码:" prop="password">
         <el-input
           v-model="loginForm.password"
           :type="inputType"
-          auto-complete="new-password"
+          autocomplete="new-password"
           placeholder="密码"
+          :show-password="true"
         >
-          <!-- <%-- input中加图标必须要有slot="suffix"属性，不然无法显示图标 --%> -->
-          <i slot="suffix" :class="icon" @click="showPassword"></i>
+          
         </el-input>
       </el-form-item>
       <el-form-item label="验证码" prop="checkcode">
@@ -83,11 +84,6 @@ export default {
       },
       //   验证码图片地址
       codeImgUrl: 'https://image.scqckypw.com/static/new/images/refreshen.png',
-
-      //用于更换Input中的图标
-      icon: 'el-input__icon el-icon-view',
-      //   用于改变input类型
-      inputType: 'password',
     }
   },
   methods: {
@@ -96,16 +92,6 @@ export default {
       //生成一个随机数（防止缓存）
       let num = Math.ceil(Math.random() * 10)
       this.codeImgUrl = `https://www.scqckypw.com/rCode.jpg?${num}`
-    },
-    // 密码的显示与隐藏
-    showPassword() {
-      if (this.inputType === 'text') {
-        this.inputType = 'password'
-        this.icon = 'el-input__icon el-icon-view'
-      } else {
-        this.inputType = 'text'
-        this.icon = 'el-input__icon el-icon-loading'
-      }
     },
     // 登录
     login() {
@@ -126,11 +112,10 @@ export default {
           type: 'success',
           duration: 2000,
         })
-        // 将返回的SessionId保存在cookie中
-        this.$cookies.set('JsessionId', res.data.SessionId)
         // 改变用户的登录状态
         this.$store.commit('setLoginStatus',1)
         // 返回首页
+        if(this.$route.path === '/first') return 
         this.$router.push('/')
       })
     },
