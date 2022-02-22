@@ -122,6 +122,71 @@ const routes = [
     meta:{
       title:'购票成功'
     }
+  },
+  {
+    path: '/person',
+    component: () => import('../views/person'),
+    meta: {
+      title: '个人中心'
+    },
+    children: [{
+      path: '',
+      meta: {
+        title: '基本资料'
+      },
+      component: () => import('@/components/person/children/info'),
+    },
+      {
+        path: 'changePassword',
+        meta: {
+          title: '修改密码'
+        },
+        component: () => import('@/components/person/children/changePassword'),
+      },
+      {
+        path: 'passenger',
+        meta: {
+          title: '常用乘车人'
+        },
+        component: () => import('@/components/person/children/passenger'),
+      },
+      {
+        path: 'contacts',
+        meta: {
+          title: '常用联系人'
+        },
+        component: () => import('@/components/person/children/contacts'),
+      },
+
+      {
+        path: 'allOrder',
+        meta: {
+          title: '所有订单'
+        },
+        component: () => import('@/components/person/children/allOrder'),
+      },
+      {
+        path: 'paidOrder',
+        meta: {
+          title: '已支付单'
+        },
+        component: () => import('@/components/person/children/paidOrder'),
+      },
+      {
+        path: 'waitOrder',
+        meta: {
+          title: '待支付单'
+        },
+        component: () => import('@/components/person/children/waitOrder'),
+      },
+      {
+        path: 'refundOrder',
+        meta: {
+          title: '退款完成'
+        },
+        component: () => import('@/components/person/children/refundOrder'),
+      },
+    ]
   }
 ]
 
