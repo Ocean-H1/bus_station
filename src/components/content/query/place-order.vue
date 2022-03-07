@@ -1,8 +1,9 @@
 <template>
 <div class="placeorder">
+    <div class="left">
         <step></step>
-
 <!-- 购买的车票信息 -->
+<form @submit.prevent="submit($event)" action="" >
 <div class="message">
     <div class="sa">
         <!-- <font> 规定文本的字体、字体尺寸、字体颜色 -->
@@ -43,13 +44,11 @@
             </tbody>
         </table>
     </div>
-	  </div>
       <!-- 联系人信息 -->
   <div class="link">
       <div class="top">
        <em>
            联系人信息：<span>*</span>为必填项
-          
        </em>
       </div>
       <div class="bottom">
@@ -59,21 +58,22 @@
           <ul class="link1">
               <li>姓名
                   <span>*&nbsp;</span>
-                  <input type="text">
+                  <input type="text" id="name" name="contact_person_name" @blur ="getname()">
+                  <div id="pleasename" style="display:none;color:red;margin-left:2.7rem">请输入姓名</div>
               </li>
               <li>
                   手机
                    <span>*&nbsp;</span>
-                  <input type="text">
+                  <input type="text" name="contact_person_phone_number">
               </li>
               <li>
                   邮箱
                    <span>*&nbsp;</span>
-                  <input type="text">
+                  <input type="text" name="contact_person_email">
               </li>
               <li>
-                  <input type="checkbox" name="save">
-                  <label for="save">
+                  <input type="checkbox" name="save" class=save1 >
+                  <label for="save" class=save2>
                     保存至常用联系人
                   </label>
               </li>
@@ -103,7 +103,7 @@
                     <th style="width: 15%"><span>*</span>姓名</th>
                     <th style="width: 10%"><span>*</span>证件</th>
                     <th style="width: 23%"><span>*</span>证件号</th>
-                    <th style="width: 15%" class="class_have_insurant">出生日期</th>
+                    <th style="width: 15%" class="class_have_insurant">购买保险</th>
                 	<th style="width: 7%">&nbsp;</th>
                 </tr>
 				<tr>
@@ -121,7 +121,7 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text">
+                        <input type="text" name="passenger_name">
                     </td>
                     <td>
                          <select>
@@ -131,10 +131,10 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text">
+                        <input type="text" name="passenger_card_number">
                     </td>
                     <td>
-                        <input type="text">
+                        <input type="checkbox" name="buying_insurance">
                     </td>
                     <td>
 
@@ -156,9 +156,12 @@
     <input type="checkbox" id="know" >
     <label for="know">我已阅读并同意<a href="javascript:;">《购票须知》</a></label>
 </div>
-<div class="submit">
+<div class="submit" @click="submit()">
     <input type="submit" value="提交订单">
 </div>
+</div>
+</div>
+</form>
 </div>
 <div class="sidebar">
 					<div class="mar">
@@ -183,6 +186,28 @@ export default {
     name:'placeorder',
     components:{
         step
+    },
+    methods:{
+        submit:function(event){
+            var formData = new FormData(event.target);
+            this.$http.post('',formData).then(res=>{
+              console.log(res);
+            },err => {
+
+            })
+
+        },
+        getname(){
+        var name = document.getElementById("name").value
+        if(name===''){
+        //  var pleasename = $("#pleasename");
+        //  pleasename.style.display = block;
+        }
+
+    },
+    submit(){
+        this.$router.push('Menglogin')
+    }
     }
 }
 </script>
@@ -193,19 +218,20 @@ export default {
     padding: 0;
     font-family: "Microsoft YaHei",\5fae\8f6f\96c5\9ed1,arial,\5b8b\4f53;
 }
+.save1{
+    margin: 6px 0 0 2.5rem;
+}
 .border{
         width: 53.75rem;
-        padding: 2.5rem;
+         padding: 2.5rem;
     border: .025rem solid #CCCCCC;
 }
 .sidebar{
     color: #444;
-    float: right;
     width: 17.25rem;
-    border: 1px solid #e0e0e0;
-    position: absolute;
-    right: 3.25rem;
-    top: 10.2rem;
+    /* border: 1px solid #e0e0e0; */
+    margin-left: 1.5rem;
+    margin-top:1rem;
 }
 .mar{
     height: 2.5rem;
@@ -233,7 +259,7 @@ p{
     border-width: 3px 1px 1px;
     line-height: 20px;
     margin: 16px 0 0;
-    padding: 5px 3px 0px 3px;
+    padding: 5px 3px 0px -1px;
     width: 53.75rem;
     float: left;
 }
@@ -258,7 +284,7 @@ em,i,span{
     margin: 0;
     padding: 0;
     width: 53.2rem;
-    border: 1px solid #e1e1e1;
+    /* border: 1px solid #e1e1e1; */
     background: #f6f9fe;
     margin-bottom: .125rem;
     margin:.25rem .0625rem .25rem;
@@ -293,7 +319,7 @@ input{
 }
 .riding .newpassenger{
     width: 53.2rem;
-    border: 1px solid #e1e1e1;
+    /* border: 1px solid #e1e1e1; */
     background: #f6f9fe;
     margin:.25rem .0625rem .25rem;
 }
@@ -314,7 +340,7 @@ table{
 }
 th{
    
-    border: solid #cfccbd 1px;
+    /* border: solid #cfccbd 1px; */
     background: #ffedd5;
     line-height: 1.5625rem;
     color: #596289;
@@ -335,9 +361,7 @@ a{
 }
 .submit input{
     display: inline-block;
-    padding: 0;
     font-family: tahoma;
-    margin: 0;
     outline: 0 none;
     background-color: #FF9913;
     border: 0px solid #FF9913;
@@ -351,5 +375,17 @@ a{
     text-align: center;
     margin-top: 1.5rem;
     margin-left: 20.25rem;
+}
+.placeorder{
+    display: flex;
+}
+.left{
+    flex: 1;
+    width: 100%;
+}
+.sidebar{
+    flex:1;
+    border: .0125rem solid #CCCCCC;
+    padding: 1.025rem;
 }
 </style>

@@ -45,21 +45,21 @@ import bottom from '../query/bottom.vue'
        getdate2:function(){
         let date = new Date();
        var month = date.getMonth()<=9?"0"+(date.getMonth()+1):(date.getMonth()+1)
-       var day = date.getDate()<=9?"0"+(date.getDate()+1):(date.getDate()+1)
+       var day = date.getDate()+1<=9?"0"+(date.getDate()+1):(date.getDate()+1)
        var  getdate = month+ '月' + day + '日';
        return getdate
       },
        getdate3:function(){
         let date = new Date();
        var month = date.getMonth()<=9?"0"+(date.getMonth()+1):(date.getMonth()+1)
-       var day = date.getDate()<=9?"0"+(date.getDate()+2):(date.getDate()+2)
+       var day = date.getDate()+2<=9?"0"+(date.getDate()+2):(date.getDate()+2)
        var  getdate = month+ '月' + day + '日';
        return getdate
       },
        getdate4:function(){
          let date = new Date();
        var month = date.getMonth()<=9?"0"+(date.getMonth()+1):(date.getMonth()+1)
-       var day = date.getDate()<=9?"0"+(date.getDate()+3):(date.getDate()+3)
+       var day = date.getDate() +3<=9?"0"+(date.getDate()+3):(date.getDate()+3)
        var  getdate = month+ '月' + day + '日';
        return getdate
       }

@@ -28,25 +28,16 @@
 										<td class="operation" width="7%">操作</td>
 									</tr>
 								</tbody>
+	<!-- 流水班 -->
 <tbody id="show-ticket-one">
-	<tr data-tname="城西客运站" class="tr sone"> 
-		<td height="42"><strong>城西客运站</strong></td>	
-		<td style="padding: 7px;"><strong>2022-02-14 08:00</strong></td>
-		<td>咸阳</td>	
-	    <td><strong>咸阳</strong></td> 
-		<td>
-			<strong>固定班</strong>
-		</td>
-		<td>20h</td>	 
-		<td>中型高一30</td>	
-		<td><strong>28元</strong></td>	 
-		<td>25</td>
-		<td class="child">2</td><td style="padding: 7px;">
+	<tr data-tname="城西客运站" class="tr sone" id="flow1"> 
+		
+	</tr>
+	<td style="padding: 7px;" class="in">
 		<span>
 			<input type="submit" value="购票" class="span_pr" @click="buy" >
 		</span>
-		</td>
-	</tr>
+	</td>
 </tbody>
 							</table>
 						</div>
@@ -76,23 +67,8 @@
 									</tr>
 								</tbody>
 <tbody id="show-ticket-two">
-  	<tr data-tname="城西客运站" class="tr sone"> 
-		<td height="42"><strong>城西客运站</strong></td>	
-		<td style="padding: 7px;"><strong>2022-02-14 08:00</strong></td>
-		<td>咸阳</td>	
-	    <td><strong>咸阳</strong></td> 
-		<td>
-			<strong>固定班</strong>
-		</td>
-		<td>20公里</td>	 
-		<td>中型高一30</td>	
-		<td><strong>28元</strong></td>	 
-		<td>25</td>
-		<td class="child">2</td><td style="padding: 7px;">
-		<span>
-			<input type="submit" value="购票" class="span_pr" @click="buy" >
-		</span>
-		</td>
+  	<tr data-tname="城西客运站" class="tr sone" id="flow2"> 
+	
 	</tr>
 								</tbody>
 							</table>
@@ -104,15 +80,58 @@
 <script>
 export default {
     name:'bottom',
+	data(){
+		return{
+		
+		}
+	},
+	created:function(){
+		this.getShuttleList()
+	},
+	
 	methods:{
 		buy:function(){
 			var result = confirm("温馨提示：购票后请到窗口办理取票!");
 			if(result===true){
-				alert('1')
+         this.$router.push({path:'placeorder'})
+             }
+         },
+		getShuttleList(){
+			this.axios({
+			method:'GET',
+			url:'http://station.xuptdata.com/query/shuttle/getShuttleList?start_region_id=1&final_region_id=10&shuttle_shift_date=2022-03-06',
+			params:{
+				
 			}
-		}
-	}
+		}).then(function(res){
+			if(res.data.code === 10000){
+				var flow1 = document.querySelector('#flow1');
+				var flow2 = document.querySelector('#flow2');
+				flow2.innerHTML = ``
+				flow1.innerHTML =`<td height="42"  ><strong > ${res.data.data.flow_shuttle_list[0].start_station}
+			</strong></td>	
+		<td style="padding: 7px;"><strong>${res.data.data.flow_shuttle_list[0].shuttle_shift_time}</strong></td>
+		<td> ${res.data.data.flow_shuttle_list[0].start_region}</td>	
+	    <td><strong> ${res.data.data.flow_shuttle_list[0].final_region}</strong></td> 
+		<td>
+			<strong> ${res.data.data.flow_shuttle_list[0].shuttle_shift_type}</strong>
+		</td>
+		<td> ${res.data.data.flow_shuttle_list[0].full_lenght}</td>	 
+		<td> ${res.data.data.flow_shuttle_list[0].car_model}</td>	
+		<td><strong> ${res.data.data.flow_shuttle_list[0].ticket_price}</strong></td>	 
+		<td> ${res.data.data.flow_shuttle_list[0].unuse_ticket_quantity}</td>
+		<td class="child"> ${res.data.data.flow_shuttle_list[0].unuse_child_ticket_quantity}</td>
+	<td style = "paading:7px"></td>
+	
+		</td>`
+			}else{
+			alert(res.data.message)
+			}
+		}).catch(
+		)
+		 }
 
+	}
 }
 </script>
 
@@ -136,6 +155,11 @@ export default {
 }
 .blue{
     color: darkcyan;
+}
+.in{
+	position: absolute;
+	top: 8.7rem;
+	left: 49.8rem;
 }
 .flow-water,.fixed{
     font-size: .7875rem;
@@ -183,3 +207,6 @@ span input{
 }
 
 </style>
+
+
+

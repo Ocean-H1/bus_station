@@ -3,11 +3,12 @@
         <!-- 顶部 -->
         <div class="top">
              <step></step>
-        </div>
-        <!-- 导航栏 -->
+              <!-- 导航栏 -->
         <div class="query-header">
-           <queryheader></queryheader>
+            <queryheader></queryheader>
         </div>
+      </div>
+       
         <!-- 侧边栏 -->
         <div class="slidebar">
         <slidebar></slidebar>
@@ -33,11 +34,15 @@ import slidebar from '../../components/content/query/slide.vue'
   }
 </script>
 <style scoped>
+.ticketquery
+{
+  display: flex;
+  overflow: hidden;
+}
+.top{
+  flex:1;
+}
 .slidebar{
-
-  display: block;
-  position: absolute;
-  right: 3.25rem;
-  top: 9.8rem;
-  }
+  margin-top: 1.25rem;
+}
 </style>

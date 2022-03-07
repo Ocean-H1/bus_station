@@ -19,6 +19,9 @@ Vue.config.productionTip = false
 // 全局挂载axios
 Vue.prototype.$http = axios
 
+import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios)
+
 new Vue({
   router,
   render: h => h(App),
