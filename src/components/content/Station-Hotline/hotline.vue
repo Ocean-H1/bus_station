@@ -5,16 +5,16 @@
       <div>热门线路</div>
     </div>
     <!-- tabs标签页 -->
-    <el-tabs stretch>
-      <el-tab-pane label="今日">
-        <HotlineTable></HotlineTable>
+    <el-tabs stretch v-model="activeName">
+      <el-tab-pane name="first" label="今日">
+        <HotlineTable :choice="activeName"></HotlineTable>
       </el-tab-pane>
-      <el-tab-pane label="明日">
-        <HotlineTable></HotlineTable>
+      <el-tab-pane name="second" label="明日">
+        <HotlineTable :choice="activeName"></HotlineTable>
       </el-tab-pane>
-      <el-tab-pane>
-        <span slot="label">{{ currentTime }}</span>
-        <HotlineTable></HotlineTable>
+      <el-tab-pane name="third">
+        <span slot="label">{{ timeArray[2] }}</span>
+        <HotlineTable :choice="activeName"></HotlineTable>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -26,22 +26,30 @@ import HotlineTable from './hotline-table'
 export default {
   components: { HotlineTable },
   name: 'hotline',
+  data() {
+    return {
+      activeName: 'first',
+    }
+  },
   computed: {
-    // 得到后天的日期
-    currentTime: function () {
+    // 拿到日期
+    timeArray: function () {
       let dateTime = new Date()
       //   年
-      let year = dateTime.getFullYear() + ''
+      let year = dateTime.getFullYear()
       //   月
-      let month = dateTime.getMonth() + 1 + ''
-      //   后天的日期
-      let date = dateTime.getDate() + 2 + ''
-
-      let currentTime = month + '月' + date + '日'
-
-      return currentTime
+      let month = dateTime.getMonth() + 1
+      //   日
+      let date = dateTime.getDate()
+      
+      let timeArray = []
+      for (let i = 0; i < 3; i++) {
+        timeArray[i] = month + '月' + (date + i) + '日'
+      }
+      return timeArray
     },
   },
+  methods: {},
 }
 </script>
 

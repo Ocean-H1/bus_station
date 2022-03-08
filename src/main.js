@@ -12,16 +12,39 @@ Vue.use(ElementUi)
 // 引入Vue-Cookies
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
-// 引入mock文件
-require('../mock')
+// 引入NProgress
+import NProgress from 'nprogress'
+// 引入nprogress样式文件
+import'nprogress/nprogress.css'
+
+
 
 Vue.config.productionTip = false
 // 全局挂载axios
 Vue.prototype.$http = axios
+// 配置请求的根路径
+axios.defaults.baseURL = 'http://station.xuptdata.com'
+// axios.defaults.baseURL = 'http://116.62.108.248:8082'
+// 设置request拦截器，在请求之前添加sessionid，展示进度条
+axios.interceptors.request.use(config => {
+  // 展示进度条
+  NProgress.start()
+  
+  // 添加SessionId到请求头中
+  config.headers.SessionId = window.sessionStorage.getItem('SessionId')
+  return config
+})
 
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios)
 
+// 设置response拦截器，关闭进度条
+axios.interceptors.response.use(config => {
+  // 关闭进度条
+  NProgress.done()
+  
+  return config
+})
 new Vue({
   router,
   render: h => h(App),
