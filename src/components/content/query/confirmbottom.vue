@@ -15,13 +15,23 @@
             <img src="../../../assets/img/bank.png" alt="">
         </div>
       <div class="button">
-          <button>确认并支付</button>
+          <button  @click="pay">确认并支付</button>
       </div>
     </div>
 </template>
 <script>
 export default {
-    name:'confirmbottom'
+    name:'confirmbottom',
+    methods:{
+        pay(){
+            if(document.getElementById("zhifubao").checked){
+                this.$router.push('qrcode')
+            }
+            else{
+                alert('请勾选支付方式');
+            }
+        }
+    }
 }
 </script>
 <style scoped>

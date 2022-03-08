@@ -35,6 +35,9 @@ axios.interceptors.request.use(config => {
   return config
 })
 
+import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios)
+
 // 设置response拦截器，关闭进度条
 axios.interceptors.response.use(config => {
   // 关闭进度条

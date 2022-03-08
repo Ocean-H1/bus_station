@@ -12,7 +12,6 @@
     <div class="slidebar">
       <slidebar></slidebar>
     </div>
-  </div>
 </template>
 
 <script>
@@ -32,11 +31,15 @@ export default {
 }
 </script>
 <style scoped>
-
-.slidebar {
-  display: block;
-  position: absolute;
-  right: 3.25rem;
-  top: 9.8rem;
+.ticketquery
+{
+  display: flex;
+  overflow: hidden;
+}
+.top{
+  flex:1;
+}
+.slidebar{
+  margin-top: 1.25rem;
 }
 </style>
