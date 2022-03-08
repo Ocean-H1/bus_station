@@ -17,6 +17,7 @@
               :fetch-suggestions="querySearch"
               placeholder="请输入内容"
               @select="handleSelect1"
+              :debounce="0"
             >
               <i slot="append">区/县</i>
               <template slot-scope="{ item }">
@@ -32,6 +33,7 @@
               :fetch-suggestions="querySearch"
               placeholder="请输入内容"
               @select="handleSelect2"
+              :debounce="0"
             >
               <i slot="append">区/县</i>
               <template slot-scope="{ item }">

@@ -164,28 +164,28 @@ const routes = [
       meta: {
         title: '基本资料'
       },
-      component: () => import('@/components/person/children/info'),
+      component: () => import('@/components/content/person/children/info'),
     },
       {
         path: 'changePassword',
         meta: {
           title: '修改密码'
         },
-        component: () => import('@/components/person/children/changePassword'),
+        component: () => import('@/components/content/person/children/changePassword'),
       },
       {
         path: 'passenger',
         meta: {
           title: '常用乘车人'
         },
-        component: () => import('@/components/person/children/passenger'),
+        component: () => import('@/components/content/person/children/passenger'),
       },
       {
         path: 'contacts',
         meta: {
           title: '常用联系人'
         },
-        component: () => import('@/components/person/children/contacts'),
+        component: () => import('@/components/content/person/children/contacts'),
       },
 
       {
@@ -193,28 +193,28 @@ const routes = [
         meta: {
           title: '所有订单'
         },
-        component: () => import('@/components/person/children/allOrder'),
+        component: () => import('@/components/content/person/children/allOrder'),
       },
       {
         path: 'paidOrder',
         meta: {
           title: '已支付单'
         },
-        component: () => import('@/components/person/children/paidOrder'),
+        component: () => import('@/components/content/person/children/paidOrder'),
       },
       {
         path: 'waitOrder',
         meta: {
           title: '待支付单'
         },
-        component: () => import('@/components/person/children/waitOrder'),
+        component: () => import('@/components/content/person/children/waitOrder'),
       },
       {
         path: 'refundOrder',
         meta: {
           title: '退款完成'
         },
-        component: () => import('@/components/person/children/refundOrder'),
+        component: () => import('@/components/content/person/children/refundOrder'),
       },
     ]
   }

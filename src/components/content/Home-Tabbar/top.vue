@@ -12,7 +12,7 @@
       </el-col>
       <!-- 用户已登录时显示 -->
       <el-col :span="6" class="user">
-        <div class="grid-content profile">个人中心</div>
+        <div class="grid-content profile" @click="switchPage('/person')">个人中心</div>
         <div class="grid-content logout" @click="logout">退出</div>
       </el-col>
     </el-row>
@@ -41,9 +41,9 @@ export default {
       // 改变登录态
       this.$store.commit('setLoginStatus',0)
       // 清除sessionid
-      this.$cookies.remove('JsessionId')
+      window.sessionStorage.clear()
       if(this.$route.path === '/first') return 
-      this.$router.push('/')
+      this.$router.push('/first')
     },
   },
 }

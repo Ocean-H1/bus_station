@@ -26,7 +26,7 @@
     <div class="call">
       <h3>服务电话</h3>
       <div class="icons">
-        <img src="../../assets/img/tubiao.jpg" alt="">
+        <img src="~@/assets/img/tubiao.jpg" alt="">
         <p>400-858-3030</p>
       </div>
       <div>
@@ -103,7 +103,7 @@ export default {
   position: absolute;
   height: 20px;
   width: 20px;
-  background: url(../../assets/img/allpic.png);
+  background: url(~@/assets/img/allpic.png);
   background-position: 0 0;
   top: 50%;
   left: 5%;

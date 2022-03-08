@@ -99,14 +99,14 @@ export default {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
         // 拿到接口返回的数据
-        const { data: res } = await this.$http.post(
-          '/permissions/login',
-          this.loginForm
-        )
+        // const { data: res } = await this.$http.post(
+        //   '/permissions/login',
+        //   this.loginForm
+        // )
         // 判断是否登陆成功
-        if (res.code !== 10000) {
-          return this.$message.error('登录失败！')
-        }
+        // if (res.code !== 10000) {
+        //   return this.$message.error('登录失败！')
+        // }
         this.$message({
           message: '登录成功！',
           type: 'success',

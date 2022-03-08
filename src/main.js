@@ -9,9 +9,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 // 引入全局样式文件
 import '../src/assets/css/global.css'
 Vue.use(ElementUi)
-// 引入Vue-Cookies
-import VueCookies from 'vue-cookies'
-Vue.use(VueCookies)
 // 引入NProgress
 import NProgress from 'nprogress'
 // 引入nprogress样式文件
@@ -35,8 +32,7 @@ axios.interceptors.request.use(config => {
   return config
 })
 
-import VueAxios from "vue-axios";
-Vue.use(VueAxios, axios)
+
 
 // 设置response拦截器，关闭进度条
 axios.interceptors.response.use(config => {

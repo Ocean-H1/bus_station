@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import LeftMenu from '@/components/person/leftMenu'
+import LeftMenu from '@/components/content/person/leftMenu'
 export default {
   components: {
     LeftMenu

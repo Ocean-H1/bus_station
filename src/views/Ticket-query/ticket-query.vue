@@ -12,6 +12,7 @@
     <div class="slidebar">
       <slidebar></slidebar>
     </div>
+  </div>
 </template>
 
 <script>
@@ -31,15 +32,14 @@ export default {
 }
 </script>
 <style scoped>
-.ticketquery
-{
+.ticketquery {
   display: flex;
   overflow: hidden;
 }
-.top{
-  flex:1;
+.top {
+  flex: 1;
 }
-.slidebar{
+.slidebar {
   margin-top: 1.25rem;
 }
 </style>
