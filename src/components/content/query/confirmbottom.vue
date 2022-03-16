@@ -25,7 +25,15 @@ export default {
     methods:{
         pay(){
             if(document.getElementById("zhifubao").checked){
-                this.$router.push('qrcode')
+                // this.$router.push('qrcode')
+                axios.get(
+                   'http://station.xuptdata.com/order/payOrder',
+                   {
+                       Headers:{
+                           
+                       }
+                   }
+                )
             }
             else{
                 alert('请勾选支付方式');

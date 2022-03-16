@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import store from './store/store'
+import VueAxios from "vue-axios";
+Vue.use(VueAxios,axios)
 // 引入ElementUi
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
@@ -18,7 +20,7 @@ import'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
 // 全局挂载axios
-Vue.prototype.$http = axios
+// Vue.prototype.$http = axios
 // 配置请求的根路径
 axios.defaults.baseURL = 'http://station.xuptdata.com'
 // axios.defaults.baseURL = 'http://116.62.108.248:8082'
