@@ -3,7 +3,8 @@
     <div class="left">
         <step></step>
 <!-- 购买的车票信息 -->
-<form @submit.prevent="submit($event)" action="" >
+ <!-- @submit.prevent="submit($event)"  -->
+<form action="" >
 <div class="message">
     <div class="sa">
         <!-- <font> 规定文本的字体、字体尺寸、字体颜色 -->
@@ -58,22 +59,21 @@
           <ul class="link1">
               <li>姓名
                   <span>*&nbsp;</span>
-                  <input type="text" id="name" name="contact_person_name" @blur ="getname()">
+                  <input type="text" id="name" name="contact_person_name" class="bt1" @blur ="getname()">
                   <div id="pleasename" style="display:none;color:red;margin-left:2.7rem">请输入姓名</div>
               </li>
               <li>
                   手机
                    <span>*&nbsp;</span>
-                  <input type="text" name="contact_person_phone_number">
+                  <input type="text" name="contact_person_phone_number" class="bt2">
               </li>
               <li>
                   邮箱
-                   <span>*&nbsp;</span>
                   <input type="text" name="contact_person_email">
               </li>
               <li>
                   <input type="checkbox" name="save" class=save1 >
-                  <label for="save" class=save2>
+                  <label for="save" class=save2 >
                     保存至常用联系人
                   </label>
               </li>
@@ -96,7 +96,7 @@
       </div>
       <div class="newpassenger">
           <table style="cellspacing:0;">
-              <tbody>
+              <tbody class="hahh">
                  <tr>
                     <th style="width: 10%">票种</th>
                     <th style="width: 10%">是否携带1.2米以下儿童</th>
@@ -121,6 +121,37 @@
                         </select>
                     </td>
                     <td>
+                        <input type="text" name="passenger_name" class="bt3">
+                    </td>
+                    <td>
+                         <select>
+                            <option>身份证</option>
+                            <option>军人证</option>
+                            <option>护照</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="passenger_card_number" class="bt4">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="buying_insurance" >
+                    </td>
+                </tr>	
+                <!-- <tr style="display:none" class="tr2">
+                    <td>
+                        <select>
+                            <option>成人票</option>
+                            <option>半票</option>
+                            <option>携童票</option>
+                        </select>
+                    </td>
+                    <td>
+                         <select>
+                            <option>否</option>
+                            <option>是</option>
+                        </select>
+                    </td>
+                    <td>
                         <input type="text" name="passenger_name">
                     </td>
                     <td>
@@ -131,15 +162,110 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="passenger_card_number">
+                        <input type="text" name="passenger_card_number" class="bt3">
                     </td>
                     <td>
-                        <input type="checkbox" name="buying_insurance">
+                        <input type="checkbox" name="buying_insurance" class="bt4">
+                    </td>
+                </tr>
+                <tr style="display:none" class="tr3">
+                    <td>
+                        <select>
+                            <option>成人票</option>
+                            <option>半票</option>
+                            <option>携童票</option>
+                        </select>
                     </td>
                     <td>
-
+                         <select>
+                            <option>否</option>
+                            <option>是</option>
+                        </select>
                     </td>
-                </tr>						
+                    <td>
+                        <input type="text" name="passenger_name">
+                    </td>
+                    <td>
+                         <select>
+                            <option>身份证</option>
+                            <option>军人证</option>
+                            <option>护照</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="passenger_card_number" class="bt3">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="buying_insurance" class="bt4">
+                    </td>
+                </tr>
+                <tr style="display:none" class="tr4">
+                    <td>
+                        <select>
+                            <option>成人票</option>
+                            <option>半票</option>
+                            <option>携童票</option>
+                        </select>
+                    </td>
+                    <td>
+                         <select>
+                            <option>否</option>
+                            <option>是</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="passenger_name">
+                    </td>
+                    <td>
+                         <select>
+                            <option>身份证</option>
+                            <option>军人证</option>
+                            <option>护照</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="passenger_card_number" class="bt3">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="buying_insurance" class="bt4">
+                    </td>
+                </tr>
+                <tr style="display:none" class="tr5">
+                    <td>
+                        <select>
+                            <option>成人票</option>
+                            <option>半票</option>
+                            <option>携童票</option>
+                        </select>
+                    </td>
+                    <td>
+                         <select>
+                            <option>否</option>
+                            <option>是</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="passenger_name">
+                    </td>
+                    <td>
+                         <select>
+                            <option>身份证</option>
+                            <option>军人证</option>
+                            <option>护照</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="passenger_card_number" class="bt3">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="buying_insurance" class="bt4">
+                    </td>
+                </tr> -->
+                <div class="nav" id="add_ticket_passenger">
+                <span>
+				<input type="button" class="n" value="添加乘车人" @click="add"/>
+				</span>
+				</div>					
               </tbody>
           </table>
       </div>
@@ -153,11 +279,12 @@
             </div>
             <div class="border">
 <div class="new">
-    <input type="checkbox" id="know" >
-    <label for="know">我已阅读并同意<a href="javascript:;">《购票须知》</a></label>
+    <input type="checkbox" id="know" class="bt5" >
+    <label for="know" >我已阅读并同意<a href="javascript:;">《购票须知》</a></label>
 </div>
-<div class="submit" @click="submit()">
-    <input type="submit" value="提交订单">
+<div class="submit" >
+    <!-- 阻止事件冒泡，event.propogation()子 -->
+    <input type="button" value="提交订单" @click.stop="submit">
 </div>
 </div>
 </div>
@@ -187,26 +314,95 @@ export default {
     components:{
         step
     },
+    created(){
+		 	this.linkperson();
+    },
     methods:{
-        submit:function(event){
-            var formData = new FormData(event.target);
-            this.$http.post('',formData).then(res=>{
-              console.log(res);
-            },err => {
-
-            })
-
+        linkperson(){
+            this.axios(
+				{
+					method:'GET',
+					url:'http://station.xuptdata.com/userCenter/getContactPersons',
+					params:{
+						
+					},
+					Headers:{
+						SessionId: window.sessionStorage.getItem('SessionId'),
+					}
+				}
+			).then(function(res){
+                console.log(res)
+                console.log(window.sessionStorage.getItem('SessionId'))
+			})
         },
-        getname(){
-        var name = document.getElementById("name").value
-        if(name===''){
-        //  var pleasename = $("#pleasename");
-        //  pleasename.style.display = block;
-        }
+        add(){
+         style.display = 'block';
+        },
+        // submit:function(){
+            // var formData = new FormData(event.target);
+            // this.$http.post('',formData).then(res=>{
+            //   console.log(res);
+            // },err => {
 
+            // })
+        // },
+        getname(){
+            var bt1 = document.querySelector('.bt1');
+            var bt3 = document.querySelector('.bt3');
+            if(bt1.value !== ''){
+                bt3.value = bt1.value;
+            }
     },
     submit(){
-        this.$router.push('Menglogin')
+        var bt1 = document.querySelector('.bt1');
+        var bt2 = document.querySelector('.bt2');
+        var bt3 = document.querySelector('.bt3');
+        var bt4 = document.querySelector('.bt4');
+        var bt5 = document.querySelector('.bt5');
+        var flag = 1;
+//innerHTML： 设置或获取元素内的所有子节点（包括标签、注释和文本节点）
+        if(bt1.value === ''){
+              alert('姓名不能为空');
+        }else{
+            bt3.value = bt1.value;
+        }
+          if(bt2.value === ''){
+              alert('号码不能为空');
+        }else{
+            var reg = /^1[3456789]\d{9}$/;
+            if(!reg.test(bt2.value)){
+                alert('请输入正确的手机号');
+            }
+        }
+          if(bt3.value === ''){
+              alert('姓名不能为空');
+        }
+          if(bt4.value === ''){
+              alert('身份证不能为空');
+        }else{
+            var re =  /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+            if(!re.test(bt4.value)){
+                alert('请输入正确的身份证号码');
+            }
+        }
+
+        if(bt5.checked){
+          this.axios({
+                method:'POST',
+                url:'http://station.xuptdata.com/order/bookOrder',
+                params:{
+					},
+                Headers:{
+               }
+            }).then(
+                function(res){
+                    console.log(res);
+                }
+            )
+        }else{
+           alert("请先阅读购票须知，进行勾选");
+        }
+        // this.$router.push('Menglogin')
     }
     }
 }
@@ -217,6 +413,9 @@ export default {
      margin: 0;
     padding: 0;
     font-family: "Microsoft YaHei",\5fae\8f6f\96c5\9ed1,arial,\5b8b\4f53;
+}
+tr{
+    margin: 1.25rem;
 }
 .save1{
     margin: 6px 0 0 2.5rem;
@@ -338,6 +537,7 @@ table{
     border-collapse: collapse;
     border-spacing: 0;
 }
+
 th{
    
     /* border: solid #cfccbd 1px; */
