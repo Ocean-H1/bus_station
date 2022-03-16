@@ -13,15 +13,18 @@ Vue.use(ElementUi)
 import NProgress from 'nprogress'
 // 引入nprogress样式文件
 import'nprogress/nprogress.css'
+// 引入公共js函数
+import utils from '@/utils/utils.js'
 
 
 
 Vue.config.productionTip = false
 // 全局挂载axios
 Vue.prototype.$http = axios
+// 全局挂载
+Vue.prototype.$utils = utils
 // 配置请求的根路径
 axios.defaults.baseURL = 'http://station.xuptdata.com'
-// axios.defaults.baseURL = 'http://116.62.108.248:8082'
 // 设置request拦截器，在请求之前添加sessionid，展示进度条
 axios.interceptors.request.use(config => {
   // 展示进度条

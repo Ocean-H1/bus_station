@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :span="6"><div class="grid-content logo">logo</div></el-col>
       <el-col :span="12"
-        ><div class="grid-content title">西安客运网络售票系统</div></el-col
+        ><div class="grid-content title">个人开发客运售票伪系统</div></el-col
       >
       <!-- 用户未登录时显示 -->
       <el-col :span="6" v-if="!this.$store.state.isLogin" class="user">

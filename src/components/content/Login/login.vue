@@ -6,7 +6,8 @@
     </div>
     <!-- 注册和找回密码 -->
     <div class="info">
-      如果还未注册，<router-link to="/register" class="link">点击这里注册</router-link
+      如果还未注册，<router-link to="/register" class="link"
+        >点击这里注册</router-link
       >，如果忘记密码,<router-link to="/rebackPsd" class="link"
         >点击这里找回密码</router-link
       >
@@ -19,31 +20,28 @@
       label-width="100px"
       label-position="left"
     >
-      <el-form-item label="登录名:" prop="phoneNumber">
+      <el-form-item label="登录名:" prop="phone_number">
         <el-input
-          v-model="loginForm.phoneNumber"
+          v-model="loginForm.phone_number"
           placeholder="手机号"
-          
         ></el-input>
       </el-form-item>
       <el-form-item label="密码:" prop="password">
         <el-input
           v-model="loginForm.password"
-          :type="inputType"
           autocomplete="new-password"
           placeholder="密码"
           :show-password="true"
         >
-          
         </el-input>
       </el-form-item>
-      <el-form-item label="验证码" prop="checkcode">
+      <el-form-item label="验证码" prop="check_code">
         <div class="RcodeContainer">
           <div class="checkcode" @click="refreshImg">
             <img :src="codeImgUrl" alt="图片验证码" width="100px" />
           </div>
           <el-input
-            v-model="loginForm.checkcode"
+            v-model="loginForm.check_code"
             placeholder="点击图片刷新"
             @focus="refreshImg"
           ></el-input>
@@ -63,12 +61,12 @@ export default {
   data() {
     return {
       loginForm: {
-        phoneNumber: '',
+        phone_number: '',
         password: '',
-        checkcode: '',
+        check_code: '',
       },
       loginRules: {
-        phoneNumber: [
+        phone_number: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
           {
             type: 'string',
@@ -78,7 +76,7 @@ export default {
           },
         ],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        checkcode: [
+        check_code: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
         ],
       },
@@ -89,9 +87,23 @@ export default {
   methods: {
     // 点击刷新验证码图片
     refreshImg() {
-      //生成一个随机数（防止缓存）
-      let num = Math.ceil(Math.random() * 10)
-      this.codeImgUrl = `https://www.scqckypw.com/rCode.jpg?${num}`
+      this.$http
+        .request({
+          url: `/permissions/getCheckCodePicture`,
+          responseType: 'blob',
+          methods: 'get',
+        })
+        .then((res) => {
+          // 将后台返回的二进制图片流转换
+          const myBlob = new window.Blob([res.data], { type: 'image/png' })
+          this.codeImgUrl = window.URL.createObjectURL(myBlob)
+
+          // 保存sessionid
+          window.sessionStorage.setItem('SessionId', res.headers['session-id'])
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     // 登录
     login() {
@@ -99,23 +111,33 @@ export default {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
         // 拿到接口返回的数据
-        // const { data: res } = await this.$http.post(
-        //   '/permissions/login',
-        //   this.loginForm
-        // )
+        const { data: res } = await this.$http.post(
+          '/permissions/login',
+          {
+            phone_number: this.loginForm.phone_number,
+            password: this.$utils.md5(this.loginForm.password,16),
+            check_code: this.loginForm.check_code
+          },
+        )
         // 判断是否登陆成功
-        // if (res.code !== 10000) {
-        //   return this.$message.error('登录失败！')
-        // }
+        if (res.code !== 10000) {
+          return this.$message.error({
+            message: res.message,
+            type: 'error',
+            duration: 2000
+          })
+        }
         this.$message({
           message: '登录成功！',
           type: 'success',
           duration: 2000,
         })
+        // 保存返回的SessionId
+        window.sessionStorage.setItem('SessionId',res.data.SessionId)
         // 改变用户的登录状态
-        this.$store.commit('setLoginStatus',1)
+        this.$store.commit('setLoginStatus', 1)
         // 返回首页
-        if(this.$route.path === '/first') return 
+        if (this.$route.path === '/first') return
         this.$router.push('/')
       })
     },

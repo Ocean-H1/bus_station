@@ -13,8 +13,14 @@
       <!-- 底部 -->
       <el-footer>
         <Footer></Footer>
+        <div class="beian">
+          <a href="https://beian.miit.gov.cn" target="_blank">陕ICP备19006814号-1</a>
+        </div>
+        
       </el-footer>
+      
     </el-container>
+    
   </div>
 </template>
 
@@ -51,5 +57,14 @@ export default {
 .el-footer{
     width: 90vw;
     margin: 5vh auto;
+}
+.beian {
+  width: 200px;
+  height: 60px;
+  line-height: 60px;
+  margin: 0 auto;
+}
+.beian a:visited {
+  color: cornflowerblue;
 }
 </style>
