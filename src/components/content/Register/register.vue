@@ -47,9 +47,10 @@
           >
         </div>
       </el-form-item>
-
-      <input type="radio" /> 我已阅读并同意
-      <a href="#">《注册须知服务条款》</a>
+      <el-form-item prop="provision">
+        <input type="radio" ref="inputRef" /> 我已阅读并同意
+        <a href="#">《注册须知服务条款》</a>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -73,8 +74,6 @@ export default {
         }
       }, 1000)
     }
-    
-
     //验证验证码是否为空
     let checkCode = (rule, value, callback) => {
       if (value === '') {
@@ -102,6 +101,13 @@ export default {
       } else {
         callback()
       }
+    }
+    // 服务条款
+    let checkRadio = (rule,value,callback) => {
+      if(!this.$refs.inputRef.checked) {
+        return callback(new Error('请先同意注册服务条款！'))
+      }
+      callback()
     }
     return {
       registerForm: {
@@ -133,10 +139,15 @@ export default {
             trigger: 'blur',
           },
         ],
+        provision: [
+          {validator: checkRadio}
+        ]
       },
       buttonText: '免费获取短信验证码',
       isDisabled: false, //是否禁止点击发送验证码按钮
       flag: true,
+      // 单选按钮的值
+      radioValue: false,
     }
   },
   methods: {
@@ -192,7 +203,7 @@ export default {
         const { data: res } = await this.$http.post('/permissions/register', {
           phone_number: this.registerForm.phone_number,
           phone_code: this.registerForm.phone_code,
-          password: this.$md(this.registerForm.password, 16),
+          password: this.$utils.md5(this.registerForm.password, 16),
         })
         if (res.code !== 10000) {
           return this.$message({
