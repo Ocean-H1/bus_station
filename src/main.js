@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import store from './store/store'
+// import VueAxios from "vue-axios";
+// Vue.use(VueAxios,axios)
 // 引入ElementUi
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
@@ -21,6 +23,7 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 // 全局挂载
 Vue.prototype.$utils = utils
+// Vue.prototype.$http = axios
 // 配置请求的根路径
 axios.defaults.baseURL = 'http://station.xuptdata.com'
 // 设置request拦截器，在请求之前添加sessionid，展示进度条
@@ -29,7 +32,7 @@ axios.interceptors.request.use(config => {
   NProgress.start()
   // 添加SessionId到请求头中
   config.headers.SessionId = window.sessionStorage.getItem('SessionId')
-  return config
+    return config
 })
 
 

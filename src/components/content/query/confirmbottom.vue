@@ -22,6 +22,7 @@
 <script>
 export default {
     name:'confirmbottom',
+  
     methods:{
         pay(){
             if(document.getElementById("zhifubao").checked){

@@ -32,6 +32,11 @@ export default {
 }
 </script>
 <style scoped>
+.query-header{
+  position: absolute;
+  left: 1.69rem;
+  top: 8rem;
+}
 .ticketquery {
   display: flex;
   overflow: hidden;
