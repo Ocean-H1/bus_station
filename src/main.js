@@ -18,8 +18,6 @@ import'nprogress/nprogress.css'
 // 引入公共js函数
 import utils from '@/utils/utils.js'
 
-
-
 Vue.config.productionTip = false
 // 全局挂载axios
 Vue.prototype.$http = axios
@@ -32,7 +30,6 @@ axios.defaults.baseURL = 'http://station.xuptdata.com'
 axios.interceptors.request.use(config => {
   // 展示进度条
   NProgress.start()
-  
   // 添加SessionId到请求头中
   config.headers.SessionId = window.sessionStorage.getItem('SessionId')
   return config
@@ -44,7 +41,6 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(config => {
   // 关闭进度条
   NProgress.done()
-  
   return config
 })
 new Vue({
