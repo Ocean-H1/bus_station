@@ -67,7 +67,6 @@
 						</div>
 					</div>
 				<td>
-				<input type="submit" value="购票" class="span_pr" @click="getticket" >
 		</td>
 				</div>
 
@@ -79,6 +78,13 @@ export default {
 		return{
 		
 		}
+	},
+	created:function(){
+		this.getShuttleList()
+	},
+	// 钩子函数，初始化页面完成以后，在对dom结点进行相关操作
+	mounted(){
+		window.getticket = this.getticket
 	},
 	methods:{
 		getticket(){
@@ -92,21 +98,18 @@ export default {
 			}
 		
         }
-			//  this.buy&&this.buy.clear()
     },
 		getShuttleList(){
-			this.axios({
-			method:'GET',
-			url:'http://station.xuptdata.com/query/shuttle/getShuttleList?start_region_id=1&final_region_id=10&shuttle_shift_date=2022-03-06',
-			params:{
-				
-			}
-		}).then(function(res){
+		this.$http.get(
+		'/query/shuttle/getShuttleList?start_region_id=1&final_region_id=10&shuttle_shift_date=2022-03-06',
+		).then(function(res){
 			if(res.data.code === 10000){
+				console.log(res);
 				var flow1 = document.querySelector('#flow1');
 				var flow2 = document.querySelector('#flow2');
 				flow2.innerHTML = ``
-				flow1.innerHTML =`<tr data-tname="城西客运站" class="tr sone" > <td height="42"  ><strong > ${res.data.data.flow_shuttle_list[0].start_station}
+				for(let i = 0;i < res.data.data.flow_shuttle_list.length;i++){
+                  flow1.innerHTML +=`<tr data-tname="城西客运站" class="tr sone" > <td height="42"  ><strong > ${res.data.data.flow_shuttle_list[0].start_station}
 			</strong></td>	
 		<td style="padding: 7px;"><strong>${res.data.data.flow_shuttle_list[0].shuttle_shift_time}</strong></td>
 		<td> ${res.data.data.flow_shuttle_list[0].start_region}</td>	
@@ -121,29 +124,22 @@ export default {
 		<td class="child"> ${res.data.data.flow_shuttle_list[0].unuse_child_ticket_quantity}</td>
         <td>
 			<span>
-				<input type="submit" value="购票" class="span_pr" @click="getticket" >
+				<input type="submit" value="购票" class="span_pr" onclick="getticket()" >
 	    </span>
 		</td>
 	</tr>
 		`
+				}
+				
 			}else{
 			alert(res.data.message)
 			}
-		}).catch(
+		}).catch(function(){
+
+		}
 		)
 		 }
 
-	},
-		created:function(){
-		this.getShuttleList()
-		window.getticket = this.getticket
-	},
-	// 钩子函数，初始化页面完成以后，在对dom结点进行相关操作
-	mounted(){
-		window.getticket = this.getticket
-	},
-	setup(){
-		window.getticket = this.getticket
 	}
 	
 }

@@ -22,18 +22,11 @@
 <script>
 export default {
     name:'confirmbottom',
+  
     methods:{
         pay(){
             if(document.getElementById("zhifubao").checked){
-                // this.$router.push('qrcode')
-                axios.get(
-                   'http://station.xuptdata.com/order/payOrder',
-                   {
-                       Headers:{
-                           
-                       }
-                   }
-                )
+                this.$router.push('qrcode')
             }
             else{
                 alert('请勾选支付方式');
