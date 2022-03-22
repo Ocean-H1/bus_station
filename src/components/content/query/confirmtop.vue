@@ -40,16 +40,18 @@
 				</ul>
                     </div>
                     <div class="list">
-                <ul>
-                    <li class="c0">宜宾市高速公路客运站</li>
-                    <li class="c3">自贡</li>
-                    <li class="c1">王星星（成人票）</li>
-                    <li class="c4">2022-02-18 08:00</li>
-                    <li class="c1">28.00</li>
+                <ul class="ago">
+                    <li class="c0" v-for="(item,index) in 1" :key="index">{{list.order_info[0].start_station}}</li>
+                    <li class="c3" v-for="(item,index) in 1" :key="index">{{list.order_info[0].final_station}}</li>
+                    <li class="c1" v-for="(item,index) in 1" :key="index">{{list.order_info[0].passenger_name}}</li>
+                    <li class="c4"  v-for="(item,index) in 1" :key="index">{{list.order_info[0].shuttle_shift_time}}</li>
+                    <li class="c1"  v-for="(item,index) in 1" :key="index">{{list.order_info[0].ticket_price}}</li>
                     <li class="c2">
-                        <font class="org">详情</font>
+                        <font class="org">
+                            <a href="javascript:;" @click="show">详情</a>
+                        </font>
                     </li>
-                </ul>
+                </ul>               
                     </div>
                 </dd>
             </dl>
@@ -61,15 +63,71 @@
                 </dt>
                 <dd>
                     <div class="money">
-                        <i>28.00(元)</i>
+                        <i v-for="(item,index) in 1" :key="index" class="item">{{list.master_total_amount}}</i>
                     </div>
                 </dd>
             </dl>
         </div>
+
 </template>
 <script>
 export default {
-    name:'confirmtop'
+    name:'confirmtop',
+    data(){
+      return {
+          list:{}
+      }
+    },
+    created(){
+    this.getinfomation();
+    },
+    computed: {
+       myObj: {
+          get:function(){
+        return this.list; // 在这里把临时对象的值通过计算属性赋值给页面中用到的对象
+        }
+    },
+},
+    methods:{
+            getinfomation(){
+            //读取本地的字符串数据
+            var getlocaldata = sessionStorage.getItem('localdata');
+            //显示内型，这个时候是字符串
+            console.log(typeof(getlocaldata));
+            //将字符串转换为json格式
+            var jsonobj = JSON.parse(getlocaldata);
+            //提取我们的数据
+            console.log(jsonobj);
+            this.list = jsonobj;
+            console.log(this.list);
+        },
+        show(){
+            var list = document.querySelector('.list');
+            var getlocaldata = sessionStorage.getItem('localdata');
+            console.log(typeof(getlocaldata));
+            var jsonobj = JSON.parse(getlocaldata);
+            console.log(jsonobj);
+            for(let i = 0;i<jsonobj.order_info.length;i++){
+                var ago = document.querySelector('.ago');
+                ago.style.display = 'none';
+                console.log(jsonobj.order_info.length)
+                list.innerHTML += `<ul style="display:flex;">
+                    <li  style="flex:1;color:ligthskyblue; font-size: 1rem;  line-height: 2.4375rem;  text-align: center;">${jsonobj.order_info[i].start_station}</li>
+                    <li style="flex:1;    
+ color:ligthskyblue; font-size: 1rem;  line-height: 2.4375rem;   text-align: center;"  >${jsonobj.order_info[i].final_station}</li>
+                    <li style="flex:1; 
+  color:ligthskyblue; font-size: 1rem;  line-height: 2.4375rem;   text-align: center;">${jsonobj.order_info[i].passenger_name}</li>
+                    <li style="flex:1;    
+color:ligthskyblue; font-size: 1rem;  line-height: 2.4375rem;   text-align: center;">${jsonobj.order_info[i].shuttle_shift_time}</li>
+                    <li style="flex:1;  
+ color:ligthskyblue; font-size: 1rem;  line-height: 2.4375rem;   text-align: center;">${jsonobj.order_info[i].ticket_price}</li>
+                <li style="flex:1;  
+ color:ligthskyblue; font-size: 1rem;  line-height: 2.4375rem;   text-align: center;"></li>
+                </ul>
+                `
+            }
+        }
+    }
 }
 </script>
 <style scoped>
@@ -78,6 +136,10 @@ export default {
     margin: 0;
     padding: 0;
      color: #444;
+}
+a{
+    text-decoration: none;
+    color: lightskyblue;
 }
 .left1{
     width: 12.25rem;
@@ -110,9 +172,9 @@ ul{
     list-style: none;
     display: block;
     line-height: 2.4375rem;
-    text-align: center;
-    color: #666;
     width: 10rem;
+     text-align: center;
+            color: #666;
 }
 .list{
     margin-top:.9rem ;

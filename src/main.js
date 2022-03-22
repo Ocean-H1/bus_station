@@ -3,8 +3,8 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import store from './store/store'
-import VueAxios from "vue-axios";
-Vue.use(VueAxios,axios)
+// import VueAxios from "vue-axios";
+// Vue.use(VueAxios,axios)
 // 引入ElementUi
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
@@ -32,7 +32,7 @@ axios.interceptors.request.use(config => {
   NProgress.start()
   // 添加SessionId到请求头中
   config.headers.SessionId = window.sessionStorage.getItem('SessionId')
-  return config
+    return config
 })
 
 
