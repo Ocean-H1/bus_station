@@ -2,18 +2,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import NProgress from 'nprogress'
 
-import Router from 'vue-router'
-Vue.use(Router)
 // 解决报错
-const originalPush = Router.prototype.push
-const originalReplace = Router.prototype.replace
+const originalPush = VueRouter.prototype.push
+const originalReplace = VueRouter.prototype.replace
 // push
-Router.prototype.push = function push (location, onResolve, onReject) {
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
   return originalPush.call(this, location).catch(err => err)
 }
 // replace
-Router.prototype.replace = function push (location, onResolve, onReject) {
+VueRouter.prototype.replace = function push (location, onResolve, onReject) {
   if (onResolve || onReject) return originalReplace.call(this, location, onResolve, onReject)
   return originalReplace.call(this, location).catch(err => err)
 }
@@ -36,6 +34,7 @@ const QRcode =() => import('../components/content/query/QRcode.vue')
 const Success =() => import('../views/success/success.vue')
 const Menglogin =()=>import('../components/content/mengceng/denglu.vue')
 const Yanzheng =()=>import('../components/content/mengceng/yanzheng.vue')
+
 Vue.use(VueRouter)
 
 

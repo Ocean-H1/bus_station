@@ -12,7 +12,7 @@
       <el-menu-item index="/advise">投诉建议</el-menu-item>
       <el-menu-item index="/about">关于我们</el-menu-item>
     </el-menu>
-    <router-view></router-view>
+    <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
