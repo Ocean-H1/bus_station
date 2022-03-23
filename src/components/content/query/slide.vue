@@ -56,8 +56,8 @@ export default {
     width: 10.5rem;
 }
 .sidebartop,.sidebarbottom{
-    width: 17.25rem;
-    height: 17.5rem;
+    /* width: 17.25rem;*/
+     height: 17.5rem;  
     border: .025rem solid #00618b;
 }
 .sidebarbottom{
@@ -107,7 +107,5 @@ dd{
     margin-top: 1.5rem;
 }
 
-.sidebarbottom{
-      width: 17.25rem;
-}
+
 </style>

@@ -97,7 +97,6 @@ export default {
           // 将后台返回的二进制图片流转换
           const myBlob = new window.Blob([res.data], { type: 'image/png' })
           this.codeImgUrl = window.URL.createObjectURL(myBlob)
-
           // 保存sessionid
           window.sessionStorage.setItem('SessionId', res.headers['session-id'])
         })
