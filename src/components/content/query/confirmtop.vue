@@ -99,7 +99,6 @@ export default {
             //提取我们的数据
             console.log(jsonobj);
             this.list = jsonobj;
-            console.log(this.list);
         },
         show(){
             var list = document.querySelector('.list');

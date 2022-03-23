@@ -80,66 +80,36 @@ export default {
 		}
 	},
 	created:function(){
-		this.getShuttleList()
 	},
 	// 钩子函数，初始化页面完成以后，在对dom结点进行相关操作
 	mounted(){
 		window.getticket = this.getticket
+
 	},
 	methods:{
-		getticket(){
+		getticket(e){
+		var str = e.className;
+       var j =  str.substr(4,1)
+	   this.$http.get(
+		'/query/shuttle/getShuttleList?start_region_id=1&final_region_id=10&shuttle_shift_date=2022-03-06',
+		).then(function(res){
+			//转换成字符串
+			var strinfomation = JSON.stringify(res.data.data.flow_shuttle_list[j]);
+//存起来
+			window.sessionStorage.setItem('locadata',strinfomation)
+		})
 		var result = confirm("温馨提示：购票后请到窗口办理取票!");
 		if(result===true){
 			if(this.$store.state.isLogin===1){
              this.$router.push({path:'placeorder'});
 			}else{
 				alert('请先登陆');
-				window.open('http://localhost:8080/login');
+				this.$router.push({path:'login'});
 			}
 		
         }
     },
-		getShuttleList(){
-		this.$http.get(
-		'/query/shuttle/getShuttleList?start_region_id=1&final_region_id=10&shuttle_shift_date=2022-03-06',
-		).then(function(res){
-			if(res.data.code === 10000){
-				console.log(res);
-				var flow1 = document.querySelector('#flow1');
-				var flow2 = document.querySelector('#flow2');
-				flow2.innerHTML = ``
-				for(let i = 0;i < res.data.data.flow_shuttle_list.length;i++){
-                  flow1.innerHTML +=`<tr data-tname="城西客运站" class="tr sone" > <td height="42"  ><strong > ${res.data.data.flow_shuttle_list[0].start_station}
-			</strong></td>	
-		<td style="padding: 7px;"><strong>${res.data.data.flow_shuttle_list[0].shuttle_shift_time}</strong></td>
-		<td> ${res.data.data.flow_shuttle_list[0].start_region}</td>	
-	    <td><strong> ${res.data.data.flow_shuttle_list[0].final_region}</strong></td> 
-		<td>
-			<strong> ${res.data.data.flow_shuttle_list[0].shuttle_shift_type}</strong>
-		</td>
-		<td> ${res.data.data.flow_shuttle_list[0].full_lenght}</td>	 
-		<td> ${res.data.data.flow_shuttle_list[0].car_model}</td>	
-		<td><strong> ${res.data.data.flow_shuttle_list[0].ticket_price}</strong></td>	 
-		<td> ${res.data.data.flow_shuttle_list[0].unuse_ticket_quantity}</td>
-		<td class="child"> ${res.data.data.flow_shuttle_list[0].unuse_child_ticket_quantity}</td>
-        <td>
-			<span>
-				<input type="submit" value="购票" class="span_pr" onclick="getticket()" >
-	    </span>
-		</td>
-	</tr>
-		`
-				}
-				
-			}else{
-			alert(res.data.message)
-			}
-		}).catch(function(){
-
-		}
-		)
-		 }
-
+		
 	}
 	
 }

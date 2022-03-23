@@ -4,7 +4,6 @@
         <step></step>
 <!-- 购买的车票信息 -->
  <!-- @submit.prevent="submit($event)"  -->
-<form action="" >
 <div class="message">
     <div class="sa">
         <!-- <font> 规定文本的字体、字体尺寸、字体颜色 -->
@@ -15,23 +14,31 @@
         </em>
     </div>
     <div class="chose">
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tbody >
-                <tr class="fonw">
+        <table width="100%"   border="0" cellspacing="0" cellpadding="0">
+                <tr class="fonw1">
                     <td height="38" class="c1 c2" width="14%">发车时间</td>
                     <td width="21%" class="c1 c2">始发站</td>
                     <td width="21%" class="c1 c2">目的站</td>
                     <td width="8%" class="c1 c2">全价(元)</td>
-                    <td width="8%" class="c1 c2">半价(元)</td>
+                    <td width="8%" class="c1 c2">车程时间</td>
                     <td width="8%" class="c1 c2">剩余票数</td>
                     <td width="6%" class="c1 c2">班次类型</td>
                     <td width="8%" class="c1 c2">里程</td>
                     <td width="8%" class="c2">车型</td>
                 </tr>
-            </tbody>
-            <tbody class="xianshi">
-
-            </tbody>
+          <tr class="fonw2">
+                    <td  width="14%" v-for="(item,index) in 1 " :key="index">
+                   {{list.shuttle_shift_time}}</td>
+                    <td width="21%">{{list.start_region}}</td>
+                    <td width="21%">{{list.final_region}}</td>
+                    <td width="6%">{{list.ticket_price}}</td>
+                    <td width="6%">{{list.duration}}</td>
+                    <td width="6%">{{list.unuse_ticket_quantity}}</td>
+                    <td width="6%">{{list.shuttle_shift_type}}</td>
+                    <td width="8%">{{list.full_lenght}}</td>
+                    <td width="8%">{{list.car_model}}</td>
+                </tr>
+            <!-- </tbody> -->
         </table>
     </div>
       <!-- 联系人信息 -->
@@ -50,13 +57,13 @@
           <ul class="link1">
               <li>姓名
                   <span>*&nbsp;</span>
-                  <input type="text" id="name" name="contact_person_name" class="bt1" @blur ="getname()">
+                  <input type="text" id="name" @blur="lose1" name="contact_person_name" class="bt1">
                   <div id="pleasename" style="display:none;color:red;margin-left:2.7rem">请输入姓名</div>
               </li>
               <li>
                   手机
                    <span>*&nbsp;</span>
-                  <input type="text" name="contact_person_phone_number" class="bt2" id="phone">
+                  <input type="text" name="contact_person_phone_number" @blur="lose2" class="bt2" id="phone">
               </li>
               <li>
                   邮箱
@@ -115,7 +122,7 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="passenger_name" class="bt3">
+                        <input type="text" name="passenger_name" class="bt3" @blur="lose3">
                     </td>
                     <td>
                          <select>
@@ -125,7 +132,7 @@
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="passenger_card_number" class="bt4">
+                        <input type="text" name="passenger_card_number" @blur="lose4" class="bt4">
                     </td>
                     <td>
                         <input type="checkbox" name="buying_insurance" >
@@ -194,7 +201,6 @@
 </div>
 </div>
 </div>
-</form>
 </div>
 <div class="sidebar">
 					<div class="mar">
@@ -211,7 +217,6 @@
 						</p>
 					</div>
 				</div>
-                <input type="button" value="取消订单">
 </div>
 </template>
 <script>
@@ -225,15 +230,20 @@ export default {
                 {id:'tr4',show:false,content:"内容3"},
                 {id:'tr5',show:false,content:"内容4"}
             ],
-            infomation:[
-
-            ],
+            list:{}
         }
     },
     name:'placeorder',
     components:{
         step
     },
+    computed:{
+    myObj: {
+          get:function(){
+        return this.list; 
+        }
+    },
+},
     created(){
 		 	this.linkperson();
             this.passenger();
@@ -242,37 +252,20 @@ export default {
     mounted(){
     window.dian = this.dian; 
     },
-    methods:{
-       
-        //车票信息没有接口,暂时用上个页面请求的接口
+    methods:{     
+        //用上个页面请求的接口保存的数据
         getShuttleList(){
-		this.$http.get(
-		'/query/shuttle/getShuttleList?start_region_id=1&final_region_id=10&shuttle_shift_date=2022-03-06',
-		).then(function(res){
-			if(res.data.code === 10000){
-				var xianshi = document.querySelector('.xianshi');
-                  xianshi.innerHTML =`<tr>
-                    <td height="55" width="14%">
-                    ${res.data.data.flow_shuttle_list[0].shuttle_shift_time}
-                    </td>
-                    <td width="21%">${res.data.data.flow_shuttle_list[0].start_region}</td>
-                    <td width="21%">${res.data.data.flow_shuttle_list[0].final_region}</td>
-                    <td width="6%">${res.data.data.flow_shuttle_list[0].ticket_price}</td>
-                    <td width="6%">${res.data.data.flow_shuttle_list[0].ticket_price}</td>
-                    <td width="6%">${res.data.data.flow_shuttle_list[0].unuse_ticket_quantity}</td>
-                    <td width="6%">
-                        ${res.data.data.flow_shuttle_list[0].shuttle_shift_type}</td>
-                    <td width="8%">${res.data.data.flow_shuttle_list[0].ticket_price}</td>
-                    <td width="8%">${res.data.data.flow_shuttle_list[0].shuttle_shift_type}</td>
-                </tr>
-		`		
-			}else{
-			alert(res.data.message)
-			}
-		}).catch(function(){
+            //拿到数据
+         var locadata = window.sessionStorage.getItem('locadata')
+         console.log(1)
+         console.log(locadata)
+            //转换格式
+           var locadata = JSON.parse(locadata);
 
-		}
-		)},
+            //赋值
+            this.list  =  locadata;
+            console.log(this.list)
+	    },
         //点击按钮将数据填入文本框
         dian(e){
       var str = e.className;
@@ -288,6 +281,7 @@ export default {
             var  phone = document.querySelector('#phone');
             var email = document.querySelector('#email');
 
+
             var addinputs = document.getElementsByTagName('input');
             for (var k = 0;k<addinputs.length;k++){
                 if(addinputs[k].getAttribute('id') == 'kiki'){
@@ -298,7 +292,6 @@ export default {
       for(let i = 0;i<res.data.data.contact_person_list.length;i++){
         if(res.data.data.contact_person_list[j].name === res.data.data.contact_person_list[i].name){
          window.sessionStorage.setItem('contact_person_id',res.data.data.contact_person_list[j].contact_person_id)
-        //  console.log(window.sessionStorage.getItem('contact_person_id'));
          name.value =  res.data.data.contact_person_list[i].name;
          phone.value =  res.data.data.contact_person_list[i].phone;
          email.value =  res.data.data.contact_person_list[i].email;
@@ -334,6 +327,8 @@ export default {
                	"card_type": "身份证"		
 				}
 			).then(function(res){
+                console.log(1)
+                console.log(res)
         var chengcheren = document.querySelector('.chengcheren');
       for(let i = 0;i<res.data.data.contact_person_list.length;i++){
         chengcheren.innerHTML += `<input type="checkbox"  class="addinput${i}"><li style="margin:-5px 10px 0px 2px">${res.data.data.contact_person_list[i].name}</li>`
@@ -360,54 +355,55 @@ export default {
          }
         },
         //实现两个文本框名字同步
-        getname(){
-            var bt1 = document.querySelector('.bt1');
-            var bt3 = document.querySelector('.bt3');
-            if(bt1.value !== ''){
-                bt3.value = bt1.value;
+    lose1(){
+        var bt1 = document.querySelector('.bt1');
+        var bt3 = document.querySelector('.bt3')
+         if(bt1.value === ''){
+              alert('姓名不能为空');
+        }else{
+            bt3.value = bt1.value;
+        }
+    },
+    lose2(){
+         var bt2 = document.querySelector('.bt2');
+                   if(bt2.value === ''){
+               alert('号码不能为空');
+         }else{
+             var reg = /^1[3456789]\d{9}$/;
+             if(!reg.test(bt2.value)){
+                 alert('请输入正确的手机号');
+             }
+         }
+    },
+    lose3(){
+        var bt3 = document.querySelector('.bt3');
+       if(bt3.value === ''){
+              alert('姓名不能为空');
+        }
+    },
+    lose4(){
+        var bt4 = document.querySelector('.bt4');
+                  if(bt4.value === ''){
+              alert('身份证不能为空');
+        }else{
+            var re =  /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+            if(!re.test(bt4.value)){
+                alert('请输入正确的身份证号码');
             }
+        }
     },
     //点击提交按钮，判断书写格式，获取id,提交信息
     submit(){
-//         var bt1 = document.querySelector('.bt1');
-//         var bt2 = document.querySelector('.bt2');
-//         var bt3 = document.querySelector('.bt3');
-//         var bt4 = document.querySelector('.bt4');
-//         var bt5 = document.querySelector('.bt5');
-//         var flag = 1;
-// //innerHTML： 设置或获取元素内的所有子节点（包括标签、注释和文本节点）
-//         if(bt1.value === ''){
-//               alert('姓名不能为空');
-//         }else{
-//             bt3.value = bt1.value;
-//         }
-//           if(bt2.value === ''){
-//               alert('号码不能为空');
-//         }else{
-//             var reg = /^1[3456789]\d{9}$/;
-//             if(!reg.test(bt2.value)){
-//                 alert('请输入正确的手机号');
-//             }
-//         }
-//           if(bt3.value === ''){
-//               alert('姓名不能为空');
-//         }
-//           if(bt4.value === ''){
-//               alert('身份证不能为空');
-//         }else{
-//             var re =  /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
-//             if(!re.test(bt4.value)){
-//                 alert('请输入正确的身份证号码');
-//             }
-//         }
-
-        // if(bt5.checked){
-            //如果本地有存储信息，直接将信息赋给本地，本地是字符串，转换格式
-            // var storge = sessionStorage.getItem("infomation");
-            //         if(storge){
-            //             this.infomation = JSON.parse(this.infomation);
-            //          console.log(this.infomation);
-            //         }else{
+        var vm = this;
+        var bt1 = document.querySelector('.bt1');
+        var bt2 = document.querySelector('.bt2');
+        var bt3 = document.querySelector('.bt3');
+        var bt4 = document.querySelector('.bt4');
+        var bt5 = document.querySelector('.bt5');
+        // //innerHTML： 设置或获取元素内的所有子节点（包括标签、注释和文本节点）
+     if( (bt1.value && bt2.value && bt3.value && bt4.value) == null||bt5.checked == false){
+         alert('请完善信息或者仔细阅读购票须知后勾选');
+     }else{      
             if(window.sessionStorage.getItem('contact_person_id')){
                 var id = window.sessionStorage.getItem('contact_person_id');
                 console.log(id);
@@ -444,31 +440,25 @@ export default {
             ).then(function(res){
            //保存master_order_number
  window.sessionStorage.setItem('master_order_number',res.data.data.master_order_number);
-        console.log(window.sessionStorage.getItem('master_order_number'))
          //打印联系人id
    console.log('id'+window.sessionStorage.getItem('contact_person_id'));
             //结束一次，设置id为空
             window.sessionStorage.setItem('contact_person_id',null);
-              console.log("填写信息")
                     console.log(res);
                 //成功保存数据
                     var code = res.data.code;
                     console.log(res.data.code);
                     if(code == 10000){
                 //转换成字符串键值对存储在数组中
-         console.log(res.data.data +'我是返回来需要保存的数据');
       var strinfomation = JSON.stringify(res.data.data);
                 //保存在infomation中
         sessionStorage.setItem("localdata",strinfomation)
-    console.log(sessionStorage.getItem("localdata"));
+        vm.$router.push({path:'confirm'});
              }     
                 }
             )
-        // }else{
-        //    alert("请先阅读购票须知，进行勾选");
-        // }
-        // this.$router.push('Menglogin')
-    },
+    }
+     },
      cancel(){
                this.$http.get(
         //   '/order/cancelOrder?master_order_number=610100XPO2200000090202',
@@ -492,9 +482,7 @@ export default {
     padding: 0;
     font-family: "Microsoft YaHei",\5fae\8f6f\96c5\9ed1,arial,\5b8b\4f53;
 }
-.add{
 
-}
 .delete{
     position: relative;
     left: 32.5rem;
@@ -514,7 +502,6 @@ tr{
 .sidebar{
     color: #444;
     width: 17.25rem;
-    /* border: 1px solid #e0e0e0; */
     margin-left: 1.5rem;
     margin-top:1rem;
 }
@@ -596,15 +583,14 @@ ul li{
 span{
     color: red;
 }
-.riding{
-    width: 53.75rem;
+.riding,.border{
+    width: 100%;
 }
 input{
     outline: none;
 }
 .riding .newpassenger{
-    width: 53.2rem;
-    /* border: 1px solid #e1e1e1; */
+    width: 100%;
     background: #f6f9fe;
     margin:.25rem .0625rem .25rem;
 }
@@ -612,6 +598,7 @@ input{
     clear: both;
     background: #f6f9fe;
     margin:2rem .0625rem .8rem;
+    width: 100%;
 }
 .please h3{
     color:#2577e3;
@@ -624,6 +611,26 @@ table{
     border-spacing: 0;
 }
 
+tr{
+    font-size: 12px;
+    line-height: 20px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: center;
+    color: #666;
+}
+.fonw1{
+font-weight: 600;
+}
+.fonw1 td,.fonw2 td{
+    /* border: .3px solid #596289; */
+    box-shadow:lightblue 1px 1px;
+}
+.fonw2{
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+}
 th{
    
     /* border: solid #cfccbd 1px; */
@@ -666,13 +673,24 @@ a{
     display: flex;
 }
 .left{
-    flex: 1;
+    flex: 3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.left .message{
+    width: 100%;
+}
+.left .message .link{
+        width: 100%;
+}
+.left .message .link .bottom{
     width: 100%;
 }
 .sidebar{
     flex:1;
     border: .0125rem solid #CCCCCC;
-    padding: 1.025rem;
+    /* padding: 1.025rem; */
 }
 
 </style>
