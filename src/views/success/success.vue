@@ -4,7 +4,7 @@
    
     <div class="content">
         <p>
-            取票验证码：<span class="confirm">1111111</span>
+            取票验证码：<span class="confirm" v-for="(item,index) in 1" :key="index">{{list.ride_code}}</span>
         </p>
         <p>
             验证码已发送至联系人手机/邮箱，请凭验证码或乘车人身份证取票。
@@ -46,7 +46,7 @@
          <p>3.非节假日，建议在
              <font style="color:red">发车前1小时</font>取票</p>
          <p>4.节假日，建议在<font style="color:red">发车前2小时</font>取票</p>
-         <p>5.为了保护你的信息安全60秒后自动返回个人中心</p>
+         <p>5.为了保护你的信息安全 <span style="color:blue; font-size:2rem" >{{count}}</span> 秒后自动返回个人中心</p>
      </div>
    </div>
     </div>
@@ -54,7 +54,63 @@
 </template>
 <script>
 export default {
-    name:'success'
+    name:'success',
+    data(){
+        return{
+            list:{},
+            count:''
+        }
+    },
+    created(){
+   this.ridecode();
+   this.countdown();
+    },
+computed: {
+    myObj: {
+      get: function () {
+        return this.list // 在这里把临时对象的值通过计算属性赋值给页面中用到的对象
+      },
+    },
+  },
+    methods:{ 
+    //实现页面倒计时
+        countdown(){
+       const timecount = 60;
+       if(!this.timer){
+           this.count = timecount;
+           this.timer = setInterval(() => {
+               if(this.count > 1 && this.count <= timecount){
+                   this.count--;
+               }else{
+                   clearInterval(this.timer);
+                   this.timer = null;
+                   this.$router.push('person')
+               }
+           },1000)
+       }
+        },
+        ridecode(){
+        var vm = this; 
+            this.$http.get(
+                '/order/getRideCode?master_order_number='+ window.sessionStorage.getItem('master_order_number'),
+                ).then(function(res){
+                    //打印主订单号
+       console.log(window.sessionStorage.getItem('master_order_number'));
+                    console.log(res);
+                    //将信噺转换成字符串
+        var strinfomation = JSON.stringify(res.data.data)
+       sessionStorage.setItem("infomation",strinfomation)
+        //打印信息
+    console.log(window.sessionStorage.getItem('infomation'));
+         //拿到信息
+        var infomation = sessionStorage.getItem('infomation');
+            //将字符串转换为json格式
+            var jsonobj = JSON.parse(infomation);
+            //提取我们的数据
+            vm.list = jsonobj;
+        })
+        }
+    }
 }
 </script>
 <style scoped>

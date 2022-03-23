@@ -117,7 +117,8 @@ export default {
   font-size: 1.25rem;
 }
 .query-header {
-  width: 53.75rem;
+  /* width: 53.75rem; */
+  width: 100%;
 }
 /* 通过类名，用到style有scoped中 */
 /* .el-tabs__item :hover{
