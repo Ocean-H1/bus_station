@@ -60,6 +60,7 @@ export default {
             })
         })
       }, 1000)
+      
       //hook同一个组件不想在写一个beforeDestory函数，父组件监听子组件@hook:mounted="函数名"
       this.$once('hook:beforeDestory', () => {
         clearInterval(timer)
