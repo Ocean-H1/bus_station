@@ -9,12 +9,20 @@
           <span class="text">购票时间:</span>
           <div class="start-time time">
             <span>从</span>
-            <el-date-picker v-model="start_time" type="date" placeholder="选择日期">
+            <el-date-picker
+              v-model="start_time"
+              type="date"
+              placeholder="选择日期"
+            >
             </el-date-picker>
           </div>
           <div class="start-time time">
             <span>到</span>
-            <el-date-picker v-model="end_time" type="date" placeholder="选择日期">
+            <el-date-picker
+              v-model="end_time"
+              type="date"
+              placeholder="选择日期"
+            >
             </el-date-picker>
           </div>
           <div class="btn">
@@ -22,7 +30,64 @@
           </div>
         </div>
         <div class="result">
-          <el-table :data="[]" style="width: 100%">
+          <el-table
+            :data="tableData"
+            style="width: 100%"
+            :header-cell-style="{ textAlign: 'center' }"
+            :cell-style="{ textAlign: 'center' }"
+            row-key="order_id"
+            border
+            lazy
+            :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+          >
+            <el-table-column
+              prop="master_order_number"
+              label="订单号"
+              width="240"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="shuttle_shift_time"
+              label="发车时间"
+              width="180"
+            >
+            </el-table-column>
+            <el-table-column prop="total_amount" label="价钱">
+            </el-table-column>
+            <el-table-column prop="order_status" label="状态">
+            </el-table-column>
+            <el-table-column prop="start_region" label="始发地">
+            </el-table-column>
+            <el-table-column prop="final_region" label="到达地">
+            </el-table-column>
+            <el-table-column label="操作" width="180">
+              <template slot-scope="row">
+                <el-button
+                  type="primary"
+                  size="small"
+                  @click="handleEdit(row.$index)"
+                  style="margin-right: 10px;"
+                >
+                  支付
+                </el-button>
+                <!-- <el-button
+                  type="danger"
+                  size="small"
+                  @click="handleCancel(row.row.master_order_number)"
+                >
+                  取消
+                </el-button> -->
+                <el-popconfirm
+                  title="是否确认取消？"
+                  icon="none"
+                  @confirm="handleCancel(row.row.master_order_number)"
+                >
+                  <el-button slot="reference" size="small" type="danger"
+                  >退票</el-button
+                  >
+                </el-popconfirm>
+              </template>
+            </el-table-column>
           </el-table>
           <div class="toggle">
             <el-button>上一页</el-button>
@@ -45,8 +110,52 @@ export default {
     return {
       start_time: '',
       end_time: '',
+      tableData: [],
     }
-  }
+  },
+
+  mounted() {
+    this._getOrderInfo({ order_status: 'arrearage' })
+  },
+
+  methods: {
+    handleCancel(orderID){
+      console.log(orderID);
+      this._cancelOrder({master_order_number: orderID})
+    },
+
+    _cancelOrder(params) {
+      this.$http
+        .request({
+          url: '/order/cancelOrder',
+          method: 'get',
+          params,
+        })
+        .then((result) => {
+          console.log(result.data)
+          if (result.data.code === 10000) {
+          }
+        })
+    },
+
+    _getOrderInfo(params) {
+      this.$http
+        .request({
+          url: '/order/getOrderInfo',
+          method: 'get',
+          params,
+        })
+        .then((result) => {
+          console.log(result.data)
+          if (result.data.code === 10000) {
+            result.data.data.order_list.forEach((element) => {
+              element.children = []
+            })
+            this.tableData = result.data.data.order_list
+          }
+        })
+    },
+  },
 }
 </script>
 

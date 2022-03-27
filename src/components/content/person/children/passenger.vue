@@ -4,15 +4,30 @@
       <div class="cards-header">常用乘车人</div>
       <div class="cards-body">
         <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="date" label="序号" width="180">
+          <el-table-column prop="index" label="序号" width="180">
           </el-table-column>
           <el-table-column prop="name" label="姓名" width="180">
           </el-table-column>
-          <el-table-column prop="address" label="证件类型">
-          </el-table-column>
-          <el-table-column prop="address" label="证件号码">
+          <el-table-column prop="card_type" label="证件类型"></el-table-column>
+          <el-table-column prop="card_number" label="证件号码">
           </el-table-column>
           <el-table-column prop="address" label="操作">
+            <template slot-scope="row">
+              <el-button
+                type="primary"
+                size="small"
+                @click="handleEdit(row.$index)"
+              >
+                修改
+              </el-button>
+              <el-button
+                type="danger"
+                size="small"
+                @click="handleDelete(row.$index)"
+              >
+                删除
+              </el-button>
+            </template>
           </el-table-column>
         </el-table>
         <div class="btns">
@@ -39,17 +54,42 @@
                 <el-input v-model="form.idNumber"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button style="width: 100%;" type="danger">提交</el-button>
+                <el-button style="width: 100%;" type="danger" @click="submit"
+                  >提交</el-button
+                >
               </el-form-item>
             </el-form>
           </div>
         </div>
       </div>
+      <el-dialog :visible.sync="isShowEdit" width="30%">
+        <el-form ref="form" :model="form" label-width="100px">
+          <el-form-item label="姓 名">
+            <el-input v-model="form.name"></el-input>
+          </el-form-item>
+          <el-form-item label="证件类型">
+            <el-select v-model="form.power" placeholder="请选择">
+              <el-option value="身份证">身份证</el-option>
+              <el-option value="军人证">军人证</el-option>
+              <el-option value="护照">护照</el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="证件号">
+            <el-input v-model="form.idNumber"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="isShowEdit = false">取 消</el-button>
+          <el-button type="primary" @click="handleSave">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
+import { Message } from 'element-ui'
+
 export default {
   data () {
     return {
@@ -57,11 +97,133 @@ export default {
       isShow: false,
       form: {
         name: '',
-        power: '',
+        power: '身份证',
         idNumber: '',
       },
+      isShowEdit: false,
     }
-  }
+  },
+
+  mounted() {
+    this._getUserInfo()
+  },
+
+  methods: {
+    handleEdit(index) {
+      this.passenger_id = this.tableData[index].passenger_id
+      this.isShowEdit = true
+      this.form = {
+        power: this.tableData[index].card_type,
+        name: this.tableData[index].name,
+        idNumber: this.tableData[index].card_number,
+      }
+    },
+
+    handleDelete(index) {
+      this._delete({ passenger_id: this.tableData[index].passenger_id }, index)
+    },
+
+    handleSave() {
+      const {
+        form: { name, power, idNumber },
+      } = this
+      if (!name) {
+        Message.error('姓名不能为空')
+        return
+      } else if (!idNumber) {
+        Message.error('证件号不能为空')
+        return
+      } else {
+        this._edit({
+          name,
+          card_number: idNumber,
+          card_type: power,
+          passenger_id: this.passenger_id,
+        })
+      }
+    },
+
+    submit() {
+      const {
+        form: { name, power, idNumber },
+      } = this
+      if (!name) {
+        Message.error('姓名不能为空')
+        return
+      } else if (!idNumber) {
+        Message.error('证件号不能为空')
+        return
+      } else {
+        this._add({
+          name,
+          card_number: idNumber,
+          card_type: power,
+        })
+      }
+    },
+
+    _delete(params, index) {
+      this.$http
+        .request({
+          url: '/userCenter/deletePassager',
+          method: 'get',
+          params,
+        })
+        .then((result) => {
+          console.log(result.data)
+          if (result.data.code === 10000) {
+            Message.success('删除成功')
+            this.tableData.splice(index, 1)
+          }
+        })
+    },
+
+    _add(data) {
+      this.$http
+        .request({
+          url: '/userCenter/addPassager',
+          method: 'post',
+          data,
+        })
+        .then((result) => {
+          console.log(result.data)
+          if (result.data.code === 10000) {
+            Message.success('添加成功')
+            this.isShow = false
+          }
+        })
+    },
+
+    _edit(data) {
+      this.$http
+        .request({
+          url: '/userCenter/modifyPassager',
+          method: 'post',
+          data,
+        })
+        .then((result) => {
+          console.log(result.data)
+          if (result.data.code === 10000) {
+            Message.success('修改成功')
+            this.isShowEdit = false
+            this._getUserInfo()
+          }
+        })
+    },
+
+    // 获取乘车人列表
+    _getUserInfo() {
+      this.$http
+        .request({
+          url: '/userCenter/getPassagers',
+          method: 'get',
+        })
+        .then((result) => {
+          console.log(result.data.data.passager_list)
+          this.tableData = result.data.data.passager_list
+        })
+    },
+  },
 }
 </script>
 

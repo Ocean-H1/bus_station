@@ -16,7 +16,9 @@
             </el-form-item>
 
             <el-form-item>
-              <el-button style="width: 100%;" type="danger">提交</el-button>
+              <el-button style="width: 100%;" type="danger" @click="clickSubmit"
+                >提交</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -26,6 +28,8 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
+
 export default {
   data () {
     return {
@@ -35,7 +39,44 @@ export default {
         check_Pwd:'',
       },
     }
-  }
+  },
+
+  methods: {
+    clickSubmit() {
+      const { oldPwd, pwd, check_pwd } = this.form
+      if (!oldPwd || !pwd || !check_pwd) {
+        console.log(!oldPwd, !pwd, !check_pwd)
+        Message.error('密码不能为空')
+        return
+      } else if (oldPwd == pwd) {
+        Message.error('不能与原密码相同')
+        return
+      } else if (pwd != check_pwd) {
+        Message.error('新密码不一致')
+        return
+      } else {
+        this._setPassword({
+          old_password: this.$utils.md5(oldPwd, 16),
+          password: this.$utils.md5(pwd, 16),
+        })
+      }
+    },
+
+    // 设置密码
+    _setPassword(data) {
+      this.$http
+        .request({
+          url: '/userCenter/modifyPassword',
+          method: 'POST',
+          data,
+        })
+        .then((res) => {
+          if (res.data.code === 10000) {
+            Message.success(res.data.message)
+          }
+        })
+    },
+  },
 }
 </script>
 
