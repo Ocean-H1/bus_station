@@ -16,27 +16,27 @@
             <section>
               <div class="left">
                 <span class="name">用户名:</span>
-                <span class="result">17629100892</span>
+                <span class="result">{{ userInfo.phone_number }}</span>
               </div>
               <div class="right">
                 <span class="name">真实姓名:</span>
-                <span class="result">未添加</span>
+                <span class="result">{{ userInfo.name }}</span>
               </div>
             </section>
             <section>
               <div class="left">
                 <span class="name">性&nbsp;&nbsp;&nbsp;&nbsp;别:</span>
-                <span class="result">男</span>
+                <span class="result">{{ userInfo.sex }}</span>
               </div>
               <div class="right">
                 <span class="name">证件类型:</span>
-                <span class="result">未添加</span>
+                <span class="result">{{ userInfo.card_type }}</span>
               </div>
             </section>
             <section>
               <div class="left">
                 <span class="name">证件号:</span>
-                <span class="result">17629100892</span>
+                <span class="result">{{ userInfo.card_number }}</span>
               </div>
             </section>
           </div>
@@ -44,7 +44,7 @@
             <section>
               <div class="left">
                 <span class="name">用户名:</span>
-                <span class="result">17629100892</span>
+                <span class="result">{{ userInfo.phone_number }}</span>
               </div>
               <div class="right">
                 <span class="name">真实姓名:</span>
@@ -83,7 +83,7 @@
             </section>
             <section>
               <div class="right">
-                <el-button type="danger">确定</el-button>
+                <el-button type="danger" @click="clickConfirm">确定</el-button>
                 <el-button type="info">取消</el-button>
               </div>
             </section>
@@ -100,7 +100,7 @@
             <section>
               <div class="left">
                 <span class="name">手机:</span>
-                <span class="result">17629100892</span>
+                <span class="result">18082509082</span>
               </div>
               <div class="right">
                 <span class="name">已绑定:</span>
@@ -139,16 +139,63 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
+
 export default {
   data () {
     return {
       isShow: false,
-      sex: 1,
+      sex: '',
       name: '',
       power: '',
       idNumber: '',
+      userInfo: {},
     }
-  }
+  },
+  mounted() {
+    this._getUserInfo()
+  },
+
+  methods: {
+    clickConfirm() {
+      const { sex, name, idNumber, power, userInfo } = this
+      const params = {
+        name: name || userInfo.name,
+        card_number: idNumber || userInfo.card_number,
+        sex: sex == 1 ? '男' : sex == 2 ? '女' : '保密' || userInfo.sex,
+        card_type: power || userInfo.card_type,
+      }
+      this._setUserInfo(params)
+    },
+
+    // 获取用户信息
+    _getUserInfo() {
+      this.$http
+        .request({
+          url: '/userCenter/getProfile',
+          method: 'get',
+        })
+        .then((result) => {
+          this.userInfo = result.data.data.profileInfo
+        })
+    },
+
+    // 设置用户信息
+    _setUserInfo(data) {
+      this.$http
+        .request({
+          url: '/userCenter/modifyProfile',
+          method: 'POST',
+          data,
+        })
+        .then((res) => {
+          if (res.data.code === 10000) {
+            this.isShow = false
+            Message.success(res.data.message)
+          }
+        })
+    },
+  },
 }
 </script>
 
