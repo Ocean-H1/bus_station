@@ -220,7 +220,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes,
   // 通过路由跳转页面后，窗口始终位于页面顶部
