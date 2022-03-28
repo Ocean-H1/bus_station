@@ -6,13 +6,13 @@
         <div class="form">
           <el-form ref="form" :model="form" label-width="100px">
             <el-form-item label="原  密  码">
-              <el-input v-model="form.oldPwd"></el-input>
+              <el-input v-model="form.oldPwd" :show-password="true"></el-input>
             </el-form-item>
             <el-form-item label="新  密  码">
-              <el-input v-model="form.pwd"></el-input>
+              <el-input v-model="form.pwd" :show-password="true"></el-input>
             </el-form-item>
             <el-form-item label="新密码确认">
-              <el-input v-model="form.check_pwd"></el-input>
+              <el-input v-model="form.check_pwd" :show-password="true"></el-input>
             </el-form-item>
 
             <el-form-item>
@@ -37,7 +37,7 @@ export default {
         oldPwd:'',
         pwd:'',
         check_Pwd:'',
-      },
+      }
     }
   },
 

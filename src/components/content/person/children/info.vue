@@ -34,10 +34,10 @@
               </div>
             </section>
             <section>
-              <div class="left">
-                <span class="name">证件号:</span>
-                <span class="result">{{ userInfo.card_number }}</span>
-              </div>
+                <div class="left">
+                  <span class="name">证件号:</span>
+                  <span class="result">{{ userInfo.card_number }}</span>
+                </div>
             </section>
           </div>
           <div v-show="isShow" class="change inputs">
@@ -159,6 +159,7 @@ export default {
   methods: {
     clickConfirm() {
       const { sex, name, idNumber, power, userInfo } = this
+      console.log(this.userInfo, { sex, name, idNumber, power, userInfo } )
       const params = {
         name: name || userInfo.name,
         card_number: idNumber || userInfo.card_number,
@@ -191,6 +192,7 @@ export default {
         .then((res) => {
           if (res.data.code === 10000) {
             this.isShow = false
+            this._getUserInfo()
             Message.success(res.data.message)
           }
         })
