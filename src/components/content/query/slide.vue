@@ -9,13 +9,13 @@
 								<dl>
 									<dd class="clearfix">
 										<span class="txt">出发城市:</span> <span class="list">
-                                         <input class="max" id="bookStartCityName" name="cityName" type="text" autocomplete="off" maxlength="20" value="宜宾市" placeholder="中文/拼音">
+                                         <input class="max1" id="bookStartCityName"  type="text" autocomplete="off" maxlength="20"   placeholder="中文/拼音">
 										</span>
 									</dd>
 									<dd class="clearfix">
 										<span class="txt">到达城市:</span>
                                         <span class="list"> 
-                                            <input class="max" id="bookEndCityName" name="targetName" type="text" autocomplete="off" value="自贡" placeholder="中文/拼音">
+                                            <input class="max2" id="bookEndCityName" name="targetName" type="text" autocomplete="off"  placeholder="中文/拼音">
 										</span>
 									</dd>
 									<dd class="clearfix">
@@ -43,6 +43,24 @@
 <script>
 export default {
     name:'slide',
+    inject:['reload'],
+
+    mounted(){
+                this.tongbu()
+this.reload();
+console.log(2)
+    },
+    methods:{
+        tongbu(){
+            var bt1 = document.querySelector('.max1');
+            var bt2 = document.querySelector('.max2');
+            bt1.value = window.sessionStorage.getItem('start_name')
+            window.sessionStorage.getItem('start_name') == null
+            console.log(window.sessionStorage.getItem('start_name'))
+          bt2.value = window.sessionStorage.getItem('final_name')
+          window.sessionStorage.getItem('final_name') == null
+        }
+    }
 }
 </script>
 <style scoped>

@@ -107,16 +107,17 @@
                     <th style="width: 15%" class="class_have_insurant">购买保险</th>
                 	<th style="width: 7%">&nbsp;</th>
                 </tr>
+                <!-- <form action="/order/bookOrder" method="post"> -->
 				<tr class="tr1">                                                                                                                     
                     <td>
-                        <select>
+                        <select id="select1">
                             <option>成人票</option>
                             <option>半票</option>
                             <option>携童票</option>
                         </select>
                     </td>
                     <td>
-                         <select>
+                         <select id="select2">
                             <option>否</option>
                             <option>是</option>
                         </select>
@@ -125,7 +126,7 @@
                         <input type="text" name="passenger_name" class="bt3" @blur="lose3">
                     </td>
                     <td>
-                         <select>
+                         <select id="select3">
                             <option>身份证</option>
                             <option>军人证</option>
                             <option>护照</option>
@@ -135,29 +136,31 @@
                         <input type="text" name="passenger_card_number" @blur="lose4" class="bt4">
                     </td>
                     <td>
-                        <input type="checkbox" name="buying_insurance" >
+                        <input type="checkbox" name="buying_insurance" class="bt6">
                     </td>
-                </tr>	
+                </tr>
+                    <!-- <input type="button" value="提交订单" @click.stop="submit"> -->
+                <!-- </form> -->
                 <!-- 添加乘车人 -->
-              <tr :key="item.id" v-for="item in items" v-show="item.show" >
+              <tr :key="item.id" :class="item.id" v-for="item in items" v-show="item.show" >
                     <td>
-                        <select>
+                        <select id="select1">
                             <option>成人票</option>
                             <option>半票</option>
                             <option>携童票</option>
                         </select>
                     </td>
                     <td>
-                         <select>
+                         <select id="select2">
                             <option>否</option>
                             <option>是</option>
                         </select>
                     </td>
                     <td>
-                        <input type="text" name="passenger_name">
+                        <input type="text" name="passenger_name" class="bt2">
                     </td>
                     <td>
-                         <select>
+                         <select id="select3">
                             <option>身份证</option>
                             <option>军人证</option>
                             <option>护照</option>
@@ -176,6 +179,7 @@
                 <input type="button" class="n" value="添加乘车人" @click="add">
 				</span>
                 <span class="delete">
+                    <button @click="select">hahahah</button>
                     <input type="button" value="删除乘车人" @click="Delete">
                 </span>
 				</div>					
@@ -246,13 +250,49 @@ export default {
 },
     created(){
 		 	this.linkperson();
-            this.passenger();
+            // this.passenger();
            this.getShuttleList();
     },
     mounted(){
     window.dian = this.dian; 
     },
-    methods:{     
+    methods:{ 
+        select(){
+             var myselect=document.getElementById("select1");
+            var index=myselect.selectedIndex;
+           console.log( myselect.options[index].value);
+            var myselect2 = document.getElementById("select2");
+            var index=myselect2.selectedIndex;
+           console.log( myselect2.options[index].value);
+            var myselect3=document.getElementById("select3");
+            var index=myselect3.selectedIndex;
+           console.log( myselect3.options[index].value);
+           var bt3 = document.querySelector('.bt3');
+           var bt4 = document.querySelector('.bt4')
+           var bt6 = document.querySelector('.bt6')
+           console.log(bt3.value)
+           console.log(bt4.value)
+           console.log(bt6.checked)
+
+
+
+    var myselect21 = document.querySelector('.tr2').querySelector('#select1');
+                 var index=myselect21.selectedIndex;
+           console.log( myselect21.options[index].value);
+     var myselect22 = document.querySelector('.tr2').querySelector('#select2');
+     var index=myselect22.selectedIndex;
+           console.log(myselect22.options[index].value);
+    var myselect23 = document.querySelector('.tr2').querySelector('#select3');
+    var index=myselect23.selectedIndex;
+           console.log( myselect23.options[index].value);
+           var btn21 = document.querySelector('.tr2').querySelector('.bt2');
+           var btn22 = document.querySelector('.tr2').querySelector('.bt3');
+           var btn23 = document.querySelector('.tr2').querySelector('.bt4');
+        console.log(btn21.value)
+        console.log(btn22.value)
+        console.log(btn23.checked)
+
+        },    
         //用上个页面请求的接口保存的数据
         getShuttleList(){
             //拿到数据
@@ -293,8 +333,12 @@ export default {
         if(res.data.data.contact_person_list[j].name === res.data.data.contact_person_list[i].name){
          window.sessionStorage.setItem('contact_person_id',res.data.data.contact_person_list[j].contact_person_id)
          name.value =  res.data.data.contact_person_list[i].name;
-         phone.value =  res.data.data.contact_person_list[i].phone;
+         phone.value =  res.data.data.contact_person_list[i].phone_number;
          email.value =  res.data.data.contact_person_list[i].email;
+         
+         window.sessionStorage.setItem('email', res.data.data.contact_person_list[i].email)       
+       window.sessionStorage.setItem('phone_number', res.data.data.contact_person_list[i].phone_number)
+         window.sessionStorage.setItem('name', res.data.data.contact_person_list[i].name)
              }
             }
           })
@@ -318,24 +362,24 @@ export default {
     })
         },
         // 添加乘车人数据为空资料失败,稍后再试
-        passenger(){
-       this.$http.post(
-           	'/userCenter/addContactPerson',
-				{ 
-                 "name": "袁佳伟",
-	            "card_number": "610483193405045389",	
-               	"card_type": "身份证"		
-				}
-			).then(function(res){
-                console.log(1)
-                console.log(res)
-        var chengcheren = document.querySelector('.chengcheren');
-      for(let i = 0;i<res.data.data.contact_person_list.length;i++){
-        chengcheren.innerHTML += `<input type="checkbox"  class="addinput${i}"><li style="margin:-5px 10px 0px 2px">${res.data.data.contact_person_list[i].name}</li>`
-    }    
-            }).catch(function(res){
-            })
-        },
+    //     passenger(){
+    //    this.$http.post(
+    //        	'/userCenter/addContactPerson',
+	// 			{ 
+    //              "name": "袁佳伟",
+	//             "card_number": "610483193405045389",	
+    //            	"card_type": "身份证"		
+	// 			}
+	// 		).then(function(res){
+    //             console.log(1)
+    //             console.log(res)
+    //     var chengcheren = document.querySelector('.chengcheren');
+    //   for(let i = 0;i<res.data.data.contact_person_list.length;i++){
+    //     chengcheren.innerHTML += `<input type="checkbox"  class="addinput${i}"><li style="margin:-5px 10px 0px 2px">${res.data.data.contact_person_list[i].name}</li>`
+    // }    
+    //         }).catch(function(res){
+    //         })
+    //     },
         //增加联系人
         add(){
             for(let i = 0;i < this.items.length;i++){
@@ -410,32 +454,145 @@ export default {
             }else{
                 id = null;
             }
+            if(window.sessionStorage.getItem('phone_number')){
+                var phone_number = window.sessionStorage.getItem('phone_number');
+                console.log(phone_number);
+            }else{
+                phone_number = null;
+            }
+            if(window.sessionStorage.getItem('name')){
+                var name = window.sessionStorage.getItem('name');
+                console.log(name);
+            }else{
+                name = null;
+            }
+            if(window.sessionStorage.getItem('email')){
+                var email = window.sessionStorage.getItem('email');
+                console.log(email);
+            }else{
+                email = null;
+            }
+         var myselect=document.getElementById("select1");
+            var index=myselect.selectedIndex;
+            var myselect3=document.getElementById("select3");
+            var index=myselect3.selectedIndex;
+                     var bt3 = document.querySelector('.bt3');
+           var bt4 = document.querySelector('.bt4')
+           var bt6 = document.querySelector('.bt6')
+//2
+           var myselect21 = document.querySelector('.tr2').querySelector('#select1');
+                 var index=myselect21.selectedIndex;
+     var myselect22 = document.querySelector('.tr2').querySelector('#select2');
+     var index=myselect22.selectedIndex;
+    var myselect23 = document.querySelector('.tr2').querySelector('#select3');
+    var index=myselect23.selectedIndex;
+           var btn21 = document.querySelector('.tr2').querySelector('.bt2');
+           var btn22 = document.querySelector('.tr2').querySelector('.bt3');
+           var btn23 = document.querySelector('.tr2').querySelector('.bt4');
+if(btn21 == null){
+    myselect23.options[index].value == null
+    myselect21.options[index].value == null
+    btn23.checked = null
+}
+//3
+    var myselect31 = document.querySelector('.tr3').querySelector('#select1');
+                 var index=myselect31.selectedIndex;
+     var myselect32 = document.querySelector('.tr3').querySelector('#select2');
+     var index=myselect32.selectedIndex;
+    var myselect33 = document.querySelector('.tr3').querySelector('#select3');
+    var index=myselect33.selectedIndex;
+           var btn31 = document.querySelector('.tr3').querySelector('.bt2');
+           var btn32 = document.querySelector('.tr3').querySelector('.bt3');
+           var btn33 = document.querySelector('.tr3').querySelector('.bt4');
+if(btn31 == null){
+    myselect33.options[index].value = null
+    myselect31.options[index].value = null
+    btn33.checked = null
+}
+//4
+    var myselect41 = document.querySelector('.tr4').querySelector('#select1');
+                 var index=myselect41.selectedIndex;
+     var myselect42 = document.querySelector('.tr4').querySelector('#select2');
+     var index=myselect42.selectedIndex;
+    var myselect43 = document.querySelector('.tr4').querySelector('#select3');
+    var index=myselect43.selectedIndex;
+           var btn41 = document.querySelector('.tr4').querySelector('.bt2');
+           var btn42 = document.querySelector('.tr4').querySelector('.bt3');
+           var btn43 = document.querySelector('.tr4').querySelector('.bt4');
+if(btn41 == null){
+    myselect43.options[index].value = null
+    myselect41.options[index].value = null
+    btn43.checked = null
+}
+//5
+    var myselect51 = document.querySelector('.tr5').querySelector('#select1');
+                 var index=myselect51.selectedIndex;
+     var myselect52 = document.querySelector('.tr5').querySelector('#select2');
+     var index=myselect52.selectedIndex;
+    var myselect53 = document.querySelector('.tr5').querySelector('#select3');
+    var index=myselect53.selectedIndex;
+           var btn51 = document.querySelector('.tr5').querySelector('.bt2');
+           var btn52 = document.querySelector('.tr5').querySelector('.bt3');
+           var btn53 = document.querySelector('.tr5').querySelector('.bt4');
+if(btn51 == null){
+    myselect53.options[index].value = null
+    myselect51.options[index].value = null
+    btn53.checked = null
+}
+
+
+
+       console.log(bt4.value)
           this.$http.post(
-                '/order/bookOrder',
+        '/order/bookOrder',
                {
                 "shuttle_shift_id": 2,							//班次id
              	"contact_person_id": id,						//紧急联系人id，勾选常用联系人需要写联系人id，手动填写联系人信息无需写紧急联系人id
-	           "contact_person_phone_number": "18082509082",	//紧急联系人电话
-            	"contact_person_name": "侯思彤",				  //紧急联系人姓名
-               "contact_person_email": "",						//紧急联系人email，选填
+	           "contact_person_phone_number":phone_number,//紧急联系人电话
+            	"contact_person_name":name,		  //紧急联系人姓名
+               "contact_person_email":email,						//紧急联系人email，选填
                "passenger": [									//乘客列表
             {
             "passenger_id": 14,
-            "passenger_name": "袁佳伟",
-            "passenger_card_number": "610483193406712389",
-            "passenger_card_type": "身份证",  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
-            "ticket_type": "成人票",	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
-            "buying_insurance": true	//购买保险状态，true为购买
+            "passenger_name": bt3.value,
+            "passenger_card_number": bt4.value,
+            "passenger_card_type": myselect3.options[index].value,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+            "ticket_type": myselect.options[index].value,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+            "buying_insurance":bt6.checked	//购买保险状态，true为购买
         },
-     	{
+              {
             "passenger_id": null,
-         	"passenger_name": "高凝宇",
-            "passenger_card_number": "-",
-            "passenger_card_type": "身份证",
-            "ticket_type": "半票",
-            "buying_insurance": false
-        }
-    ]
+            "passenger_name": btn21.value||null,
+            "passenger_card_number": btn22.value||null,
+            "passenger_card_type": myselect23.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+            "ticket_type": myselect21.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+            "buying_insurance":btn23.checked	//购买保险状态，true为购买
+        },
+          {
+            "passenger_id": null,
+            "passenger_name": btn31.value||null,
+            "passenger_card_number": btn32.value||null,
+            "passenger_card_type": myselect33.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+            "ticket_type": myselect31.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+            "buying_insurance":btn33.checked	//购买保险状态，true为购买
+        },
+          {
+            "passenger_id": null,
+            "passenger_name": btn41.value||null,
+            "passenger_card_number": btn42.value||null,
+            "passenger_card_type": myselect43.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+            "ticket_type": myselect41.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+            "buying_insurance":btn43.checked	//购买保险状态，true为购买
+        },
+          {
+            "passenger_id": null,
+            "passenger_name": btn51.value||null,
+            "passenger_card_number": btn52.value||null,
+            "passenger_card_type": myselect53.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+            "ticket_type": myselect51.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+            "buying_insurance":btn53.checked	//购买保险状态，true为购买
+        },
+               ]
                }
             ).then(function(res){
            //保存master_order_number
@@ -453,6 +610,7 @@ export default {
       var strinfomation = JSON.stringify(res.data.data);
                 //保存在infomation中
         sessionStorage.setItem("localdata",strinfomation)
+        console.log(window.sessionStorage.getItem('localdata'))
         vm.$router.push({path:'confirm'});
              }     
                 }

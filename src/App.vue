@@ -8,6 +8,16 @@
 import Home from './components/Home.vue'
 export default {
   name: 'app',
+     provide() { // 注册一个方法
+    return {
+      reload: this.reload
+    }
+  },
+  data() {
+    return {
+      isRouterAlive: true
+    }
+  },
   components: {
     Home,
   },
@@ -24,6 +34,14 @@ export default {
           JSON.parse(sessionStorage.getItem('dataStore'))
         )
       )
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(function() {
+        this.isRouterAlive = true
+      })
+    }
   },
 }
 </script>
