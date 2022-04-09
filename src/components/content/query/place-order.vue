@@ -179,7 +179,6 @@
                 <input type="button" class="n" value="添加乘车人" @click="add">
 				</span>
                 <span class="delete">
-                    <button @click="select">hahahah</button>
                     <input type="button" value="删除乘车人" @click="Delete">
                 </span>
 				</div>					
@@ -568,30 +567,31 @@ if(btn51 == null){
             "ticket_type": myselect21.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
             "buying_insurance":btn23.checked	//购买保险状态，true为购买
         },
-          {
-            "passenger_id": null,
-            "passenger_name": btn31.value||null,
-            "passenger_card_number": btn32.value||null,
-            "passenger_card_type": myselect33.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
-            "ticket_type": myselect31.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
-            "buying_insurance":btn33.checked	//购买保险状态，true为购买
-        },
-          {
-            "passenger_id": null,
-            "passenger_name": btn41.value||null,
-            "passenger_card_number": btn42.value||null,
-            "passenger_card_type": myselect43.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
-            "ticket_type": myselect41.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
-            "buying_insurance":btn43.checked	//购买保险状态，true为购买
-        },
-          {
-            "passenger_id": null,
-            "passenger_name": btn51.value||null,
-            "passenger_card_number": btn52.value||null,
-            "passenger_card_type": myselect53.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
-            "ticket_type": myselect51.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
-            "buying_insurance":btn53.checked	//购买保险状态，true为购买
-        },
+        //   {
+        //     "passenger_id": null,
+        //     "passenger_name": btn31.value||null,
+        //     "passenger_card_number": btn32.value||null,
+        //     "passenger_card_type": myselect33.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+        //     "ticket_type": myselect31.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+        //     "buying_insurance":btn33.checked	//购买保险状态，true为购买
+        // },
+        //   {
+        //     "passenger_id": null,
+        //     "passenger_name": btn41.value||null,
+        //     "passenger_card_number": btn42.value||null,
+        //     "passenger_card_type": myselect43.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+        //     "ticket_type": myselect41.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+        //     "buying_insurance":btn43.checked	//购买保险状态，true为购买
+        // },
+        //   {
+        //     "passenger_id": null,
+        //     "passenger_name": btn51.value||null,
+        //     "passenger_card_number": btn52.value||null,
+        //     "passenger_card_type": myselect53.options[index].value||null,  //证件类型: 身份证,军人证,护照,港澳居民来往内地通行证,台湾居民来往内地通行证,港澳台居民居住证
+        //     "ticket_type": myselect51.options[index].value||null,	//票种:成人票,携童票（成人可携带身高低于1.5m的儿童）,半票（身高超1.5m的儿童票）
+        //     "buying_insurance":btn53.checked	//购买保险状态，true为购买
+        // },
+           
                ]
                }
             ).then(function(res){

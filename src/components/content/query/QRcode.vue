@@ -60,6 +60,7 @@ export default {
         .then(function (res) {
           window.sessionStorage.setItem('code', res.data.code)
           console.log(res)
+          this.$message.showClose()
           if (window.sessionStorage.getItem('code') == 10000) {
             vm.$router.push({ path: 'success' })
           }
