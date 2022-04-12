@@ -34,6 +34,9 @@ const QRcode =() => import('../components/content/query/QRcode.vue')
 const Success =() => import('../views/success/success.vue')
 const Menglogin =()=>import('../components/content/mengceng/denglu.vue')
 const Yanzheng =()=>import('../components/content/mengceng/yanzheng.vue')
+// 后台管理模块相关组件
+const shiftModule = () => import('../components/content/adminModule/shiftModule.vue')
+const ticketModule = () => import('../components/content/adminModule/ticketModule.vue')
 
 Vue.use(VueRouter)
 
@@ -216,6 +219,20 @@ const routes = [
         component: () => import('@/components/content/person/children/refundOrder'),
       },
     ]
+  },
+  {
+    path: '/shiftModule',
+    meta: {
+      title: '后台管理 | 班次管理'
+    },
+    component: shiftModule,
+  },
+  {
+    path: '/ticketModule',
+    meta: {
+      title: '后台管理 | 票务管理'
+    },
+    component: ticketModule,
   }
 ]
 
