@@ -27,56 +27,26 @@ export default {
   data() {
     return {}
   },
-  created:function(){
-				this.getShuttleList()
-  },
+created: function() {
+        this.GetRequest()
+//             if (location.href.indexOf("#reloaded") == -1) {
+//                 location.href = location.href + "#reloaded";
+//                 location.reload();
+//             }  
+        },
   components: {
     step,
     queryheader,
     slidebar,
   },
   methods:{
-    getShuttleList(){
-		this.$http.get(
-		'/query/shuttle/getShuttleList?start_region_id=1&final_region_id=10&shuttle_shift_date=2022-03-06',
-		).then(function(res){
-			if(res.data.code === 10000){
-				console.log(1)
-				console.log(res);
-				var flow1 = document.querySelector('#flow1');
-				var flow2 = document.querySelector('#flow2');
-				flow2.innerHTML = ``
-				for(let i = 0;i < res.data.data.flow_shuttle_list.length;i++){
-                  flow1.innerHTML +=`<tr data-tname="城西客运站" class="tr sone" > <td height="42"  ><strong > ${res.data.data.flow_shuttle_list[0].start_station}
-			</strong></td>	
-		<td style="padding: 7px;"><strong>${res.data.data.flow_shuttle_list[0].shuttle_shift_time}</strong></td>
-		<td> ${res.data.data.flow_shuttle_list[0].start_region}</td>	
-	    <td><strong> ${res.data.data.flow_shuttle_list[0].final_region}</strong></td> 
-		<td>
-			<strong> ${res.data.data.flow_shuttle_list[0].shuttle_shift_type}</strong>
-		</td>
-		<td> ${res.data.data.flow_shuttle_list[0].full_lenght}</td>	 
-		<td> ${res.data.data.flow_shuttle_list[0].car_model}</td>	
-		<td><strong> ${res.data.data.flow_shuttle_list[0].ticket_price}</strong></td>	 
-		<td> ${res.data.data.flow_shuttle_list[0].unuse_ticket_quantity}</td>
-		<td class="child"> ${res.data.data.flow_shuttle_list[0].unuse_child_ticket_quantity}</td>
-        <td>
-			<span>
-				<input type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
-		</td>
-	</tr>
-		`
-				}
-				
-			}else{
-			alert(res.data.message)
-			}
-		}).catch(function(){
-
-		}
-		)
-		 }
+    GetRequest() {
+    window.sessionStorage.setItem('final_region_id',this.$route.query.final_region_id)
+    window.sessionStorage.setItem('start_region_id',this.$route.query.start_region_id)
+    window.sessionStorage.setItem('start_name',this.$route.query.start_name)
+    window.sessionStorage.setItem('final_name',this.$route.query.final_name)
+    window.sessionStorage.setItem('shuttle_shift_date',this.$route.query.shuttle_shift_date)
+}
   }
 }
 </script>

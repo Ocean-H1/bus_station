@@ -31,6 +31,7 @@ export default {
     this.info()
     this.getimg()
     this.time()
+    this.open1()
   },
   beforeDestroy() {
     this.destroy()
@@ -43,6 +44,11 @@ export default {
     },
   },
   methods: {
+    open1(){
+    this.$message({
+      showClose: true,
+    })
+    },
     //请求
     loop() {
       var vm = this
@@ -54,9 +60,11 @@ export default {
         .then(function (res) {
           window.sessionStorage.setItem('code', res.data.code)
           console.log(res)
+          this.$message.showClose()
           if (window.sessionStorage.getItem('code') == 10000) {
             vm.$router.push({ path: 'success' })
           }
+        }).catch(function(){
         })
     },
     //设置定时器

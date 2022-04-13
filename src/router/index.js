@@ -28,7 +28,7 @@ const Login = () => import('@/components/content/Login/login.vue')
 const Register = () => import('@/components/content/Register/register')
 // 找回密码
 const reback = () => import('@/components/content/rebackPsd/rebackPsd.vue')
-const Placeorder = () => import('../components/content/query/place-order.vue')
+const Placeorder =() => import('../components/content/query/place-order.vue')
 const Confirm =() => import('../views/confirm/confirm.vue')
 const QRcode =() => import('../components/content/query/QRcode.vue')
 const Success =() => import('../views/success/success.vue')
@@ -237,7 +237,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes,
   // 通过路由跳转页面后，窗口始终位于页面顶部
