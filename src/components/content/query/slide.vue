@@ -43,12 +43,8 @@
 <script>
 export default {
     name:'slide',
-    inject:['reload'],
-
     mounted(){
-                this.tongbu()
-this.reload();
-console.log(2)
+    this.tongbu()
     },
     methods:{
         tongbu(){
