@@ -39,7 +39,7 @@ axios.interceptors.response.use((res) => {
   // 关闭进度条
   NProgress.done()
   if (res.data.code && res.data.code !== 10000) {
-    ElementUi.Message.error(res.data.message)
+    // ElementUi.Message.error(res.data.message)
   }
   return res
 })
