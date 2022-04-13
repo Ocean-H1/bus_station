@@ -390,6 +390,7 @@
         console.log(1)
         console.log(locadata)
         //转换格式
+        if(locadata!='Undefined')
         var locadata = JSON.parse(locadata)
         //赋值
         this.list = locadata
@@ -418,7 +419,7 @@
               e.checked = true
               for (let i = 0; i < res.data.data.contact_person_list.length; i++) {
                 if (
-                    res.data.data.contact_person_list[j].name ===
+                    res.data.data.contact_person_list[j].name ==
                     res.data.data.contact_person_list[i].name
                 ) {
                   window.sessionStorage.setItem(

@@ -128,9 +128,9 @@ first(){
  
           flow2.innerHTML = null;
        for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow2.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.flow_shuttle_list[i].start_station}
+     flow2.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
-		<td style="padding: 1px;" width="16%"><strong>${res.data.data.flow_shuttle_list[i].shuttle_shift_time}</strong></td>
+		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
 	    <td width="10%"><strong> ${res.data.data.regular_shuttle_list[i].final_region}</strong></td> 
 		<td width="8%">
@@ -189,9 +189,9 @@ second(){
             }
           flow4.innerHTML = null;
        for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow4.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.flow_shuttle_list[i].start_station}
+     flow4.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
-		<td style="padding: 1px;" width="16%"><strong>${res.data.data.flow_shuttle_list[i].shuttle_shift_time}</strong></td>
+		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
 	    <td width="10%"><strong> ${res.data.data.regular_shuttle_list[i].final_region}</strong></td> 
 		<td width="8%">
@@ -249,9 +249,9 @@ third(){
             }
           flow6.innerHTML = null;
        for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow6.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.flow_shuttle_list[i].start_station}
+     flow6.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
-		<td style="padding: 1px;" width="16%"><strong>${res.data.data.flow_shuttle_list[i].shuttle_shift_time}</strong></td>
+		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
 	    <td width="10%"><strong> ${res.data.data.regular_shuttle_list[i].final_region}</strong></td> 
 		<td width="8%">
@@ -306,9 +306,9 @@ fourth(){
             }
           flow8.innerHTML = null;
        for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow8.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.flow_shuttle_list[i].start_station}
+     flow8.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
-		<td style="padding: 1px;" width="16%"><strong>${res.data.data.flow_shuttle_list[i].shuttle_shift_time}</strong></td>
+		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
 	    <td width="10%"><strong> ${res.data.data.regular_shuttle_list[i].final_region}</strong></td> 
 		<td width="8%">
@@ -330,7 +330,6 @@ fourth(){
           }
 		}).catch(function(){})
 		 },
-
     // 不管是否有变化，每一次都要重新执行函数
     getdate1() {
       let date = new Date()

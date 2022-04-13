@@ -52,8 +52,10 @@ export default {
 		'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=' + window.sessionStorage.getItem('shuttle_shift_date'),
         )
         .then(function (res) {
+          console.log('gagagagagaga')
+          console.log(res)
           //转换成字符串
-          var strinfomation = JSON.stringify(res.data.data.flow_shuttle_list[j])
+          var strinfomation = JSON.stringify(res.data.data.regular_shuttle_list[j])
           //存起来
           window.sessionStorage.setItem('locadata', strinfomation)
         })
