@@ -247,7 +247,8 @@ const router = new VueRouter({
 })
 
 
-router.afterEach((to, from, next) => {
+router.afterEach((to, from) => {
+  
   // 关闭进度条
   NProgress.done()
 })

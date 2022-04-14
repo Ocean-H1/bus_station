@@ -10,14 +10,14 @@
       <el-menu-item index="/refund">退票</el-menu-item>
       <el-menu-item index="/help">帮助中心</el-menu-item>
       <el-menu-item index="/advise">投诉建议</el-menu-item>
-      <el-submenu index="/">
+      <el-submenu index="/" v-if="isRoot">
         <template slot="title">后台管理</template>
         <el-menu-item index="/shiftModule">班次管理</el-menu-item>
         <el-menu-item index="/ticketModule">票务管理</el-menu-item>
       </el-submenu>
       <el-menu-item index="/about">关于我们</el-menu-item>
     </el-menu>
-    <router-view :key="$route.path"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -31,9 +31,24 @@ import about from '../../../views/about/about.vue'
 export default {
   name: 'Home-Tabbar',
   data() {
-    return {}
+    return {
+      isRoot: false,
+    }
   },
-  methods: {},
+  methods: {
+    async checkPermission() {
+      // 登录成功后进行权限验证
+      const { data: res } = await this.$http.get(`/manage/checkPermission`)
+      if (res.code == 10000) {
+        // 超级用户
+        // this.$store.dispatch('setPermissions',true)
+        this.isRoot = true
+      }
+    },
+  },
+  created() {
+    this.checkPermission()
+  },
   components: {
     First,
     refund,
@@ -62,7 +77,11 @@ export default {
   color: #fff;
   border-bottom: 3px solid #f6cc58 !important;
 }
-.el-menu > .el-submenu.is-active /deep/ .el-submenu__title .el-icon-arrow-down:before {
+.el-menu
+  > .el-submenu.is-active
+  /deep/
+  .el-submenu__title
+  .el-icon-arrow-down:before {
   color: #fff;
 }
 /* 子节点hover样式 */
@@ -86,7 +105,11 @@ export default {
   color: #fff;
   font-weight: 600;
 }
-.el-menu > .el-submenu /deep/ .el-submenu__title:hover .el-icon-arrow-down:before {
+.el-menu
+  > .el-submenu
+  /deep/
+  .el-submenu__title:hover
+  .el-icon-arrow-down:before {
   color: #fff;
 }
 /* 基本样式 */
