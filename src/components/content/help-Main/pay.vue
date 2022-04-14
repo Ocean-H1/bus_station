@@ -4,7 +4,7 @@
                     <dt>1、如何支付?</dt>
                     <dd>答：您可以选择“银联网银”，选择相应银行进行支付。
                     	<br>
-                    	<img alt="支付入口" src="https://image.scqckypw.com/static/new/images/help_pay_page_0.jpg" width="80%">
+                    	<img alt="支付入口" src="../../../../src/assets/img/1.png" width="80%">
                     </dd>
                     <dt>2、支付后验证信息只能发送到注册人手机上吗?</dt>
                     <dd>答：在乘车人信息录入页面联系电话号码，可以填写乘车人联系号码，系统将发送至该号码。</dd>
