@@ -220,11 +220,6 @@ export default {
           duration: 2000,
         })
 
-        this.$notify({
-          title: '提示',
-          message: '注册失败',
-          duration: 2000,
-        })
       })
     },
     //进入登录页
