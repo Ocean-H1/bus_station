@@ -2,15 +2,15 @@
   <div class="ticketquery">
     <!-- 顶部 -->
     <div class="left">
-   <div class="top">
-      <step></step>
+      <div class="top">
+        <step></step>
+      </div>
+      <!-- 导航栏 -->
+      <div class="query-header">
+        <queryheader></queryheader>
+      </div>
     </div>
-    <!-- 导航栏 -->
-    <div class="query-header">
-      <queryheader></queryheader>
-    </div>
-  </div>
- 
+
     <!-- 侧边栏 -->
     <div class="slidebar">
       <slidebar></slidebar>
@@ -27,35 +27,44 @@ export default {
   data() {
     return {}
   },
-created: function() {
-        this.GetRequest()
-//             if (location.href.indexOf("#reloaded") == -1) {
-//                 location.href = location.href + "#reloaded";
-//                 location.reload();
-//             }  
-        },
+  created: function () {
+    this.GetRequest()
+    //             if (location.href.indexOf("#reloaded") == -1) {
+    //                 location.href = location.href + "#reloaded";
+    //                 location.reload();
+    //             }
+  },
   components: {
     step,
     queryheader,
     slidebar,
   },
-  methods:{
+  methods: {
     GetRequest() {
-    window.sessionStorage.setItem('final_region_id',this.$route.query.final_region_id)
-    window.sessionStorage.setItem('start_region_id',this.$route.query.start_region_id)
-    window.sessionStorage.setItem('start_name',this.$route.query.start_name)
-    window.sessionStorage.setItem('final_name',this.$route.query.final_name)
-    window.sessionStorage.setItem('shuttle_shift_date',this.$route.query.shuttle_shift_date)
-}
-  }
+      window.sessionStorage.setItem(
+        'final_region_id',
+        this.$route.query.final_region_id
+      )
+      window.sessionStorage.setItem(
+        'start_region_id',
+        this.$route.query.start_region_id
+      )
+      window.sessionStorage.setItem('start_name', this.$route.query.start_name)
+      window.sessionStorage.setItem('final_name', this.$route.query.final_name)
+      window.sessionStorage.setItem(
+        'shuttle_shift_date',
+        this.$route.query.shuttle_shift_date
+      )
+    },
+  },
 }
 </script>
 <style scoped>
 .ticketquery {
- display: flex;
+  display: flex;
   overflow: hidden;
 }
-.left{
+.left {
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -64,11 +73,10 @@ created: function() {
   width: 100%;
   flex: 1;
 }
-.query-header{
-    width: 100%;
-   flex: 5;
-   margin-top: 1rem;
-
+.query-header {
+  width: 100%;
+  flex: 5;
+  margin-top: 1rem;
 }
 .slidebar {
   margin-top: 1.25rem;
