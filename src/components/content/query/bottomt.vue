@@ -61,9 +61,9 @@ export default {
           window.sessionStorage.setItem('locadata', strinfomation)
         })
       var result = confirm('温馨提示：购票后请到窗口办理取票!')
-      if (result == true) {
-        if (this.$store.state.isLogin == 1) {
-          this.$router.push({path:'placeorder'})
+      if (result === true) {
+        if (this.$store.getters.isLogin) {
+          this.$router.push({ path: 'placeorder' })
         } else {
           alert('请先登陆')
           this.$router.push({ path: 'login' })

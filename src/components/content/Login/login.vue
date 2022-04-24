@@ -128,6 +128,7 @@ export default {
         window.sessionStorage.setItem('SessionId', res.data.SessionId)
         // 改变用户的登录状态
         this.$store.dispatch('userLogin',true)
+        sessionStorage.setItem('isLogin',true)
         this.$message({
           message: '登录成功！',
           type: 'success',

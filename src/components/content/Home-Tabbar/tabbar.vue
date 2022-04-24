@@ -43,6 +43,7 @@ export default {
         // 超级用户
         // this.$store.dispatch('setPermissions',true)
         this.isRoot = true
+        sessionStorage.setItem('isRoot',true)
       }
     },
   },
