@@ -47,7 +47,8 @@ export default {
   data() {
     return {}
   },
-  created: function () {},
+  created: function () {
+  },
   // 钩子函数，初始化页面完成以后，在对dom结点进行相关操作
   mounted() {
     window.getticket = this.getticket
@@ -57,6 +58,7 @@ export default {
       console.log(e)
       var str = e.className
       var j = str.substr(4, 1)
+            console.log(j)
       console.log(j,'uuuuuuuuuuuuuuuu')
       this.$http
         .get(
@@ -69,6 +71,7 @@ export default {
           var strinfomation = JSON.stringify(res.data.data.flow_shuttle_list[j])
           //存起来
           window.sessionStorage.setItem('locadata', strinfomation)
+          console.log(window.sessionStorage.getItem(locadata))
         })
       var result = confirm('温馨提示：购票后请到窗口办理取票!')
       if (result === true) {

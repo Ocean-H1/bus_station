@@ -110,36 +110,35 @@ export default {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
         // 拿到接口返回的数据
-        const { data: res } = await this.$http.post(
-          '/permissions/login',
-          {
-            phone_number: this.loginForm.phone_number,
-            password: this.$utils.md5(this.loginForm.password,16),
-            check_code: this.loginForm.check_code
-          },
-        )
+        const { data: res } = await this.$http.post('/permissions/login', {
+          phone_number: this.loginForm.phone_number,
+          password: this.$utils.md5(this.loginForm.password, 16),
+          check_code: this.loginForm.check_code,
+        })
         // 判断是否登陆成功
         if (res.code !== 10000) {
           return this.$message.error({
             message: res.message,
             type: 'error',
-            duration: 2000
+            duration: 2000,
           })
         }
+        
+        // 保存返回的SessionId
+        window.sessionStorage.setItem('SessionId', res.data.SessionId)
+        // 改变用户的登录状态
+        this.$store.dispatch('userLogin',true)
         this.$message({
           message: '登录成功！',
           type: 'success',
           duration: 2000,
         })
-        // 保存返回的SessionId
-        window.sessionStorage.setItem('SessionId',res.data.SessionId)
-        // 改变用户的登录状态
-        this.$store.commit('setLoginStatus', 1)
         // 返回首页
-        if (this.$route.path === '/first') return
-        this.$router.push('/')
+        
+        this.$router.push('/first')
       })
     },
+    
   },
 }
 </script>

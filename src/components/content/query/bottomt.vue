@@ -47,20 +47,23 @@ export default {
     getticket(e) {
       var str = e.className
       var j = str.substr(4, 1)
+      console.log(j)
       this.$http
         .get(
 		'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=' + window.sessionStorage.getItem('shuttle_shift_date'),
         )
         .then(function (res) {
+          console.log('gagagagagaga')
+          console.log(res)
           //转换成字符串
-          var strinfomation = JSON.stringify(res.data.data.flow_shuttle_list[j])
+          var strinfomation = JSON.stringify(res.data.data.regular_shuttle_list[j])
           //存起来
           window.sessionStorage.setItem('locadata', strinfomation)
         })
       var result = confirm('温馨提示：购票后请到窗口办理取票!')
-      if (result === true) {
-        if (this.$store.state.isLogin === 1) {
-          this.$router.push({ path: 'placeorder' })
+      if (result == true) {
+        if (this.$store.state.isLogin == 1) {
+          this.$router.push({path:'placeorder'})
         } else {
           alert('请先登陆')
           this.$router.push({ path: 'login' })

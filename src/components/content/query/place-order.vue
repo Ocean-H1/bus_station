@@ -243,7 +243,7 @@
               </tr>
               <div class="nav" id="add_ticket_passenger">
                   <span class="add">
-                    <!-- <input type="button" value="取消订单" @click="cancel" /> -->
+                    <input type="button" value="取消订单" @click="cancel" />
                     <input
                             type="button"
                             class="n"
@@ -390,6 +390,7 @@
         console.log(1)
         console.log(locadata)
         //转换格式
+        if(locadata!='undefined')
         var locadata = JSON.parse(locadata)
         //赋值
         this.list = locadata
@@ -418,7 +419,7 @@
               e.checked = true
               for (let i = 0; i < res.data.data.contact_person_list.length; i++) {
                 if (
-                    res.data.data.contact_person_list[j].name ===
+                    res.data.data.contact_person_list[j].name ==
                     res.data.data.contact_person_list[i].name
                 ) {
                   window.sessionStorage.setItem(

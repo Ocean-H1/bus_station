@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <el-row :gutter="20">
-      <el-col :span="6"><div class="grid-content logo">logo</div></el-col>
+      <el-col :span="6"><div class="grid-content logo"></div></el-col>
       <el-col :span="12"
-        ><div class="grid-content title">个人开发客运售票伪系统</div></el-col
+        ><div class="grid-content title">陕西客运票务网</div></el-col
       >
       <!-- 用户未登录时显示 -->
-      <el-col :span="6" v-if="!this.$store.state.isLogin" class="user">
+      <el-col :span="6" v-if="!isLogin" class="user">
         <div class="grid-content login" @click="switchPage('/login')">登录</div>
         <div class="grid-content register" @click="switchPage('/register')">注册</div>
       </el-col>
       <!-- 用户已登录时显示 -->
-      <el-col :span="6" class="user">
+      <el-col :span="6" class="user" v-else>
         <div class="grid-content profile" @click="switchPage('/person')">个人中心</div>
         <div class="grid-content logout" @click="logout">退出</div>
       </el-col>
@@ -23,7 +23,9 @@
 export default {
   name: 'Home-top',
   data() {
-    return {}
+    return {
+      isLogin: this.$store.getters.isLogin
+    }
   },
   methods: {
     // 跳转到登录/注册页面
@@ -32,17 +34,30 @@ export default {
       this.$router.push(path)
     },
     // 退出登录
-    logout() {
+    async logout() {
+      // const {data:res } = await this.$http.get(`/permissions/logOut`)
+      // if(res.code != 10000) {
+      //   return this.$message({
+      //     type: 'error',
+      //     message: res.message,
+      //     duration: 2000
+      //   })
+      // }
       this.$message({
           message: '退出成功！',
           type: 'warning',
           duration: 2000,
         })
       // 改变登录态
-      this.$store.commit('setLoginStatus',0)
+      
+      this.$store.dispatch('userLogin',false)
+      this.$store.dispatch('setPermissions',false)
       // 清除sessionid
       window.sessionStorage.clear()
-      if(this.$route.path === '/first') return 
+      // 刷新页面
+      if(this.$route.path == '/first') {
+        this.$router.go(0)
+      }
       this.$router.push('/first')
     },
   },

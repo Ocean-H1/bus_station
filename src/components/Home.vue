@@ -4,23 +4,22 @@
     <el-container>
       <!-- 头部 -->
       <el-header>
-        <Top></Top>
+        <Top :key="$route.path"></Top>
       </el-header>
       <!-- 内容区 -->
       <el-main>
-        <TabBar></TabBar>
+        <TabBar :key="$route.path"></TabBar>
       </el-main>
       <!-- 底部 -->
       <el-footer>
         <Footer></Footer>
         <div class="beian">
-          <a href="https://beian.miit.gov.cn" target="_blank">陕ICP备19006814号-1</a>
+          <a href="https://beian.miit.gov.cn" target="_blank"
+            >陕ICP备19006814号-1</a
+          >
         </div>
-        
       </el-footer>
-      
     </el-container>
-    
   </div>
 </template>
 
@@ -54,9 +53,9 @@ export default {
   width: 90vw;
   margin: 5vh auto 0 auto;
 }
-.el-footer{
-    width: 90vw;
-    margin: 5vh auto;
+.el-footer {
+  width: 90vw;
+  margin: 5vh auto;
 }
 .beian {
   width: 200px;
