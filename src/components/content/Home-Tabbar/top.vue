@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <el-row :gutter="20">
-      <el-col :span="6"><div class="grid-content logo">logo</div></el-col>
+      <el-col :span="6"><div class="grid-content logo">
+          <img src="@/assets/img/logo.png" alt="" width="40px">
+        </div></el-col>
       <el-col :span="12"
-        ><div class="grid-content title">个人开发客运售票伪系统</div></el-col
+        ><div class="grid-content title">陕西省客运互联网售票平台</div></el-col
       >
       <!-- 用户未登录时显示 -->
       <el-col :span="6" v-if="!isLogin" class="user">
