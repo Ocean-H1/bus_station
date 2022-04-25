@@ -65,35 +65,23 @@
                 <el-button
                   type="primary"
                   size="small"
-                  @click="handleEdit(row.$index)"
+                  @click="toPay"
                   style="margin-right: 10px;"
                 >
                   支付
                 </el-button>
-                <!-- <el-button
-                  type="danger"
-                  size="small"
-                  @click="handleCancel(row.row.master_order_number)"
-                >
-                  取消
-                </el-button> -->
                 <el-popconfirm
                   title="是否确认取消？"
                   icon="none"
                   @confirm="handleCancel(row.row.master_order_number)"
                 >
                   <el-button slot="reference" size="small" type="danger"
-                  >退票</el-button
+                  >取消订单</el-button
                   >
                 </el-popconfirm>
               </template>
             </el-table-column>
           </el-table>
-          <div class="toggle">
-            <el-button>上一页</el-button>
-            <span class="val">1</span>
-            <el-button>下一页</el-button>
-          </div>
         </div>
         <div class="history">
           您暂无 相关记录，如需购票请
@@ -124,16 +112,20 @@ export default {
       this._cancelOrder({master_order_number: orderID})
     },
 
+    toPay() {
+      this.$router.push({ path: '/qrcode' })
+    },
+
     _cancelOrder(params) {
       this.$http
         .request({
-          url: '/order/cancelOrder',
+          url: `/order/cancelOrder?master_order_number=${params.master_order_number}`,
           method: 'get',
-          params,
         })
         .then((result) => {
           console.log(result.data)
           if (result.data.code === 10000) {
+            this._getOrderInfo({ order_status: 'arrearage' })
           }
         })
     },
@@ -148,10 +140,12 @@ export default {
         .then((result) => {
           console.log(result.data)
           if (result.data.code === 10000) {
-            result.data.data.order_list.forEach((element) => {
+            result.data.data?.order_list.forEach((element) => {
               element.children = []
             })
             this.tableData = result.data.data.order_list
+          }else {
+            this.tableData  = []
           }
         })
     },

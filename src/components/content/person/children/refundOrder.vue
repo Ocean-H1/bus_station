@@ -74,9 +74,14 @@
             </el-table-column>
           </el-table>
           <div class="toggle">
-            <el-button>上一页</el-button>
-            <span class="val">1</span>
-            <el-button>下一页</el-button>
+            <el-pagination
+              layout="prev, pager, next"
+              :total="total"
+              background
+              :page-size='queryForm.size'
+              @current-change="handleCurrentChange"
+            >
+            </el-pagination>
           </div>
         </div>
         <div class="history">
@@ -154,6 +159,11 @@ export default {
       tableData: [],
       isShowOrderDetail: false,
       subTableData: [],
+      queryForm: {
+        page: 1,
+        size: 6
+      },
+      total: 0
     }
   },
 
@@ -170,10 +180,16 @@ export default {
       })
     },
 
+    // 监听页码改变
+    handleCurrentChange(newPage) {
+      this.queryForm.page = newPage
+      this._getOrderInfo()
+    },
+
     _getOrderInfo(params) {
       this.$http
         .request({
-          url: '/order/getOrderInfo',
+          url: `/order/getOrderInfo?page=${this.queryForm.page}&size=${this.queryForm.size}`,
           method: 'get',
           params,
         })
@@ -185,6 +201,7 @@ export default {
             })
             this.tableData = result.data.data.order_list
           }
+          this.total= result.data.total
         })
     },
 
