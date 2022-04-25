@@ -73,6 +73,12 @@ export default {
   },
   created(){
     this.first()
+    this.er()
+  },
+      // 钩子函数，初始化页面完成以后，在对dom结点进行相关操作
+  mounted() {
+    window.getticket = this.getticket
+    this.er()
   },
   methods: {
     handleClick(tab, event) {
@@ -90,11 +96,59 @@ export default {
       this.fourth();
     }
   },
+er(){
+  console.log(66767)
+// var url = window.location.href;
+// var url = this.$route.params
+// var url = this.$route.path
+var url =this.$route.query.inquireForm.inquireForm
+// var url = JSON.stringify(url)
+// var url = this.$router
+console.log(url)
+},
+    getticket(e) {
+      var str = e.className
+         console.log(e)
+      console.log(e.parentNode.parentNode.parentNode.id.substr(4,1))
+      var k = e.parentNode.parentNode.parentNode.id.substr(4,1)
+      var j = str.substr(4, 1)
+      console.log(j)
+      console.log(window.sessionStorage.getItem('start_region_id'))
+      console.log(window.sessionStorage.getItem('final_region_id'))
+      console.log(window.sessionStorage.getItem('shuttle_shift_date'))
+      this.$http.get(
+    	'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=' +  window.sessionStorage.getItem('strs')
+      )
+        .then(function (res) {
+            console.log(res)
+          console.log(window.sessionStorage.getItem('strs'))
+          console.log('gagagagagaga')
+          // 转换成字符串
+          if(k%2 == 1){
+          var strinfomation = JSON.stringify(res.data.data.flow_shuttle_list[j])
+          }else{
+           var strinfomation = JSON.stringify(res.data.data.regular_shuttle_list[j])
+          }
+           //存起来
+          window.sessionStorage.setItem('locadata', strinfomation)
+          console.log(window.sessionStorage.getItem('locadata'))
+        })
+      var result = confirm('温馨提示：购票后请到窗口办理取票!')
+      if (result === true) {
+        if (this.$store.getters.isLogin) {
+          this.$router.push({ path: 'placeorder' })
+        } else {
+          alert('请先登陆')
+          this.$router.push({ path: 'login' })
+        }
+      }
+    },
     //点击函数
 first(){
 		this.$http.get(
 		'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=' + window.sessionStorage.getItem('shuttle_shift_date'),
 		).then(function(res){
+       window.sessionStorage.setItem('strs', window.sessionStorage.getItem('shuttle_shift_date'))
       console.log(window.sessionStorage.getItem('start_region_id'))
       console.log(window.sessionStorage.getItem('final_region_id'))
       console.log(window.sessionStorage.getItem('shuttle_shift_date'))
@@ -118,9 +172,9 @@ first(){
 		<td width="6%"> ${res.data.data.flow_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.flow_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
+
 				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
+	  
 		</td>
 	</tr>
 		`
@@ -142,9 +196,9 @@ first(){
 		<td width="6%"> ${res.data.data.regular_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.regular_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
+		
 				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
+	 
 		</td>
 	</tr>
 		`
@@ -159,8 +213,8 @@ second(){
 		this.$http.get(
 		'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=2022-' + window.sessionStorage.getItem('day2'),
 		).then(function(res){
-      console.log(83293893)
-      console.log(res)
+      window.sessionStorage.setItem('strs',window.sessionStorage.getItem('day2'))
+       console.log(res)
 			if(res.data.code === 10000){
 				var flow3 = document.querySelector('#flow3');
 				var flow4 = document.querySelector('#flow4');
@@ -180,9 +234,8 @@ second(){
 		<td width="6%"> ${res.data.data.flow_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.flow_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
+	
 				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
 		</td>
 	</tr>
 		`
@@ -203,9 +256,7 @@ second(){
 		<td width="6%"> ${res.data.data.regular_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.regular_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
 				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
 		</td>
 	</tr>
 		`
@@ -220,6 +271,7 @@ third(){
 		this.$http.get(
 		'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=2022-' + window.sessionStorage.getItem('day3'),
 		).then(function(res){
+      window.sessionStorage.setItem('strs', window.sessionStorage.getItem('day3'))
       console.log(res)
 			if(res.data.code === 10000){
 				var flow5 = document.querySelector('#flow5');
@@ -240,9 +292,7 @@ third(){
 		<td width="6%"> ${res.data.data.flow_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.flow_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
 				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
 		</td>
 	</tr>
 		`
@@ -263,9 +313,7 @@ third(){
 		<td width="6%"> ${res.data.data.regular_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.regular_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
 				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
 		</td>
 	</tr>
 		`
@@ -278,6 +326,7 @@ fourth(){
 		'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=2022-' + window.sessionStorage.getItem('day4'),
 		).then(function(res){
       console.log(res)
+      window.sessionStorage.setItem('strs',window.sessionStorage.getItem('day4'))
 			if(res.data.code === 10000){
 				var flow7 = document.querySelector('#flow7');
 				var flow8 = document.querySelector('#flow8');
@@ -297,9 +346,7 @@ fourth(){
 		<td width="6%"> ${res.data.data.flow_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.flow_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
-				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
+				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)">
 		</td>
 	</tr>
 		`
@@ -320,9 +367,7 @@ fourth(){
 		<td width="6%"> ${res.data.data.regular_shuttle_list[i].unuse_ticket_quantity}</td>
 		<td class="child" width="8%"> ${res.data.data.regular_shuttle_list[i].unuse_child_ticket_quantity}</td>
         <td>
-			<span>
 				<input width="7%" type="submit" value="购票" class="span${i}" onclick="getticket(this)" >
-	    </span>
 		</td>
 	</tr>
 		`
