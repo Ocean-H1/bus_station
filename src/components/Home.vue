@@ -46,7 +46,7 @@ export default {
 }
 .el-header {
   background-color: #068abb;
-  box-shadow: 0 6px 4px 0 rgb(0 0 0 / 5%);
+  box-shadow: 0 6px 4px 5px rgb(0 0 0 / 5%);
   color: #fff;
 }
 .el-main {
