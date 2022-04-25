@@ -65,11 +65,11 @@ export default {
   },
   methods: {
     showqueryheader(info) {
-      
+      console.log(info);
       this.$router.push({
         path: '/ticketquery',
         query: {
-          inquireForm: info,
+          info,
           choice: this.choice
         }
       })
