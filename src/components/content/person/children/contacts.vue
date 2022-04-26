@@ -31,8 +31,17 @@
           </el-table-column>
         </el-table>
         <div class="btns">
-          <el-button>上一页</el-button>
-          <el-button>下一页</el-button>
+<!--          <el-button>上一页</el-button>-->
+<!--          <el-button>下一页</el-button>-->
+          <!-- 分页区 -->
+          <el-pagination
+            layout="prev, pager, next"
+            :total="total"
+            background
+            :page-size='queryForm.size'
+            @current-change="handleCurrentChange"
+          >
+          </el-pagination>
         </div>
         <div class="add">
           <a
@@ -98,6 +107,11 @@ export default {
         email: '',
       },
       isShowEdit: false,
+      queryForm: {
+        page: 1,
+        size: 6
+      },
+      total: 0
     }
   },
 
@@ -114,6 +128,11 @@ export default {
         name: this.tableData[index].name,
         email: this.tableData[index].email,
       }
+    },
+    // 监听页码改变
+    handleCurrentChange(newPage) {
+      this.queryForm.page = newPage
+      this._getUserInfo()
     },
 
     handleDelete(index) {
@@ -215,12 +234,13 @@ export default {
     _getUserInfo() {
       this.$http
         .request({
-          url: '/userCenter/getContactPersons',
+          url: `/userCenter/getContactPersons?page=${this.queryForm.page}&size=${this.queryForm.size}`,
           method: 'get',
         })
         .then((result) => {
-          console.log(result.data.data.contact_person_list)
+          console.log(result.data)
           this.tableData = result.data.data.contact_person_list
+          this.total = result.data.total
         })
     },
   },

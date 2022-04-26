@@ -29,10 +29,6 @@ export default {
   },
   created: function () {
     this.GetRequest()
-    //             if (location.href.indexOf("#reloaded") == -1) {
-    //                 location.href = location.href + "#reloaded";
-    //                 location.reload();
-    //             }
   },
   components: {
     step,

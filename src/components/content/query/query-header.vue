@@ -4,8 +4,8 @@
     <!--stretch标签撑开 -->
     <el-tabs v-model="activeName" type="card" @tab-click="handleClick" stretch>
       <!-- 使用插槽自定义标签的内容，并且可以修改样式-->
-      <el-tab-pane class="el-tabs" name="first" 
-        ><span slot="label" class="style"  >{{ getdate1() }} </span>
+      <el-tab-pane class="el-tabs" name="first"
+        ><span slot="label" class="style">{{ getdate1() }} </span>
         <bottom></bottom>
         <table>
           <!-- 流水班 -->
@@ -17,8 +17,8 @@
           <tbody class="show-ticket-two" id="flow2"></tbody>
         </table>
       </el-tab-pane>
-      <el-tab-pane class="el-tabs" name="second"  
-        ><span slot="label" class="style" >{{ getdate2() }}</span>
+      <el-tab-pane class="el-tabs" name="second"
+        ><span slot="label" class="style">{{ getdate2() }}</span>
         <bottom></bottom>
         <table>
           <!-- 流水班 -->
@@ -30,7 +30,7 @@
           <tbody class="show-ticket-two" id="flow4"></tbody>
         </table>
       </el-tab-pane>
-      <el-tab-pane class="el-tabs" name="third"  
+      <el-tab-pane class="el-tabs" name="third"
         ><span slot="label" class="style">{{ getdate3() }}</span>
         <bottom></bottom>
         <table>
@@ -44,7 +44,7 @@
         </table>
       </el-tab-pane>
       <el-tab-pane class="el-tabs" name="fourth"
-        ><span slot="label" class="style"  >{{ getdate4() }}</span>
+        ><span slot="label" class="style">{{ getdate4() }}</span>
         <bottom></bottom>
         <table>
           <!-- 流水班 -->
@@ -71,7 +71,7 @@ export default {
       activeName: 'first',
     }
   },
-  created(){
+  created() {
     this.first()
     this.er()
   },
@@ -179,10 +179,14 @@ first(){
 	</tr>
 		`
             }
- 
-          flow2.innerHTML = null;
-       for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow2.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
+
+            flow2.innerHTML = null
+            for (
+              let i = 0;
+              i < res.data.data.regular_shuttle_list.length;
+              i++
+            ) {
+              flow2.innerHTML += `<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
 		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
@@ -240,9 +244,13 @@ second(){
 	</tr>
 		`
             }
-          flow4.innerHTML = null;
-       for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow4.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
+            flow4.innerHTML = null
+            for (
+              let i = 0;
+              i < res.data.data.regular_shuttle_list.length;
+              i++
+            ) {
+              flow4.innerHTML += `<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
 		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
@@ -297,9 +305,13 @@ third(){
 	</tr>
 		`
             }
-          flow6.innerHTML = null;
-       for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow6.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
+            flow6.innerHTML = null
+            for (
+              let i = 0;
+              i < res.data.data.regular_shuttle_list.length;
+              i++
+            ) {
+              flow6.innerHTML += `<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
 		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
@@ -351,9 +363,13 @@ fourth(){
 	</tr>
 		`
             }
-          flow8.innerHTML = null;
-       for(let i = 0;i < res.data.data.regular_shuttle_list.length;i++){
-     flow8.innerHTML +=`<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
+            flow8.innerHTML = null
+            for (
+              let i = 0;
+              i < res.data.data.regular_shuttle_list.length;
+              i++
+            ) {
+              flow8.innerHTML += `<tr data-tname="城西客运站" class="stwo" > <td height="42" width="10%" ><strong > ${res.data.data.regular_shuttle_list[i].start_station}
 			</strong></td>	
 		<td style="padding: 1px;" width="16%"><strong>${res.data.data.regular_shuttle_list[i].shuttle_shift_time}</strong></td>
 		<td width="10%"> ${res.data.data.regular_shuttle_list[i].start_region}</td>	
@@ -373,24 +389,29 @@ fourth(){
 		`
             }
           }
-		}).catch(function(){})
-		 },
+        })
+        .catch(function () {})
+    },
     // 不管是否有变化，每一次都要重新执行函数
     getdate1() {
       let date = new Date()
       var month =
-      date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
+        date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
       var day = date.getDate() <= 9 ? '0' + date.getDate() : date.getDate()
-      if( window.sessionStorage.getItem('shuttle_shift_date').slice(1,4) === '022'){
-        getdate = (window.sessionStorage.getItem('shuttle_shift_date').slice(5,10));
-       console.log(window.sessionStorage.getItem('shuttle_shift_date'))
-       console.log(getdate)
-        window.sessionStorage.getItem('shuttle_shift_date')==null
-         window.sessionStorage.setItem('day1',getdate)
-      }
-      else{
-          var getdate = month + '-' + day 
-          window.sessionStorage.setItem('day1',getdate)
+      if (
+        window.sessionStorage.getItem('shuttle_shift_date').slice(1, 4) ===
+        '022'
+      ) {
+        getdate = window.sessionStorage
+          .getItem('shuttle_shift_date')
+          .slice(5, 10)
+        console.log(window.sessionStorage.getItem('shuttle_shift_date'))
+        console.log(getdate)
+        window.sessionStorage.getItem('shuttle_shift_date') == null
+        window.sessionStorage.setItem('day1', getdate)
+      } else {
+        var getdate = month + '-' + day
+        window.sessionStorage.setItem('day1', getdate)
       }
       return getdate
     },
@@ -399,11 +420,13 @@ fourth(){
       var month =
         date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
       var day =
-        date.getDate()+1 <= 9 ? '0' + (date.getDate() + 1) : date.getDate() + 1
-          var getdate = month + '-' + day 
-          window.sessionStorage.setItem('day2',getdate)
-          console.log('qq' )
-          console.log(window.sessionStorage.getItem('day2'))
+        date.getDate() + 1 <= 9
+          ? '0' + (date.getDate() + 1)
+          : date.getDate() + 1
+      var getdate = month + '-' + day
+      window.sessionStorage.setItem('day2', getdate)
+      console.log('qq')
+      console.log(window.sessionStorage.getItem('day2'))
       return getdate
     },
     getdate3: function () {
@@ -411,9 +434,11 @@ fourth(){
       var month =
         date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
       var day =
-        date.getDate()+2<= 9 ? '0' + (date.getDate() + 2) : date.getDate() + 2
-          var getdate = month + '-' + day 
-               window.sessionStorage.setItem('day3',getdate)
+        date.getDate() + 2 <= 9
+          ? '0' + (date.getDate() + 2)
+          : date.getDate() + 2
+      var getdate = month + '-' + day
+      window.sessionStorage.setItem('day3', getdate)
       return getdate
     },
     getdate4: function () {
@@ -421,9 +446,11 @@ fourth(){
       var month =
         date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1
       var day =
-        date.getDate()+3 <= 9? '0' + (date.getDate() + 3) : date.getDate() + 3
-          var getdate = month + '-' + day 
-               window.sessionStorage.setItem('day4',getdate)
+        date.getDate() + 3 <= 9
+          ? '0' + (date.getDate() + 3)
+          : date.getDate() + 3
+      var getdate = month + '-' + day
+      window.sessionStorage.setItem('day4', getdate)
       return getdate
     },
   },
@@ -456,8 +483,8 @@ fourth(){
 /* .el-tabs__item :hover{
  background: lightblue;
 } */
-tbody{
-  background:lavenderblush;
+tbody {
+  background: lavenderblush;
 }
 .car p,
 #c01 p,
