@@ -39,19 +39,23 @@ export default {
     return {}
   },
   created: function () {},
-  // 钩子函数，初始化页面完成以后，在对dom结点进行相关操作
+    // 钩子函数，初始化页面完成以后，在对dom结点进行相关操作
   mounted() {
     window.getticket = this.getticket
   },
-  methods: {
-    getticket(e) {
+  methods:{
+      getticket(e) {
       var str = e.className
       var j = str.substr(4, 1)
+      console.log(j)
       this.$http
         .get(
 		'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=' + window.sessionStorage.getItem('shuttle_shift_date'),
         )
         .then(function (res) {
+           console.log(window.sessionStorage.getItem('start_region_id'))
+      console.log(window.sessionStorage.getItem('final_region_id'))
+      console.log(window.sessionStorage.getItem('shuttle_shift_date'))
           console.log('gagagagagaga')
           console.log(res)
           //转换成字符串
@@ -69,7 +73,7 @@ export default {
         }
       }
     },
-  },
+  }
 }
 </script>
 
