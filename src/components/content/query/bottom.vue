@@ -71,7 +71,7 @@ export default {
           var strinfomation = JSON.stringify(res.data.data.flow_shuttle_list[j])
           //存起来
           window.sessionStorage.setItem('locadata', strinfomation)
-          console.log(window.sessionStorage.getItem(locadata))
+          console.log(window.sessionStorage.getItem('locadata'))
         })
       var result = confirm('温馨提示：购票后请到窗口办理取票!')
       if (result === true) {

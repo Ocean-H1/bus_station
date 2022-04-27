@@ -383,6 +383,7 @@
     },
  
     methods: {
+   
       //用上个页面请求的接口保存的数据
       getShuttleList() {
         //拿到数据
@@ -394,7 +395,8 @@
         var locadata = JSON.parse(locadata)
         //赋值
         this.list = locadata
-        console.log(this.list)
+        console.log(this.list.shift_id)
+        window.sessionStorage.setItem('shift',this.list.shift_id)
       },
       //点击按钮将数据填入联系人文本框
       dian(e) {
@@ -762,11 +764,10 @@
           //提交数据post
           // this.passenger.length = flag;
           console.log(this.passenger , 'qqqq');
-
           console.log(bt4.value)
           this.$http
               .post('/order/bookOrder', {
-                "shuttle_shift_id": 2, //班次id
+                "shuttle_shift_id": window.sessionStorage.getItem('shift'), //班次id
                 "contact_person_id": id, //紧急联系人id，勾选常用联系人需要写联系人id，手动填写联系人信息无需写紧急联系人id
                 "contact_person_phone_number": phone_number || null, //紧急联系人电话
                 "contact_person_name": name || null, //紧急联系人姓名
@@ -774,6 +775,11 @@
                 "passenger": this.passenger,
               })
               .then(function (res) {
+                          console.log(res)
+                      // 判断是否登陆成功
+          if (res.data.code == 50006) {
+         alert('提交订单失败，您还有未支付订单')
+          }
                 //保存master_order_number
                 if(res.data != '{}')
                   window.sessionStorage.setItem(
@@ -814,6 +820,9 @@
               console.log(window.sessionStorage.getItem('master_order_number'))
               console.log('cancel')
               console.log(res)
+              if(res.data.code == 50003){
+                alert('取消订单失败，请稍后重试')
+              }
             })
       },
     },
