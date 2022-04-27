@@ -30,9 +30,16 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class="btns">
-          <el-button>上一页</el-button>
-          <el-button>下一页</el-button>
+        <div class="pagination">
+          <!-- 分页区 -->
+          <el-pagination
+            layout="prev, pager, next"
+            :total="total"
+            background
+            :page-size='queryForm.size'
+            @current-change="handleCurrentChange"
+          >
+          </el-pagination>
         </div>
         <div class="add">
           <a @click="isShow = !isShow" href="#">添加常用乘车人</a>
@@ -100,12 +107,17 @@ export default {
         power: '身份证',
         idNumber: '',
       },
+      queryForm: {
+        page: 1,
+        size: 6
+      },
       isShowEdit: false,
+      total: 0
     }
   },
 
   mounted() {
-    this._getUserInfo()
+    this._getPassagers()
   },
 
   methods: {
@@ -117,6 +129,12 @@ export default {
         name: this.tableData[index].name,
         idNumber: this.tableData[index].card_number,
       }
+    },
+
+    // 监听页码改变
+    handleCurrentChange(newPage) {
+      this.queryForm.page = newPage
+      this._getPassagers()
     },
 
     handleDelete(index) {
@@ -183,13 +201,14 @@ export default {
         .request({
           url: '/userCenter/addPassager',
           method: 'post',
-          data,
+          data
         })
         .then((result) => {
           console.log(result.data)
           if (result.data.code === 10000) {
             Message.success('添加成功')
             this.isShow = false
+            this._getPassagers()
           }
         })
     },
@@ -206,21 +225,23 @@ export default {
           if (result.data.code === 10000) {
             Message.success('修改成功')
             this.isShowEdit = false
-            this._getUserInfo()
+            this._getPassagers()
           }
         })
     },
 
     // 获取乘车人列表
-    _getUserInfo() {
+    _getPassagers() {
       this.$http
         .request({
-          url: '/userCenter/getPassagers',
-          method: 'get',
+          url: `/userCenter/getPassagers?page=${this.queryForm.page}&size=${this.queryForm.size}`,
+          method: 'get'
         })
         .then((result) => {
-          console.log(result.data.data.passager_list)
+
+          console.log(result.data)
           this.tableData = result.data.data.passager_list
+          this.total= result.data.total
         })
     },
   },
@@ -251,5 +272,10 @@ export default {
 }
 .el-select {
   width: 100%;
+}
+
+.pagination{
+  text-align: right;
+  margin: 10px 0;
 }
 </style>

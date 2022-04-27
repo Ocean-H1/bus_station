@@ -381,7 +381,7 @@
       //后来加的事件加为全局，无定义
       window.dianpassenger = this.dianpassenger
     },
-   
+ 
     methods: {
       //用上个页面请求的接口保存的数据
       getShuttleList() {
