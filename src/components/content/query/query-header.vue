@@ -80,6 +80,7 @@ export default {
     window.getticket = this.getticket
     this.er()
   },
+ 
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
@@ -101,10 +102,24 @@ er(){
 // var url = window.location.href;
 // var url = this.$route.params
 // var url = this.$route.path
-var url =this.$route.query.inquireForm.inquireForm
+var url =this.$route.query.info
 // var url = JSON.stringify(url)
 // var url = this.$router
+
+window.sessionStorage.setItem('final_name',url.final_region)
+window.sessionStorage.setItem('start_name',url.start_region)
+window.sessionStorage.setItem('start_region_id',url.start_region_id) 
+window.sessionStorage.setItem('final_region_id',url.final_region_id) 
+if(window.sessionStorage.getItem('shuttle_shift_date') == undefined){
+window.sessionStorage.setItem('shuttle_shift_date',  window.sessionStorage.getItem('day1'))
+}
+console.log(window.sessionStorage.getItem('shuttle_shift_date'))
 console.log(url)
+
+
+// final_region_id
+// start_region
+// start_region_id
 },
     getticket(e) {
       var str = e.className
@@ -117,7 +132,7 @@ console.log(url)
       console.log(window.sessionStorage.getItem('final_region_id'))
       console.log(window.sessionStorage.getItem('shuttle_shift_date'))
       this.$http.get(
-    	'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=' +  window.sessionStorage.getItem('strs')
+    	'/query/shuttle/getShuttleList?start_region_id='+ window.sessionStorage.getItem('start_region_id') + '&final_region_id=' + window.sessionStorage.getItem('final_region_id') + '&shuttle_shift_date=2022-' +  window.sessionStorage.getItem('strs')
       )
         .then(function (res) {
             console.log(res)
@@ -127,7 +142,7 @@ console.log(url)
           if(k%2 == 1){
           var strinfomation = JSON.stringify(res.data.data.flow_shuttle_list[j])
           }else{
-           var strinfomation = JSON.stringify(res.data.data.regular_shuttle_list[j])
+           strinfomation = JSON.stringify(res.data.data.regular_shuttle_list[j])
           }
            //存起来
           window.sessionStorage.setItem('locadata', strinfomation)

@@ -12,7 +12,7 @@
               <font class="blue" style="color: blue; font-size: 1.1rem"
               >车票信息</font
               > </strong
-            >如下:
+            >如下:刷新查看最新信息
           </em>
         </div>
         <div class="chose">
@@ -377,11 +377,12 @@
     },
     mounted() {
       window.dian = this.dian
-      this.getShuttleList()
       //后来加的事件加为全局，无定义
+                  this.getShuttleList()
       window.dianpassenger = this.dianpassenger
     },
-   
+    
+ 
     methods: {
    
       //用上个页面请求的接口保存的数据
@@ -395,7 +396,8 @@
         var locadata = JSON.parse(locadata)
         //赋值
         this.list = locadata
-        console.log(this.list.shift_id)
+        console.log('我谢谢谢谢')
+        console.log(this.list)
         window.sessionStorage.setItem('shift',this.list.shift_id)
       },
       //点击按钮将数据填入联系人文本框
